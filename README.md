@@ -7,7 +7,31 @@ This Git repo is basically my github-io page consisting of my achievements and e
 
 This is how my profile looks:
 
-[<img align="center" width="800" height="500" src="https://i.ibb.co/2hm5Z2t/profile.png"/>](https://ibb.co/g9H641T)
+[<img align="center" width="700" height="450" src="https://i.ibb.co/2hm5Z2t/profile.png"/>](https://ibb.co/g9H641T)
+
+## Project Structure
+The project is structured as follows:
+
+```fish
+Digital-twin
+├── assets/          # Contains Assets
+├── Projects/        # Contains Projects
+├── website/         # Contains Website file
+├── index/           # report file
+├── LICENSE          # license file
+├── README.md        # readme file
+```
+
+## Installation
+To get started with downloading this repository, follow the steps below:
+
+Clone the repository to your local machine using the following command:
+
+   
+    https://github.com/ahmd-mohsin/ahmd-mohsin.github.io.git
+
+## Changes
+For any further recommnded changes and collaborations, feel free to contact. With ❤️ Ahmed.
 
 ## Credits
 A special shoutout to Lucas-Angelo for providing with the open source code, which made things alot easier.
