@@ -7,7 +7,7 @@ This Git repo is basically my github-io page consisting of my achievements and e
 
 This is how my profile looks:
 
-[<img align="center" width="500" height="500" src="[https://tsgdoc.socsci.ru.nl/images/2/21/Matlab_Logo.png](https://i.ibb.co/2hm5Z2t/profile.png)"/>](https://ibb.co/g9H641T)
+[<img align="center" width="500" height="500" src="https://i.ibb.co/2hm5Z2t/profile.png"/>](https://ibb.co/g9H641T)
 
 ## Credits
 A special shoutout to Lucas-Angelo for providing with the open source code, which made things alot easier.
