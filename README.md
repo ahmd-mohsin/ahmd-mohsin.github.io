@@ -13,7 +13,7 @@ This is how my profile looks:
 The project is structured as follows:
 
 ```fish
-Digital-twin
+github-io
 ├── assets/          # Contains Assets
 ├── Projects/        # Contains Projects
 ├── website/         # Contains Website file
