@@ -25,6 +25,13 @@ const exp = [
     time: "(June, 2021 - September, 2023)",
     desp: "<li>Implemented a multi-stage pipeline for systematically extracting and interpreting tabular structures in image-based documents.</li> <li>Proposed advanced image transformer architecture and novel data augmentation, enhancing results to beat state-of-the-art models.</li>  Improved the efficiency of the previously proposed tabular augmentation model.</li>",
   },
+  {
+    title: "Machine Learning Intern",
+    cardImage: "assets/images/experience-page/machvis.png",
+    place: "Machine Vision and Intelligent Systems Lab, NUST",
+    time: "(June, 2022 - September, 2022)",
+    desp: "<li> Annotated dataset of 6000 images featuring oriented and conventional bounding boxes.</li> <li>  Devised a robust architecture and algorithm to discern object orientations accurately, generating corresponding bounding boxes aligned with the detected angles.</li>",
+  },
 ];
 
 const showCards2 = () => {
