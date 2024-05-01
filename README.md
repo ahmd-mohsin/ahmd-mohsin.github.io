@@ -1,37 +1,83 @@
-[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![Awesome Portfolio Website](./readme_assets/banner_apw.png)
 
-# My Portfolio
-This Git repo is basically my github-io page consisting of my achievements and experience. Most of the work here is not from scratch and just edited according to personal preference.
+<div align="center">
 
-## Overview
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites"><img src="https://img.shields.io/badge/Built%20by-developers%20%3C%2F%3E-0059b3"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites"><img src="https://img.shields.io/static/v1.svg?label=Contributions&message=Welcome&color=yellow"></a>
+<a href="https://github.com/smaranjitghose/"><img src="https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?v=103"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/blob/master/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?v=103"></a>
 
-This is how my profile looks:
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/graphs/contributors"><img src="https://img.shields.io/github/contributors/smaranjitghose/awesome-portfolio-websites?color=brightgreen"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/stargazers"><img src="https://img.shields.io/github/stars/smaranjitghose/awesome-portfolio-websites?color=0059b3"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/network/members"><img src="https://img.shields.io/github/forks/smaranjitghose/awesome-portfolio-websites?color=yellow"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/issues"><img src="https://img.shields.io/github/issues/smaranjitghose/awesome-portfolio-websites?color=0059b3"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/issues?q=is%3Aissue+is%3Aclosed"><img src="https://img.shields.io/github/issues-closed-raw/smaranjitghose/awesome-portfolio-websites?color=yellow"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/pulls"><img src="https://img.shields.io/github/issues-pr/smaranjitghose/awesome-portfolio-websites?color=brightgreen"></a>
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/pulls?q=is%3Apr+is%3Aclosed"><img src="https://img.shields.io/github/issues-pr-closed-raw/smaranjitghose/awesome-portfolio-websites?color=0059b3"></a>
 
-[<img align="center" width="700" height="450" src="https://i.ibb.co/2hm5Z2t/profile.png"/>](https://ibb.co/g9H641T)
+</div>
 
-## Project Structure
-The project is structured as follows:
+A community maintained open source project aimed at making personal portfolio for researchers, developers and analysts simple, fast and less cumbersome. We make sure you have a full-fledged website to showcase your work while you can spend time on your learning and innovative endeavours.
 
-```fish
-github-io
-├── assets/          # Contains Assets
-├── Projects/        # Contains Projects
-├── website/         # Contains Website file
-├── index/           # report file
-├── LICENSE          # license file
-├── README.md        # readme file
-```
+## A sneak peek into what we have here🙈 :
 
-## Installation
-To get started with downloading this repository, follow the steps below:
+### Home Page:
 
-Clone the repository to your local machine using the following command:
+<p align="center"><img src="./readme_assets/Home_Page.gif"></p>
 
-   
-    https://github.com/ahmd-mohsin/ahmd-mohsin.github.io.git
+### Experience Page:
 
-## Changes
-For any further recommnded changes and collaborations, feel free to contact. With ❤️ Ahmed.
+<p align="center"><img src="./readme_assets/Experience_Page.gif"></p>
 
-## Credits
-A special shoutout to Lucas-Angelo for providing with the open source code, which made things alot easier.
+### Project Page:
+
+<p align="center"><img src="./readme_assets/Project_Page.gif"></p>
+
+### Research Page:
+
+<p align="center"><img src="./readme_assets/Research_Page.gif"></p>
+
+### Education Page:
+
+<p align="center"><img src="./readme_assets/Education_Page.gif"></p>
+
+## How to use this?🛠
+
+[Check out our awesome Documentation](https://smaranjitghose.github.io/awesome-portfolio-websites/)
+
+## Contribution Guidelines🏗
+
+Are we missing any of your favorite features, which you think you can add to it❓ We invite you to contribute to this project and improve it further.
+
+Click on the image below to set up and contribute to the project or [Click here](https://github.com/smaranjitghose/awesome-portfolio-websites/blob/master/CONTRIBUTING.md)
+
+<a href = "https://github.com/smaranjitghose/awesome-portfolio-websites/blob/master/CONTRIBUTING.md">
+<img src = "./readme_assets/Contribution.png"></a>
+
+## Project Maintainers👨🏫:
+
+| <img src = "https://avatars2.githubusercontent.com/u/46641503?v=4"> | <img src = "https://avatars2.githubusercontent.com/u/40017559?v=4"> | 
+| :----------------------------------------------------------: | :----------------------------------------------------------: | 
+|     [Smaranjit Ghose](https://github.com/smaranjitghose) |    [Anush Bhatia](https://github.com/anushbhatia)                       
+
+
+## Our valuable Contributors👩‍💻👨‍💻 :
+
+<a href="https://github.com/smaranjitghose/awesome-portfolio-websites/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=smaranjitghose/awesome-portfolio-websites" />
+</a>
+
+## Open Source Programs we have been a part of:
+
+<p align="center">
+<a href="https://scodein.tech/"><img src="./readme_assets/open_source_programs/sci.png" width= "25%"/></a>
+<a href="https://hakincodes.tech/"><img src="./readme_assets/open_source_programs/ch.png" width= "25%"/></a>
+<a href="https://njackwinterofcode.github.io/"><img src="./readme_assets/open_source_programs/nwoc.png" width= "25%" /></a>
+<a href="https://devscript.tech/woc/"><img src="./readme_assets/open_source_programs/dwoc.png" width="25%"></a>
+<a href="https://mexili.github.io/winter_of_code/#/"><img src="./readme_assets/open_source_programs/mwoc.png" width="25%"></a>
+<a href="https://crosswoc.ieeedtu.in/"><img src="./readme_assets/open_source_programs/crosswoc.png" width="25%"></a>
+<a href="https://letsgrowmore.in/soc/"><img src="./readme_assets/open_source_programs/lgmsoc.png" width="25%"></a>
+<a href="https://devincept.codes/"><img src="./readme_assets/open_source_programs/devincept.gif" width="25%"></a>
+<a href="https://ghc.anitab.org/programs-and-awards/open-source-day/"><img src="./readme_assets/open_source_programs/OSD.jpg" width="25%"></a>
+</p>
