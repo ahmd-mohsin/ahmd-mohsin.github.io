@@ -6,12 +6,12 @@ const projectcards = document.querySelector(".projectcards");
 // Array of object for projects
 const projects = [
   {
-    title: "Quiz App",
-    cardImage: "assets/images/project-page/quiz.jpg",
-    description: "A quiz app built using basic react.",
+    title: "TabAug 2.0",
+    cardImage: "assets/images/project-page/tabaug.jpeg",
+    description: "Table Structure Augmentation and text extraction using novel DL pipelines.",
     tagimg: "https://cdn.iconscout.com/icon/free/png-512/react-1-282599.png",
-    Previewlink: "",
-    Githublink: "",
+    Previewlink: "https://www.springerprofessional.de/en/pyramidtabnet-transformer-based-table-recognition-in-image-based/25938968",
+    Githublink: "https://github.com/muhd-umer/pyramidtabnet",
   },
   {
     title: "Chess Engine",
