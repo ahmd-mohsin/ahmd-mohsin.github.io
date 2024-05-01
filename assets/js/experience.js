@@ -90,7 +90,7 @@ const volunteershipcards = [
     title: "Director @ Youth Entrapreneur Society",
     cardImage: "assets/images/experience-page/YES.png",
     description:
-      "Member and Director of YES Society @ NUST. My responsibilites included organizing events, workshops, and seminars for the students.",
+      "Member and Director of YES Society @ NUST. My responsibilites included organizing events, and seminars for students.",
   },
 ];
 
