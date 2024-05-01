@@ -127,7 +127,7 @@ const mentor = [
   {
     title: "President's Medal",
     subtitle: "Third Position HSSC Nationwide",
-    image: "assets/images/experience-page/board.jpeg",
+    image: "assets/images/experience-page/fbise.png",
     desp: " Awarded President's Medal, a laptop and 2 lac Pkr for obtaining 3rd position pre-engineering group nationwide.",
     href: "https://www.facebook.com/Federal.BISE.Official/photos/a.516769331679139/3274011435954901/?type=3",
   },
