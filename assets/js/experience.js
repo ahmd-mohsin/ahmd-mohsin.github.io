@@ -13,7 +13,7 @@ const exp = [
   },
   {
     title: "Machine Learning Intern",
-    cardImage: "assets/images/experience-page/Carleton.png",
+    cardImage: "assets/images/experience-page/Carleton.jpg",
     place: "School of Information Technology, Carleton University",
     time: "(Mar - Aug, 2023)",
     desp: "<li> Proposed Zero-Shot Learning (ZSL) and Self-Attention GANs for ZSL tasks.</li> <li>Demonstrated SAGAN’s superior performance over GAN in ZSL, through self-attention mechanisms and reduced model collapses.</li> <li>Published a conference paper @ IEEE FIT 2023.</li>",
@@ -71,11 +71,11 @@ const volunteershipcards = [
     title: "Google Students Developer Club",
     cardImage: "assets/images/experience-page/GSDC.png",
     description:
-      "I was a part of the core team of GSDC, where I was responsible for managing the technical and non-technical events and workshops. I also mentored students in various domains like Web Development, Machine Learning, and Competitive Programming.",
+      "I was a part of the core team of GSDC, where I was responsible for managing the technical and non-technical events and workshops.",
   },
   {
     title: "Executive Member @ IEEE,NUST",
-    cardImage: "/home/ahmed/portfolio/awesome-portfolio-websites-master/assets/images/experience-page/nustieeeclub_logo.jpg",
+    cardImage: "/assets/images/experience-page/nustieeeclub_logo.jpg",
     description:
       "Executive Member @ IEEE NUST - media team, responsible for photography and event management for all IEEE event @ NUST. .",
   },
@@ -113,7 +113,7 @@ const mentor = [
   {
     title: "Stanford Graduate Fellowship",
     subtitle: "Scholarship",
-    image: "assets/images/experience-page/Stanford.png",
+    image: "assets/images/experience-page/Stanford.jpg",
     desp: "Awarded the Stanford Graduate Fellowship (SGF) for the academic year 2024-2025. The SGF is a prestigious fellowship that provides full tuition and stipend to the top the admitted students.",
     href: "https://vpge.stanford.edu/fellowships-funding/sgf/",
   },
@@ -141,7 +141,7 @@ const mentor = [
   {
     title: "World Wide Fund for Nature",
     subtitle: "Community Service",
-    image: "assets/images/experience-page/WWF.png",
+    image: "assets/images/experience-page/WWF.jpg",
     desp: "WWF is an international non-governmental organization working in the field of the wilderness preservation, and the reduction of human impact on the environment.",
     href: "https://www.worldwildlife.org/",
   },
