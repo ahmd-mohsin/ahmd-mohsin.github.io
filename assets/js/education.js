@@ -5,67 +5,37 @@ AOS.init();
 const moocs = document.querySelector(".moocs");
 const moocscards = [
   {
-    title: "Data Science",
+    title: "Algorithmic Toolbox",
     cardImage: "assets/images/education-page/coursera2.svg",
-    moocLink: "https://www.coursera.org/browse/data-science",
+    moocLink: "https://www.coursera.org/account/accomplishments/certificate/XAVBBQBCYRX3",
   },
   {
-    title: "Cryptography",
-    cardImage: "assets/images/education-page/udemy.svg",
-    moocLink: "https://www.udemy.com/course/cryptography-for-beginners/",
-  },
-  {
-    title: "Machine Learning",
+    title: "Google Foundations: Data",
     cardImage: "assets/images/education-page/coursera2.svg",
-    moocLink: "https://www.coursera.org/learn/machine-learning",
+    moocLink: "https://www.coursera.org/account/accomplishments/verify/ST9J4GYYFZ43?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
   },
   {
-    title: "Introduction to HTML 5",
-    cardImage: "assets/images/education-page/udacity.svg",
-    moocLink: "https://www.udacity.com/course/intro-to-html-and-css--ud001",
-  },
-  {
-    title: "Introduction to CSS 3",
-    cardImage: "assets/images/education-page/udacity.svg",
-    moocLink: "https://www.udacity.com/course/intro-to-html-and-css--ud001",
-  },
-  {
-    title: "Javascript",
-    cardImage: "assets/images/education-page/udacity.svg",
-    moocLink: "https://www.udacity.com/course/intro-to-javascript--ud803",
-  },
-  {
-    title: "Bootstrap 4",
-    cardImage: "assets/images/education-page/udemy.svg",
-    moocLink: "https://www.udemy.com/course/bootstrap-4-tutorials/",
-  },
-  {
-    title: "Intro to React",
-    cardImage: "assets/images/education-page/edx.svg",
-    moocLink: "https://www.edx.org/learn/reactjs",
-  },
-  {
-    title: "Intro to React Native",
+    title: "Google: Computer Networking",
     cardImage: "assets/images/education-page/coursera2.svg",
-    moocLink:
-      "https://www.coursera.org/lecture/react-native/introduction-to-react-native-Eax0D",
+    moocLink: "https://www.coursera.org/account/accomplishments/verify/ST9J4GYYFZ43?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=course",
   },
   {
-    title: "NodeJS, Express and MongoDB",
+    title: "Introduction to TensorFlow for Artificial Intelligence, Machine Learning, and Deep Learning ",
     cardImage: "assets/images/education-page/coursera2.svg",
-    moocLink: "https://www.coursera.org/learn/server-side-nodejs",
+    moocLink: "https://www.coursera.org/account/accomplishments/certificate/WS9SABLHHX2W",
   },
   {
-    title: "XML-AJAX",
-    cardImage: "assets/images/education-page/udemy.svg",
-    moocLink: "https://www.udemy.com/course/xml-from-beginner-to-expert/",
-  },
-  {
-    title: "Data Structures & Algorithms",
+    title: "Neural Networks and Deep learning",
     cardImage: "assets/images/education-page/udacity.svg",
-    moocLink:
-      "https://www.udacity.com/course/data-structures-and-algorithms-nanodegree--nd256",
+    moocLink: "https://www.coursera.org/account/accomplishments/certificate/PV5M27Z7UTC8",
   },
+  {
+    title: "MATLAB OnRamp",
+    cardImage: "assets/images/education-page/matlab.jpg",
+    moocLink: "https://drive.google.com/file/d/1qBl6PtjcN2CDthKvdnu0dsLf2mcHqIL5/view",
+  },
+  
+  
 ];
 
 const experience = [
