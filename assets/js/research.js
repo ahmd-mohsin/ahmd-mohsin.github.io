@@ -14,7 +14,7 @@ const research = [
     image: "assets/images/research-page/RL.png",
     citation: {
       vancouver:
-        "Umer, M., Mohsin, M. A., Gidlund, M., Jung, H., & Hassan, S. A. (2024). Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-m Fading. IEEE Communications Letters..",
+        "Umer, M., Mohsin, M. A., Gidlund, M., Jung, H., & Hassan, S. A. (2024). Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-m Fading. IEEE Communications Letters.",
     },
     abstract:
       "In this paper, we present a novel system model integrating UAV (unmanned aerial vehicles) with reconfigurable Intelligent Surfaces (RIS) assisted Coordinated multipoint (CoMP) Non-orthogonal multiple access (NOMA) wireless networks. We use deep-reinforcement learning (DRL) technique to cater for the dynamic environment to optimize UAV trajectory and passive beamforming at the RIS to optimize phase shifts and maximizing the sumrate of the network. The optimization problem is a mixed integer non-convex problem and involves discrete vari ables.(Something about RL approach here).Extensive simulations suggest that optimization of UAV-assisted RIS networks results in promising gains and high summrates across all users in the network.",
@@ -22,38 +22,38 @@ const research = [
   },
 
   {
-    title: "A Call for More Rigor in Unsupervised Cross-lingual Learning",
+    title: "On the Energy Efficiency and Passive Beamforming Design of RIS Assisted CoMP-NOMA Networks",
     authors:
-      "Mikel Artetxe, Sebastian Ruder, Dani Yogatama, Gorka Labaka and Eneko Agirre",
+      "Muhammad Umer∗, Muhammad Ahmed Mohsin∗, Syed Ali Hassan, Haejoon Jung,Mikael Gidlund, and Haris Pervaiz",
     conferences:
-      "The 58th Annual Meeting of the Association for Computational Linguistics",
-    researchYr: 2020,
+      "IEEE Globecom 2024 @ Cape Town, South Africa",
+    researchYr: 2024,
     citebox: "popup2",
-    image: "assets/images/research-page/crossLingual.png",
+    image: "assets/images/research-page/energyeff.png",
     citation: {
       vancouver:
-        "Mikel Artetxe, Sebastian Ruder, Dani Yogatama, Gorka Labaka and Eneko Agirre. A Call for More Rigor in Unsupervised Cross-lingual Learning. The 58th Annual Meeting of the Association for Computational Linguistics 2020.",
+        "Umer, M., Mohsin, M. A., Gidlund, M., Jung, H., & Hassan, S. A. (2024). Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-m Fading. IEEE Communications Letters.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 2",
+      "Reconfigurable intelligent surfaces (RISs) and non orthogonal multiple access (NOMA) are promising technologies for enhancing the performance of future wireless networks. In this paper, we investigate the energy efficiency and passive beam forming (PBF) design of RIS-assisted CoMP-NOMA networks. We propose two distinct RIS configurations: enhancement-only PBF (EO) and enhancement & cancellation PBF (EC). Our analysis reveals that RIS-assisted CoMP-NOMA networks can significantly improve energy efficiency compared to traditional CoMP-NOMA networks. Furthermore, we formulate a PBF design problem to optimize the RIS phase shifts for maximizing energy efficiency. Our results demonstrate that the optimal PBF design depends on the number of cooperating BSs, the number of RIS elements, and the RIS configuration. The proposed RIS assisted CoMP-NOMA networks offer a promising solution for improving the energy efficiency and overall performance of future wireless networks",
     absbox: "absPopup2",
   },
 
   {
     title:
-      "A Comprehensive Analysis of Preprocessing for Word Representation Learning in Affective Tasks",
-    authors: "Nastaran Babanejad, Ameeta Agrawal, Aijun An and Manos Papagelis",
+      "Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-𝑚 Fading",
+    authors: "Muhammad Umer , Muhammad Ahmed Mohsin Haejoon Jung , Mikael Gidlund , Senior Member, IEEE, and Syed Ali Hassan , Senior Member IEEE",
     conferences:
-      "The 58th Annual Meeting of the Association for Computational Linguistics",
-    researchYr: 2020,
+      "IEEE Communication Letters",
+    researchYr: 2024,
     citebox: "popup3",
-    image: "assets/images/research-page/wordRepresentation.png",
+    image: "assets/images/research-page/commletter.png",
     citation: {
       vancouver:
-        "Nastaran Babanejad, Ameeta Agrawal, Aijun An and Manos Papagelis. A Comprehensive Analysis of Preprocessing for Word Representation Learning in Affective Tasks. The 58th Annual Meeting of the Association for Computational Linguistics 2020.",
+        "Umer, M., Mohsin, M. A., Gidlund, M., Jung, H., & Hassan, S. A. (2024). Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-m Fading. IEEE Communications Letters.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 3",
+      "In this letter, we conduct a thorough analytical assessment of a simultaneously transmitting and reflecting reconfigurable intelligent surface (STAR-RIS) assisted non orthogonal multiple access (NOMA) enhanced coordinated multipoint (CoMP) multi-cell network under Nakagami-𝑚 fading. Using the central limit theorem (CLT) and moment matching based Gamma approximation method, we derive the distributions of effective and cascaded channel gains. Subsequently, leveraging these results, we formulate tractable equations for ergodic rates and outage probabilities across all users in the network. Our analytical results correlate with the simulation results, affirming the efficacy of analytical methodology. Furthermore, the results demonstrate a signifi cant performance improvement of STAR-RIS assisted networks.",
     absbox: "absPopup3",
   },
 
