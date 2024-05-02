@@ -31,7 +31,7 @@ const moocscards = [
   },
   {
     title: "MATLAB OnRamp",
-    cardImage: "assets/images/education-page/matlab.jpg",
+    cardImage: "assets/images/education-page/coursera.jpg",
     moocLink: "https://drive.google.com/file/d/1qBl6PtjcN2CDthKvdnu0dsLf2mcHqIL5/view",
   },
   
@@ -102,6 +102,8 @@ const showCards = () => {
   moocs.innerHTML = output;
 };
 document.addEventListener("DOMContentLoaded", showCards);
+
+
 
 
 
