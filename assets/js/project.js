@@ -15,7 +15,7 @@ const projects = [
   },
   {
     title: "Deep Suppressor",
-    cardImage: "assets/images/project-page/deepsuppressor.jpg",
+    cardImage: "assets/images/project-page/deepsuppressor.png",
     description: "Deep Learning based noise filtering for speech enhancement.",
     tagimg: "https://image.flaticon.com/icons/png/512/643/643350.png",
     Previewlink: "https://www.researchgate.net/publication/377388257_Deep_Learning-based_Noise_Filtering_for_Speech_Enhancement_of_Audio_Signals",
@@ -48,7 +48,7 @@ const projects = [
   },
   {
     title: "NOMA-OFDMA",
-    cardImage: "assets/images/project-page/Wireless-network.jpg",
+    cardImage: "assets/images/project-page/Wireless-network.png",
     description: "Optimization of NOMA and OFDMA-assisted wireless networks using heuristic algorithms.",
     tagimg: "https://miro.medium.com/max/816/1*mn6bOs7s6Qbao15PMNRyOA.png",
     Previewlink: "https://www.researchgate.net/publication/377388204_NOMA_and_OFDMA-assisted_Wireless_Networks_A_Comparative_Analysis",
