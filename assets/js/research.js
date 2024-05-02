@@ -77,73 +77,55 @@ const research = [
   },
 
   {
-    title: "Dual Super-Resolution Learning for Semantic Segmentation",
-    authors: "Wang, Li and Li, Dong and Zhu, Yousong and Tian, Lu and Shan, Yi",
+    title: "MINDTwin AI: Multiphysics Informed Digital-Twin  for Fault Localization in Induction Motor using AI",
+    authors: " Amina Bashir∗, Muhammad Ahmed Mohsin∗,Muhammad Jazib∗, Hafsa Iqbal",
     conferences:
-      "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    researchYr: 2020,
+      "IEEE BigData 2023 @ Bulgeria, Sofia",
+    researchYr: 2023,
     citebox: "popup5",
-    image: "assets/images/research-page/semanticSegmentation.png",
+    image: "assets/images/research-page/mindtwin.png",
     citation: {
       vancouver:
-        "Wang, Li and Li, Dong and Zhu, Yousong and Tian, Lu and Shan, Yi. Dual Super-Resolution Learning for Semantic Segmentation. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2020.",
+        "Bashir, A., Mohsin, M. A., Jazib, M., & Iqbal, H. (2023, November). MINDTwin AI: Multiphysics Informed Digital-Twin for Fault Localization in Induction Motor Using AI. In 2023 International Conference on Big Data, Knowledge and Control Systems Engineering (BdKCSE) (pp. 1-8). IEEE.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 5",
+      "This paper focuses on an Artificial Intelligence (AI) based approach for fault localization in a squirrel cage three phase induction motor (TIM). A multifaceted Digital-Twin (DT) is designed by integrating physics domain knowledge with AI algorithms. The aim is to design a Multiphysics-informed hybrid DT for fault detection and localization in TIM. To achieve this, a high-fidelity computational model of an induction motor is developed using the Finite Element Analysis (FEA) in COMSOL Multiphysics. The model parameters, loading conditions, and boundary conditions are meticulously tuned with an experimental workbench using a Sparse Nonlinear Optimization (SNOPT) solver. Simulations are conducted to replicate various electrical and mechanical defects. Additionally, the model order reduction technique is employed to generate a reduced state-space model, enabling the high-fidelity dynamic system to act as a virtual sensor exhibiting real-time capabilities. The feature fusion pro cess leverages Canonical Correlation Analysis (CCA) within the hybrid DT modeling framework. Comparative analysis demon strates that the Multiphysics-informed hybrid modeling approach enhances the interpretability of AI classifiers, improving real-time condition monitoring and fault localization in TIM.",
     absbox: "absPopup5",
   },
 
   {
-    title: "Deep Unfolding Network for Image Super-Resolution",
-    authors: "Zhang, Kai and Van Gool, Luc and Timofte, Radu",
+    title: "Zero-Shot Learning via GANs and SAGANs: A Performance Analysis",
+    authors: "Muhammad Ahmed Mohsin",
     conferences:
-      "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    researchYr: 2020,
+      "IEEE FIT 2023",
+    researchYr: 2023,
     citebox: "popup6",
-    image: "assets/images/research-page/deepNetwork.png",
+    image: "assets/images/research-page/zero.png",
     citation: {
       vancouver:
-        "Zhang, Kai and Van Gool, Luc and Timofte, Radu. Deep Unfolding Network for Image Super-Resolution. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2020.",
+        "Mohsin, M. A. (2023, December). Zero-Shot Learning via GANs and SAGANs: A Performance Analysis. In 2023 International Conference on Frontiers of Information Technology (FIT) (pp. 37-42). IEEE.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 6",
+      "This paper presents a novel study on Zero-Shot Learning (ZSL) using Generative Adversarial Networks (GAN) and Self-Attention Generative Adversarial Networks (SAGAN). We explore the application of GAN and SAGAN models for ZSL tasks and conduct an in-depth performance analysis on the CUB and NAB datasets. To enhance the performance of SAGAN, a custom augmentation pipeline is proposed. Additionally, we investigate the converging behavior of both GANs to gain insights into their convex loss landscapes. Experimental results demonstrate that SAGAN outperforms GAN in ZSL accuracy and AUC (Area Under Curve) scores on all datasets. The f indings highlight the significance of self-attention mechanisms and reduced model collapses in SAGAN for improved image generation and discrimination tasks.",
     absbox: "absPopup6",
   },
 
   {
     title:
-      "Unsupervised Learning for Intrinsic Image Decomposition From a Single Image",
-    authors: "Liu, Yunfei and Li, Yu and You, Shaodi and Lu, Feng",
+      "PyramidTabNet: Transformer-based Table Recognition in Image-based Documents",
+    authors: "Muhammad Umer, Muhammad Ahmed Mohsin, Adnan Ul-Hasan, and Faisal Shafait",
     conferences:
-      "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    researchYr: 2020,
+      "ICDAR 2023 Springer Nature @ San Jose, California",
+    researchYr: 2023,
     citebox: "popup7",
-    image: "assets/images/research-page/imageDecomposition.png",
+    image: "assets/images/research-page/pyramid.png",
     citation: {
       vancouver:
-        "Liu, Yunfei and Li, Yu and You, Shaodi and Lu, Feng. Unsupervised Learning for Intrinsic Image Decomposition From a Single Image. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2020.",
+        "Umer, M., Mohsin, M. A., Ul-Hasan, A., & Shafait, F. (2023, August). PyramidTabNet: Transformer-Based Table Recognition in Image-Based Documents. In International Conference on Document Analysis and Recognition (pp. 420-437). Cham: Springer Nature Switzerland.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 7",
+      "Table detection and structure recognition is an important component of document analysis systems. Deep learning-based trans former models have recently demonstrated significant success in various computer vision and document analysis tasks. In this paper, we intro duce PyramidTabNet (PTN), a method that builds upon Convolution less Pyramid Vision Transformer to detect tables in document images. Furthermore, we present a tabular image generative augmentation tech nique to effectively train the architecture. The proposed augmentation process consists of three steps, namely, clustering, fusion, and patching, for the generation of new document images containing tables. Our pro posed pipeline demonstrates significant performance improvements for table detection on several standard datasets. Additionally, it achieves performance comparable to the state-of-the-art methods for structure recognition tasks.",
     absbox: "absPopup7",
-  },
-  {
-    title:
-      "Forward and Backward Information Retention for Accurate Binary Neural Networks",
-    authors:
-      "Qin, Haotong and Gong, Ruihao and Liu, Xianglong and Shen, Mingzhu and Wei, Ziran and Yu, Fengwei and Song, Jingkuan",
-    conferences:
-      "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
-    researchYr: 2020,
-    citebox: "popup8",
-    image: "assets/images/research-page/neuralNetworks.jpg",
-    citation: {
-      vancouver:
-        "Qin, Haotong and Gong, Ruihao and Liu, Xianglong and Shen, Mingzhu and Wei, Ziran and Yu, Fengwei and Song, Jingkuan. Forward and Backward Information Retention for Accurate Binary Neural Networks. IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2020.",
-    },
-    abstract:
-      "This is currently left empty and this can be considered as a dummy data 8",
-    absbox: "absPopup8",
   },
 ];
 AOS.init();
