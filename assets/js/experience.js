@@ -70,7 +70,7 @@ const volunteership = document.querySelector(".volunteership");
 const volunteershipcards = [
   {
     title: "GradCompass",
-    cardImage: "assets/images/experience-page/gradcompass.png",
+    cardImage: "assets/images/experience-page/gradcompas.png",
     description:
       "Founder and the CEO of GradCompass. GradCompass is a platform that helps students in their university applications by providing them with the best resources and guidance.",
   },

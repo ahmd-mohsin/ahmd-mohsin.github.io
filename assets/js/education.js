@@ -26,12 +26,12 @@ const moocscards = [
   },
   {
     title: "Neural Networks and Deep learning",
-    cardImage: "assets/images/education-page/udacity.svg",
+    cardImage: "assets/images/education-page/coursera2.svg",
     moocLink: "https://www.coursera.org/account/accomplishments/certificate/PV5M27Z7UTC8",
   },
   {
     title: "MATLAB OnRamp",
-    cardImage: "assets/images/education-page/coursera.jpg",
+    cardImage: "assets/images/education-page/coursera2.jpg",
     moocLink: "https://drive.google.com/file/d/1qBl6PtjcN2CDthKvdnu0dsLf2mcHqIL5/view",
   },
   
