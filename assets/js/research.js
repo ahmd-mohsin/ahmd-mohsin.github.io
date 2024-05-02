@@ -4,20 +4,20 @@ const researchTable = document.querySelector(".main");
 
 const research = [
   {
-    title: "A Batch Normalized Inference Network Keeps the KL Vanishing Away",
+    title: "Deep Reinforcement Learning for Trajectory and Beamforming Optimization in CoMP-NOMA Networks with Aerial RIS",
     authors:
-      "Qile Zhu, Wei Bi, Xiaojiang Liu, Xiyao Ma, Xiaolin Li and Dapeng Wu",
+      "Muhammad Umer∗, Muhammad Ahmed Mohsin∗, Syed Ali Hassan, Haejoon Jung,Mikael Gidlund, and Haris Pervaiz",
     conferences:
-      "The 58th Annual Meeting of the Association for Computational Linguistics",
-    researchYr: 2020,
+      "IEEE Globecomm 2024 @ Cape Town, South Africa",
+    researchYr: 2024,
     citebox: "popup1",
-    image: "assets/images/research-page/inteferenceNetwork.png",
+    image: "assets/images/research-page/RL.png",
     citation: {
       vancouver:
-        "Qile Zhu, Wei Bi, Xiaojiang Liu, Xiyao Ma, Xiaolin Li and Dapeng Wu. A Batch Normalized Inference Network Keeps the KL Vanishing Away. The 58th Annual Meeting of the Association for Computational Linguistics 2020.",
+        "Umer, M., Mohsin, M. A., Gidlund, M., Jung, H., & Hassan, S. A. (2024). Analysis of STAR-RIS Assisted Downlink CoMP-NOMA Multi-Cell Networks under Nakagami-m Fading. IEEE Communications Letters..",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 1",
+      "In this paper, we present a novel system model integrating UAV (unmanned aerial vehicles) with reconfigurable Intelligent Surfaces (RIS) assisted Coordinated multipoint (CoMP) Non-orthogonal multiple access (NOMA) wireless networks. We use deep-reinforcement learning (DRL) technique to cater for the dynamic environment to optimize UAV trajectory and passive beamforming at the RIS to optimize phase shifts and maximizing the sumrate of the network. The optimization problem is a mixed integer non-convex problem and involves discrete vari ables.(Something about RL approach here).Extensive simulations suggest that optimization of UAV-assisted RIS networks results in promising gains and high summrates across all users in the network.",
     absbox: "absPopup1",
   },
 
