@@ -59,20 +59,20 @@ const research = [
 
   {
     title:
-      "A Contextual Hierarchical Attention Network with Adaptive Objective for Dialogue State Tracking",
+      "Performance Analysis of STAR-RIS Enhanced CoMP-NOMA Multi-Cell Networks",
     authors:
-      "Yong Shan, Zekang Li, Jinchao Zhang, Fandong Meng, Yang Feng, Cheng Niu and Jie Zhou",
+      "Muhammad Umer∗, Muhammad Ahmed Mohsin∗, Syed Ali Hassa∗, Haejoon Jung, and Haris Pervaiz",
     conferences:
-      "The 58th Annual Meeting of the Association for Computational Linguistics",
-    researchYr: 2020,
+      "IEEE Globecom 2023 @ Malaysia.",
+    researchYr: 2023,
     citebox: "popup4",
-    image: "assets/images/research-page/dialogueState.png",
+    image: "assets/images/research-page/performance.png",
     citation: {
       vancouver:
-        "Yong Shan, Zekang Li, Jinchao Zhang, Fandong Meng, Yang Feng, Cheng Niu and Jie Zhou. A Contextual Hierarchical Attention Network with Adaptive Objective for Dialogue State Tracking. The 58th Annual Meeting of the Association for Computational Linguistics 2020.",
+        "Umer, M., Mohsin, M. A., Hassan, S. A., Jung, H., & Pervaiz, H. (2023, December). Performance Analysis of STAR-RIS Enhanced CoMP-NOMA Multi-Cell Networks. In 2023 IEEE Globecom Workshops (GC Wkshps) (pp. 2000-2005). IEEE.",
     },
     abstract:
-      "This is currently left empty and this can be considered as a dummy data 4",
+      "In this paper, we present a novel approach to enhance data rates in a multi-cell network through a perti nent combination of simultaneously transmitting and reflecting reconfigurable intelligent surfaces (STAR-RISs), non-orthogonal multiple access (NOMA), and coordinated multi-point trans mission (CoMP). Through the strategic deployment of STAR RISs and CoMP for mitigation of inter-cell interference (ICI), data rates for cell-edge users are significantly improved. The system’s overall performance is further optimized by employing exhaustive iteration techniques. Additionally, this paper explores the resource sharing of STAR-RIS among both the transmitting and receiving elements of the network through element splitting and amplitude adjustments. These findings offer valuable insights for the future design and optimization of wireless communication systems.",
     absbox: "absPopup4",
   },
 
