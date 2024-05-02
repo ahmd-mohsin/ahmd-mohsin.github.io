@@ -13,7 +13,7 @@ const exp = [
   },
   {
     title: "Machine Learning Intern",
-    cardImage: "assets/images/experience-page/Carleton.jpg",
+    cardImage: "assets/images/experience-page/Carleton.png",
     place: "School of Information Technology, Carleton University",
     time: "(Mar - Aug, 2023)",
     desp: "<li> Proposed Zero-Shot Learning (ZSL) and Self-Attention GANs for ZSL tasks.</li> <li>Demonstrated SAGAN’s superior performance over GAN in ZSL, through self-attention mechanisms and reduced model collapses.</li> <li>Published a conference paper @ IEEE FIT 2023.</li>",
@@ -82,7 +82,7 @@ const volunteershipcards = [
   },
   {
     title: "Executive Member @ IEEE,NUST",
-    cardImage: "/assets/images/experience-page/nustieeeclub_logo.jpg",
+    cardImage: "/assets/images/experience-page/ieee.png",
     description:
       "Executive Member @ IEEE NUST - media team, responsible for photography and event management for all IEEE event @ NUST. .",
   },
@@ -134,7 +134,7 @@ const mentor = [
   {
     title: "Merit Scholarship @ NUST",
     subtitle: "GPA-Based Scholarship",
-    image: "assets/images/experience-page/NUST.jpg",
+    image: "assets/images/experience-page/NUST.png",
     desp: "GPA-based scholarship @ NUST for achieving 3.9+ pointers in 2021-2024.",
     href: "https://nust.edu.pk/",
   },
