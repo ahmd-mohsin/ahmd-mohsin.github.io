@@ -121,7 +121,7 @@ const mentor = [
     title: "Stanford Graduate Fellowship",
     subtitle: "Scholarship",
     image: "assets/images/experience-page/Stanford.jpg",
-    desp: "Awarded the Stanford Graduate Fellowship (SGF) for the academic year 2024-2025. The SGF is a prestigious fellowship that provides full tuition and stipend to the top the admitted students.",
+    desp: "Awarded the Stanford Graduate Fellowship (SGF) for the academic year 2024-2025. The SGF is a prestigious fellowship that provides full tuition and stipend to the top admitted students.",
     href: "https://vpge.stanford.edu/fellowships-funding/sgf/",
   },
   {
