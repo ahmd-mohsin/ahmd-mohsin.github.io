@@ -9,7 +9,7 @@ const exp = [
     cardImage: "assets/images/experience-page/ipt.png",
     place: "Information Processing and Transmission Lab",
     time: "(May, 2023 - present)",
-    desp: "<li>Published 4 conference papers @ IEEE Globecom and 1 Journal @ IEEE Communication Letters.</li> <li>Developed an open-source python pakcage 'Comyx' for 6G Communications.</li> <li>Developed novel systems models and performed Mathemcatical analysis and deep reinforcement learning optimzation to enhance system performance.</li>",
+    desp: "<li>Published 4 conference papers @ IEEE Globecom and 1 Journal @ IEEE Communication Letters.</li> <li>Developed an open-source python package 'Comyx' for 6G Communications.</li> <li>Developed novel systems models and performed Mathemcatical analysis and deep reinforcement learning optimzation to enhance system performance.</li>",
   },
   {
     title: "Machine Learning Intern",
