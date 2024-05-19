@@ -55,6 +55,15 @@ const projects = [
     Githublink: "https://www.researchgate.net/publication/377388204_NOMA_and_OFDMA-assisted_Wireless_Networks_A_Comparative_Analysis",
   },
 
+  {
+    title: "Power Optimization using Reinforcement Learning",
+    cardImage: "assets/images/project-page/Poweroptim.png",
+    description: "Intelligent Power Optimization for IoT Devices using Reinforcement Learning",
+    tagimg: "https://miro.medium.com/max/816/1*mn6bOs7s6Qbao15PMNRyOA.png",
+    Previewlink: "https://www.researchgate.net/publication/380711276_Intelligent_Power_Optimization_for_IoT_Devices_using_Reinforcement_Learning",
+    Githublink: "https://github.com/muhd-umer/iot-power-optim",
+  },
+
 ];
 
 // function for rendering project cards data
