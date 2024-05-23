@@ -64,6 +64,15 @@ const projects = [
     Githublink: "https://github.com/muhd-umer/iot-power-optim",
   },
 
+  {
+    title: "Multi-Agent Deep Reinforcement Learning for Cooperative and Fuel-Efficient Autonomous Driving",
+    cardImage: "assets/images/project-page/RLrobo.png",
+    description: "Multi-Agent Deep Reinforcement Learning for Cooperative and Fuel-Efficient Autonomous Driving",
+    tagimg: "https://miro.medium.com/max/816/1*mn6bOs7s6Qbao15PMNRyOA.png",
+    Previewlink: "https://github.com/muhd-umer/twds-cafe-manuevers",
+    Githublink: "https://github.com/muhd-umer/twds-cafe-manuevers",
+  },
+
 ];
 
 // function for rendering project cards data
