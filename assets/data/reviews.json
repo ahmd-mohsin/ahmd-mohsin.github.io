@@ -1,0 +1,19 @@
+{
+  "Conferences": [
+    "ICML",
+    "AAAI",
+    "ICDAR",
+    "Globecom",
+    "WCNC",
+    "ICASSP",
+    "ICC"
+  ],
+  "Journals": [
+    "IEEE TVT",
+    "IEEE Green Communications and Networks",
+    "IEEE Mobile Communication and Networks",
+    "IEEE Communication Letters",
+    "IEEE Wireless Communications",
+    "IEEE Wireless Communications Magazine"
+  ]
+}
