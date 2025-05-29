@@ -1,67 +1,44 @@
 [
+    
     {
-      "date": "April 2025",
-      "html": "Organizing <a href=\"https://rss-moma-2025.github.io/\" target=\"_blank\">RSS 2025 Mobile Manipulation workshop</a>."
+      "date": "May 2025",
+      "html": "ICC Student travel grant awarded  and   <a href=\"https://aaai2025-ai4wcn.webflow.io/\" target=\"_blank\">best workshop paper award for RAG optimized wireless environment perception</a>."
     },
     {
-      "date": "March 2025",
-      "html": "Introducing <a href=\"https://behavior-robot-suite.github.io/\" target=\"_blank\">BEHAVIOR Robot Suite</a> (BRS), a comprehensive framework for learning whole-body manipulation in diverse household tasks."
+      "date": "January 2025",
+      "html": "Paper for Task ware joint source coding accepted at  <a href=\"https://icc2025.ieee-icc.org/\" target=\"_blank\">AAAI 2025</a> taking place in Philadelpia."
     },
     {
-      "date": "October 2024",
-      "html": "Introducing <a href=\"https://digital-cousins.github.io/\" target=\"_blank\">Digital Cousins</a>, which enable an automated real-to-sim-to-real pipeline for robust and scalable robot learning."
+      "date": "Dec 2024",
+      "html": "Globecom travel grant for travel to <a href=\"https://globecom2024.ieee-globecom.org/\" target=\"_blank\">Cape Town</a>."
     },
     {
-      "date": "September 2024",
-      "html": "<a href=\"https://transic-robot.github.io/\" target=\"_blank\">T<span style=\"font-variant-caps:all-small-caps\">RANSIC</span></a> and <a href=\"https://digital-cousins.github.io/\" target=\"_blank\">Digital Cousins</a> are accepted at <a href=\"https://www.corl.org/\" target=\"_blank\">CoRL 2024</a>."
+      "date": "April 2024",
+      "html": "<a href=\"https://www.linkedin.com/posts/ahmed-mohsin-2089231b9_thrilled-to-have-received-the-rectors-gold-activity-7258143493208883201-yGYS/\" target=\"_blank\">Rectors Gold Medal </a> for best undergraduate thesis."
     },
     {
-      "date": "May 2024",
-      "html": "Introducing <a href=\"https://transic-robot.github.io/\" target=\"_blank\">T<span style=\"font-variant-caps:all-small-caps\">RANSIC</span></a>, a human-in-the-loop method for contact-rich sim-to-real transfer."
+      "date": "Jnauary 2024",
+      "html": "PhD Acceptence from Stanford with Stanford Graduate Fellowship."
     },
     {
-      "date": "March 2024",
-      "html": "<a href=\"https://voyager.minedojo.org/\" target=\"_blank\">Voyager</a> is accepted at TMLR."
+      "date": "August 2022",
+      "html": "First paper accpeted at <a href=\"https://www.springerprofessional.de/en/pyramidtabnet-transformer-based-table-recognition-in-image-based/25938968\" target=\"_blank\">ICDAR 2023</a> beating Microsofts DiT for tabular recognition tasks (SOTA Model)."
     },
     {
-      "date": "September 2023",
-      "html": "One paper called <a href=\"https://cec-agent.github.io/\" target=\"_blank\">Cross-Episodic Curriculum</a> is accepted at <a href=\"https://nips.cc/Conferences/2023\" target=\"_blank\">NeurIPS 2023</a>."
+      "date": "October 2021",
+      "html": "<a href=\"https://step.pgc.edu/uet-result-2020/\" target=\"_blank\">ECAT Scholarship</a>, for being top 10 in Pkaistan in Engineering category test."
     },
     {
-      "date": "June 2023",
-      "html": "I received the <span class=\"research_highlight\">Stanford School of Engineering Exceptional Master’s Student Award</span> <a href=\"https://ee.stanford.edu/2023-commencement-ceremony-and-awards\" target=\"_blank\">[press]</a>."
+      "date": "January 2021",
+      "html": "NUST scholarship pointer for 4 pointer."
     },
     {
-      "date": "June 2023",
-      "html": "I will be interning at <a href=\"https://theaiinstitute.com/\" target=\"_blank\">Boston Dynamics AI Institute</a> this summer."
+      "date": "June 2021",
+      "html": "<a href=\"https://www.thenews.com.pk/print/694577-girls-clinch-top-positions-in-hssc-examinations\" target=\"_blank\">Presidents medal</a>: for being among top 3 all over pakistan at HSSC level."
     },
     {
-      "date": "May 2023",
-      "html": "We introduce <a href=\"https://voyager.minedojo.org/\" target=\"_blank\">Voyager</a>, the first LLM-powered lifelong learning agent in Minecraft."
-    },
-    {
-      "date": "April 2023",
-      "html": "<a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a> is accepted at <a href=\"https://icml.cc/Conferences/2023\" target=\"_blank\">ICML 2023</a>."
-    },
-    {
-      "date": "April 2023",
-      "html": "📢 Life Update 📢 Decided to stay at Stanford for my PhD!"
-    },
-    {
-      "date": "November 2022",
-      "html": "I talked about <a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a> at NeurIPS 2022’s Foundation Models for Decision Making workshop."
-    },
-    {
-      "date": "November 2022",
-      "html": "<a href=\"https://minedojo.org/\" target=\"_blank\">MineDojo</a> wins the <span class=\"research_highlight\">Outstanding Paper Award</span> at NeurIPS 2022 D&B."
-    },
-    {
-      "date": "October 2022",
-      "html": "We release a Transformer agent, <a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a>, for multimodal robot manipulation."
-    },
-    {
-      "date": "June 2022",
-      "html": "We launch <a href=\"https://minedojo.org/\" target=\"_blank\">MineDojo</a>: open-ended agents with Internet-scale knowledge."
+      "date": "January 2021 and November 2023",
+      "html": "NUST scholarship pointer for 4 pointer."
     }
   ]
   
