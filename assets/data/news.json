@@ -1,0 +1,67 @@
+[
+    {
+      "date": "April 2025",
+      "html": "Organizing <a href=\"https://rss-moma-2025.github.io/\" target=\"_blank\">RSS 2025 Mobile Manipulation workshop</a>."
+    },
+    {
+      "date": "March 2025",
+      "html": "Introducing <a href=\"https://behavior-robot-suite.github.io/\" target=\"_blank\">BEHAVIOR Robot Suite</a> (BRS), a comprehensive framework for learning whole-body manipulation in diverse household tasks."
+    },
+    {
+      "date": "October 2024",
+      "html": "Introducing <a href=\"https://digital-cousins.github.io/\" target=\"_blank\">Digital Cousins</a>, which enable an automated real-to-sim-to-real pipeline for robust and scalable robot learning."
+    },
+    {
+      "date": "September 2024",
+      "html": "<a href=\"https://transic-robot.github.io/\" target=\"_blank\">T<span style=\"font-variant-caps:all-small-caps\">RANSIC</span></a> and <a href=\"https://digital-cousins.github.io/\" target=\"_blank\">Digital Cousins</a> are accepted at <a href=\"https://www.corl.org/\" target=\"_blank\">CoRL 2024</a>."
+    },
+    {
+      "date": "May 2024",
+      "html": "Introducing <a href=\"https://transic-robot.github.io/\" target=\"_blank\">T<span style=\"font-variant-caps:all-small-caps\">RANSIC</span></a>, a human-in-the-loop method for contact-rich sim-to-real transfer."
+    },
+    {
+      "date": "March 2024",
+      "html": "<a href=\"https://voyager.minedojo.org/\" target=\"_blank\">Voyager</a> is accepted at TMLR."
+    },
+    {
+      "date": "September 2023",
+      "html": "One paper called <a href=\"https://cec-agent.github.io/\" target=\"_blank\">Cross-Episodic Curriculum</a> is accepted at <a href=\"https://nips.cc/Conferences/2023\" target=\"_blank\">NeurIPS 2023</a>."
+    },
+    {
+      "date": "June 2023",
+      "html": "I received the <span class=\"research_highlight\">Stanford School of Engineering Exceptional Master’s Student Award</span> <a href=\"https://ee.stanford.edu/2023-commencement-ceremony-and-awards\" target=\"_blank\">[press]</a>."
+    },
+    {
+      "date": "June 2023",
+      "html": "I will be interning at <a href=\"https://theaiinstitute.com/\" target=\"_blank\">Boston Dynamics AI Institute</a> this summer."
+    },
+    {
+      "date": "May 2023",
+      "html": "We introduce <a href=\"https://voyager.minedojo.org/\" target=\"_blank\">Voyager</a>, the first LLM-powered lifelong learning agent in Minecraft."
+    },
+    {
+      "date": "April 2023",
+      "html": "<a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a> is accepted at <a href=\"https://icml.cc/Conferences/2023\" target=\"_blank\">ICML 2023</a>."
+    },
+    {
+      "date": "April 2023",
+      "html": "📢 Life Update 📢 Decided to stay at Stanford for my PhD!"
+    },
+    {
+      "date": "November 2022",
+      "html": "I talked about <a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a> at NeurIPS 2022’s Foundation Models for Decision Making workshop."
+    },
+    {
+      "date": "November 2022",
+      "html": "<a href=\"https://minedojo.org/\" target=\"_blank\">MineDojo</a> wins the <span class=\"research_highlight\">Outstanding Paper Award</span> at NeurIPS 2022 D&B."
+    },
+    {
+      "date": "October 2022",
+      "html": "We release a Transformer agent, <a href=\"https://vimalabs.github.io/\" target=\"_blank\">VIMA</a>, for multimodal robot manipulation."
+    },
+    {
+      "date": "June 2022",
+      "html": "We launch <a href=\"https://minedojo.org/\" target=\"_blank\">MineDojo</a>: open-ended agents with Internet-scale knowledge."
+    }
+  ]
+  

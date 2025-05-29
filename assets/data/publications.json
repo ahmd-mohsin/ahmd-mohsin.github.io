@@ -1,0 +1,261 @@
+[
+    {
+      "selected": true,
+      "topic": "rl_syn",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/brs.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "BEHAVIOR Robot Suite: Streamlining Real-World Whole-Body Manipulation for Everyday Household Activities",
+        "authors": [
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
+          { "name": "Josiah Wong", "href": "https://jdw.ong/" },
+          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
+          { "name": "Yanjie Ze", "href": "https://yanjieze.com/" },
+          { "name": "Hang Yin", "href": "https://hang-yin.github.io/" },
+          { "name": "Cem Gokmen", "href": "https://www.cemgokmen.com/" },
+          { "name": "Shuran Song", "href": "https://shurans.github.io/" },
+          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
+          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+        ],
+        "venue": "arXiv 2025",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2503.05652" },
+          { "label": "paper", "href": "https://behavior-robot-suite.github.io/assets/pdf/brs_paper.pdf" },
+          { "label": "website", "href": "https://behavior-robot-suite.github.io/" },
+          { "label": "doc", "href": "https://behavior-robot-suite.github.io/docs/" },
+          { "label": "algorithm code", "href": "https://github.com/behavior-robot-suite/brs-algo" },
+          { "label": "hardware code", "href": "https://github.com/behavior-robot-suite/brs-ctrl" },
+          { "label": "tldr", "href": "https://x.com/YunfanJiang/status/1899113026663682432" }
+        ]
+      }
+    },
+    {
+      "selected": false,
+      "topic": "rl_syn",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/acdc.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "Automated Creation of Digital Cousins for Robust Policy Learning",
+        "authors": [
+          { "name": "Tianyuan Dai", "href": "https://rogerdai1217.github.io/" },
+          { "name": "Josiah Wong", "href": "https://jdw.ong/" },
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
+          { "name": "Cem Gokmen", "href": "https://www.cemgokmen.com/" },
+          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
+          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
+          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+        ],
+        "author_footnote": "* Equal contribution",
+        "venue": "CoRL 2024",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2410.07408" },
+          { "label": "paper", "href": "https://digital-cousins.github.io/assets/paper.pdf" },
+          { "label": "website", "href": "https://digital-cousins.github.io/" },
+          { "label": "code", "href": "https://github.com/cremebrule/digital-cousins" },
+          { "label": "tldr", "href": "https://x.com/RogerDai1217/status/1844411408374693941" }
+        ]
+      }
+    },
+    {
+      "selected": true,
+      "topic": "rl_syn",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/transic.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "TRANSIC: Sim-to-Real Policy Transfer by Learning from Online Correction",
+        "authors": [
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
+          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
+          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
+          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+        ],
+        "venue": "CoRL 2024",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2405.10315" },
+          { "label": "paper", "href": "https://transic-robot.github.io/assets/pdf/transic_paper.pdf" },
+          { "label": "website", "href": "https://transic-robot.github.io/" },
+          { "label": "code", "href": "https://github.com/transic-robot/transic" },
+          { "label": "tldr", "href": "https://x.com/YunfanJiang/status/1791498916548272489" }
+        ]
+      }
+    },
+    {
+      "selected": false,
+      "topic": "fmdm",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/openx.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+        "authors": [
+          { "name": "Open X-Embodiment Collaboration", "href": null }
+        ],
+        "venue": "ICRA 2024",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2310.08864" },
+          { "label": "paper", "href": "https://ieeexplore.ieee.org/document/10611477" },
+          { "label": "website", "href": "https://robotics-transformer-x.github.io/" },
+          { "label": "data", "href": "https://github.com/google-deepmind/open_x_embodiment" },
+          { "label": "tldr", "href": "https://x.com/GoogleDeepMind/status/1709207886943965648" }
+        ]
+      }
+    },
+    {
+      "selected": true,
+      "topic": "fmdm",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/voyager.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+        "authors": [
+          { "name": "Guanzhi Wang", "href": "https://www.guanzhi.me/" },
+          { "name": "Yuqi Xie", "href": "https://xieleo5.github.io/" },
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Ajay Mandlekar", "href": "https://ai.stanford.edu/~amandlek/" },
+          { "name": "Chaowei Xiao", "href": "https://xiaocw11.github.io/" },
+          { "name": "Yuke Zhu", "href": "https://www.cs.utexas.edu/~yukez/" },
+          { "name": "Linxi \"Jim\" Fan", "href": "https://jimfan.me/" },
+          { "name": "Anima Anandkumar", "href": "http://tensorlab.cms.caltech.edu/users/anima/" }
+        ],
+        "author_footnote": "* Equal contribution  † Equal advising",
+        "venue": "TMLR",
+        "venue_footnote": "Also Oral Presentation at NeurIPS 2023 Agent Learning in Open-Endedness Workshop and Intrinsically Motivated Open-Ended Learning Workshop",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2305.16291" },
+          { "label": "paper", "href": "https://voyager.minedojo.org/assets/documents/voyager.pdf" },
+          { "label": "website", "href": "https://voyager.minedojo.org/" },
+          { "label": "code", "href": "https://github.com/MineDojo/Voyager" },
+          { "label": "tldr", "href": "https://x.com/DrJimFan/status/1662115266933972993?s=20" }
+        ],
+        "media_coverage": [
+          { "outlet": "Forbes", "href": "https://www.forbes.com/sites/johnkoetsier/2023/05/29/gpt-4-is-pretty-good-at-minecraft/" },
+          { "outlet": "WIRED", "href": "https://www.wired.com/story/fast-forward-gpt-4-minecraft-chatgpt/" },
+          { "outlet": "Two Minute Papers", "href": "https://youtu.be/VKEA5cJluc0" }
+        ]
+      }
+    },
+    {
+      "selected": false,
+      "topic": "fmdm",
+      "media": {
+        "type": "image",
+        "src": "assets/images/research/cec.png"
+      },
+      "details": {
+        "title": "Cross-Episodic Curriculum for Transformer Agents",
+        "authors": [
+          { "name": "Lucy Xiaoyang Shi", "href": "https://lucys0.github.io/" },
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Jake Grigsby", "href": "https://jakegrigsby.github.io/" },
+          { "name": "Linxi \"Jim\" Fan", "href": "https://jimfan.me/" },
+          { "name": "Yuke Zhu", "href": "https://www.cs.utexas.edu/~yukez/" }
+        ],
+        "author_footnote": "* Equal contribution  † Equal advising",
+        "venue": "NeurIPS 2023",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2310.08549" },
+          { "label": "paper", "href": "https://arxiv.org/pdf/2310.08549.pdf" },
+          { "label": "website", "href": "https://cec-agent.github.io/" },
+          { "label": "code", "href": "https://github.com/CEC-Agent/CEC" },
+          { "label": "tldr", "href": "https://x.com/lucy_x_shi/status/1712908194237108270?s=20" }
+        ]
+      }
+    },
+    {
+      "selected": true,
+      "topic": "rl_syn",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/vima.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "VIMA: General Robot Manipulation with Multimodal Prompts",
+        "authors": [
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Agrim Gupta", "href": "http://web.stanford.edu/~agrim/" },
+          { "name": "Zichen \"Charles\" Zhang", "href": "https://zcczhang.github.io/" },
+          { "name": "Guanzhi Wang", "href": "https://www.guanzhi.me/" },
+          { "name": "Yongqiang Dou", "href": "http://group.iiis.tsinghua.edu.cn/~milab/person-douyongqiang.html" },
+          { "name": "Yanjun Chen", "href": "https://www.linkedin.com/in/yanjun-anthony-chen/" },
+          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" },
+          { "name": "Anima Anandkumar", "href": "http://tensorlab.cms.caltech.edu/users/anima/" },
+          { "name": "Yuke Zhu", "href": "https://www.cs.utexas.edu/~yukez/" },
+          { "name": "Linxi \"Jim\" Fan", "href": "https://jimfan.me/" }
+        ],
+        "author_footnote": "* Equal contribution  † Equal advising",
+        "venue": "ICML 2023",
+        "venue_footnote": "Also Oral Presentation at NeurIPS 2022 Foundation Models for Decision Making Workshop",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2210.03094" },
+          { "label": "paper", "href": "https://vimalabs.github.io/assets/vima_paper.pdf" },
+          { "label": "website", "href": "https://vimalabs.github.io/" },
+          { "label": "code", "href": "https://github.com/vimalabs/VIMA" },
+          { "label": "tldr", "href": "https://x.com/DrJimFan/status/1578433493561769984?s=20" }
+        ],
+        "media_coverage": [
+          { "outlet": "NVIDIA GTC Jensen Huang Keynote", "href": "https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s52226/" }
+        ]
+      }
+    },
+    {
+      "selected": true,
+      "topic": "fmdm",
+      "media": {
+        "type": "video",
+        "src": "assets/images/research/minedojo.mp4",
+        "format": "video/mp4"
+      },
+      "details": {
+        "title": "MineDojo: Building Open-Ended Embodied Agents with Internet-Scale Knowledge",
+        "authors": [
+          { "name": "Linxi \"Jim\" Fan", "href": "https://jimfan.me/" },
+          { "name": "Guanzhi Wang", "href": "https://www.guanzhi.me/" },
+          { "name": "Yunfan Jiang", "href": null, "strong": true },
+          { "name": "Ajay Mandlekar", "href": "https://ai.stanford.edu/~amandlek/" },
+          { "name": "Yuncong Yang", "href": "https://yyuncong.github.io/" },
+          { "name": "Haoyi Zhu", "href": "https://www.haoyizhu.site/" },
+          { "name": "Andrew Tang", "href": "https://twitter.com/andrewtang01" },
+          { "name": "De-An Huang", "href": "https://ai.stanford.edu/~dahuang/" },
+          { "name": "Yuke Zhu", "href": "https://www.cs.utexas.edu/~yukez/" },
+          { "name": "Anima Anandkumar", "href": "http://tensorlab.cms.caltech.edu/users/anima/" }
+        ],
+        "author_footnote": "* Equal contribution  † Equal advising",
+        "venue": "NeurIPS 2022 Datasets and Benchmarks Track",
+        "research_highlights": [
+          "🎉 Outstanding Paper Award 🎉",
+          "Featured Paper (Oral-Equivalent)"
+        ],
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2206.08853" },
+          { "label": "paper", "href": "https://papers.nips.cc/paper_files/paper/2022/file/74a67268c5cc5910f64938cac4526a90-Paper-Datasets_and_Benchmarks.pdf" },
+          { "label": "website", "href": "https://minedojo.org/" },
+          { "label": "code", "href": "https://github.com/MineDojo" },
+          { "label": "tldr", "href": "https://x.com/DrJimFan/status/1595459499732926464?s=20" }
+        ],
+        "media_coverage": [
+          { "outlet": "NVIDIA Blog", "href": "https://developer.nvidia.com/blog/building-generally-capable-ai-agents-with-minedojo/" },
+          { "outlet": "Two Minute Papers", "href": "https://www.youtube.com/watch?v=5LL6z1Ganbw" },
+          { "outlet": "Ars Technica", "href": "https://arstechnica.com/information-technology/2022/11/nvidia-wins-award-for-ai-that-can-play-minecraft-on-command/" }
+        ]
+      }
+    }
+  ]
+  
