@@ -20,8 +20,7 @@
           { "label": "arXiv", "href": null },
           { "label": "paper", "href": null },
           { "label": "website", "href": null },
-          { "label": "algorithm code", "href": null },
-          { "label": "tldr", "href": null }
+          { "label": "algorithm code", "href": null }
         ]
       }
     },
@@ -48,6 +47,29 @@
           { "label": "paper", "href": "https://arxiv.org/abs/2501.09212" },
           { "label": "website", "href": "https://ahsanbilal7.github.io/research_papers/hierarchical_wireless" },
           { "label": "code", "href": "https://github.com/ahmd-mohsin/Hierarchical-Deep-Reinforcement-Learning-for-Adaptive-Resource-Management-in-Integrated-Terrestrial-" }
+        ]
+      }
+    },
+    {
+      "selected": true,
+      "topic": "rl_syn",
+      "media": {
+        "type": "image",
+        "src": "assets/images/research/ICC.jpg"
+      },
+      "details": {
+        "title": "Retrieval Augmented Generation with Multi-Modal LLM Framework for Wireless Environments",
+        "authors": [
+          { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
+          { "name": "Ahsan Bilal", "href": "https://ahsanbilal7.github.io/" },
+          { "name": "Sagnik Bhattacharya", "href": "https://scholar.google.com/citations?user=xNb5T5IAAAAJ&hl=en" },
+           { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
+        ],
+        "venue": "ICC 2025",
+        "highlight": "Best Paper Award @ ICC 2025 in Montreal",
+        "links": [
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2503.07670" },
+          { "label": "website", "href": null }
         ]
       }
     },
