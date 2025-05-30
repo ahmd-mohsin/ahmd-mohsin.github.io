@@ -3,33 +3,25 @@
       "selected": true,
       "topic": "rl_syn",
       "media": {
-        "type": "video",
-        "src": "assets/images/research/brs.mp4",
-        "format": "video/mp4"
+        "type": "image",
+        "src": "assets/images/research/continual_learning.jpg"
       },
       "details": {
-        "title": "BEHAVIOR Robot Suite: Streamlining Real-World Whole-Body Manipulation for Everyday Household Activities",
+        "title": "Continual Learning for Wireless Channel Prediction",
         "authors": [
-          { "name": "Yunfan Jiang", "href": null, "strong": true },
-          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
-          { "name": "Josiah Wong", "href": "https://jdw.ong/" },
-          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
-          { "name": "Yanjie Ze", "href": "https://yanjieze.com/" },
-          { "name": "Hang Yin", "href": "https://hang-yin.github.io/" },
-          { "name": "Cem Gokmen", "href": "https://www.cemgokmen.com/" },
-          { "name": "Shuran Song", "href": "https://shurans.github.io/" },
-          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
-          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+          { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
+          { "name": "Muhammad Umer", "href": "https://scholar.google.com/citations?user=PIzXX3sAAAAJ&hl=en" },
+          { "name": "Ahsan Bilal", "href": "https://ahsanbilal7.github.io/" },
+          { "name": "Muhammad Ali Jameshed", "href": "https://scholar.google.com/citations?user=at4MvYMAAAAJ&hl=en" },
+          { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
         ],
         "venue": "arXiv 2025",
         "links": [
-          { "label": "arXiv", "href": "https://arxiv.org/abs/2503.05652" },
-          { "label": "paper", "href": "https://behavior-robot-suite.github.io/assets/pdf/brs_paper.pdf" },
-          { "label": "website", "href": "https://behavior-robot-suite.github.io/" },
-          { "label": "doc", "href": "https://behavior-robot-suite.github.io/docs/" },
-          { "label": "algorithm code", "href": "https://github.com/behavior-robot-suite/brs-algo" },
-          { "label": "hardware code", "href": "https://github.com/behavior-robot-suite/brs-ctrl" },
-          { "label": "tldr", "href": "https://x.com/YunfanJiang/status/1899113026663682432" }
+          { "label": "arXiv", "href": null },
+          { "label": "paper", "href": null },
+          { "label": "website", "href": null },
+          { "label": "algorithm code", "href": null },
+          { "label": "tldr", "href": null }
         ]
       }
     },
