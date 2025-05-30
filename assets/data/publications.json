@@ -79,22 +79,22 @@
       "selected": true,
       "topic": "fmdm",
       "media": {
-        "type": "video",
-        "src": "assets/images/research/openx.mp4",
+        "type": "image",
+        "src": "assets/images/research/icassp_diffusion.png",
         "format": "video/mp4"
       },
       "details": {
-        "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
+        "title": "Successive Interference Cancellation-aided Diffusion Models for Joint Channel Estimation and Data Detection in Low Rank Channel Scenarios",
         "authors": [
-          { "name": "Open X-Embodiment Collaboration", "href": null }
+          { "name": "Sagnik Bhattacharya", "href": "https://scholar.google.com/citations?user=xNb5T5IAAAAJ&hl=en" },
+          { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
+          { "name": "Kami Fardi", "href": "https://ahsanbilal7.github.io/" },
+           { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
         ],
-        "venue": "ICRA 2024",
+        "venue": "ICASSP 2024",
         "links": [
-          { "label": "arXiv", "href": "https://arxiv.org/abs/2310.08864" },
-          { "label": "paper", "href": "https://ieeexplore.ieee.org/document/10611477" },
-          { "label": "website", "href": "https://robotics-transformer-x.github.io/" },
-          { "label": "data", "href": "https://github.com/google-deepmind/open_x_embodiment" },
-          { "label": "tldr", "href": "https://x.com/GoogleDeepMind/status/1709207886943965648" }
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2501.11229" },
+          { "label": "paper", "href": "https://ieeexplore.ieee.org/document/10888845" }
         ]
       }
     },
