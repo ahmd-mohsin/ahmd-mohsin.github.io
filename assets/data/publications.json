@@ -7,7 +7,7 @@
         "src": "assets/images/research/continual_learning.jpg"
       },
       "details": {
-        "title": "Continual Learning for Wireless Channel Prediction",
+        "title": "Continual Learning for Wireless Channel Prediction @ ICML 2025",
         "authors": [
           { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
           { "name": "Muhammad Umer", "href": "https://scholar.google.com/citations?user=PIzXX3sAAAAJ&hl=en" },
@@ -15,7 +15,7 @@
           { "name": "Muhammad Ali Jameshed", "href": "https://scholar.google.com/citations?user=at4MvYMAAAAJ&hl=en" },
           { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
         ],
-        "venue": "arXiv 2025",
+        "venue": "ICML 2025",
         "links": [
           { "label": "arXiv", "href": null },
           { "label": "paper", "href": null },
@@ -26,33 +26,28 @@
       }
     },
     {
-      "selected": false,
+      "selected": true,
       "topic": "rl_syn",
       "media": {
-        "type": "video",
-        "src": "assets/images/research/acdc.mp4",
-        "format": "video/mp4"
+        "type": "image",
+        "src": "assets/images/research/HDRL.jpg"
       },
       "details": {
-        "title": "Automated Creation of Digital Cousins for Robust Policy Learning",
+        "title": "Hierarchical Deep Reinforcement Learning for Spectrum Resource Optimization in Integrated Terrestrial and Non-Terrestrial Networks @ AAAI 2025",
         "authors": [
-          { "name": "Tianyuan Dai", "href": "https://rogerdai1217.github.io/" },
-          { "name": "Josiah Wong", "href": "https://jdw.ong/" },
-          { "name": "Yunfan Jiang", "href": null, "strong": true },
-          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
-          { "name": "Cem Gokmen", "href": "https://www.cemgokmen.com/" },
-          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
-          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
-          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+          { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
+          { "name": "Hassan Rizwan", "href": "https://scholar.google.com/citations?user=yUCtuKQAAAAJ&hl=en" },
+          { "name": "Muhammad Umer", "href": "https://scholar.google.com/citations?user=PIzXX3sAAAAJ&hl=en" },
+          { "name": "Sagnik Bhattacharya", "href": "https://scholar.google.com/citations?user=xNb5T5IAAAAJ&hl=en" },
+          { "name": "Ahsan Bilal", "href": "https://ahsanbilal7.github.io/" },
+          { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
         ],
-        "author_footnote": "* Equal contribution",
-        "venue": "CoRL 2024",
+        "venue": "AAAI 2025",
         "links": [
-          { "label": "arXiv", "href": "https://arxiv.org/abs/2410.07408" },
-          { "label": "paper", "href": "https://digital-cousins.github.io/assets/paper.pdf" },
-          { "label": "website", "href": "https://digital-cousins.github.io/" },
-          { "label": "code", "href": "https://github.com/cremebrule/digital-cousins" },
-          { "label": "tldr", "href": "https://x.com/RogerDai1217/status/1844411408374693941" }
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2501.09212" },
+          { "label": "paper", "href": "https://arxiv.org/abs/2501.09212" },
+          { "label": "website", "href": "https://ahsanbilal7.github.io/research_papers/hierarchical_wireless" },
+          { "label": "code", "href": "https://github.com/ahmd-mohsin/Hierarchical-Deep-Reinforcement-Learning-for-Adaptive-Resource-Management-in-Integrated-Terrestrial-" }
         ]
       }
     },
@@ -60,31 +55,28 @@
       "selected": true,
       "topic": "rl_syn",
       "media": {
-        "type": "video",
+        "type": "image",
         "src": "assets/images/research/transic.mp4",
         "format": "video/mp4"
       },
       "details": {
-        "title": "TRANSIC: Sim-to-Real Policy Transfer by Learning from Online Correction",
+        "title": "Task and Perception-aware Distributed Source Coding for Correlated Speech under Bandwidth-constrained Channels",
         "authors": [
-          { "name": "Yunfan Jiang", "href": null, "strong": true },
-          { "name": "Chen Wang", "href": "https://www.chenwangjeremy.net/" },
-          { "name": "Ruohan Zhang", "href": "https://ai.stanford.edu/~zharu/" },
-          { "name": "Jiajun Wu", "href": "https://jiajunwu.com/" },
-          { "name": "Li Fei-Fei", "href": "https://profiles.stanford.edu/fei-fei-li" }
+          { "name": "Sagnik Bhattacharya", "href": "https://scholar.google.com/citations?user=xNb5T5IAAAAJ&hl=en" },
+          { "name": "Muhammad Ahmed Mohsin", "href": null, "strong": true },
+          { "name": "Ahsan Bilal", "href": "https://ahsanbilal7.github.io/" },
+           { "name": "John M. Cioffi", "href": "https://cioffi-group.stanford.edu/" }
         ],
-        "venue": "CoRL 2024",
+        "venue": "AAAI 2025",
         "links": [
-          { "label": "arXiv", "href": "https://arxiv.org/abs/2405.10315" },
-          { "label": "paper", "href": "https://transic-robot.github.io/assets/pdf/transic_paper.pdf" },
-          { "label": "website", "href": "https://transic-robot.github.io/" },
-          { "label": "code", "href": "https://github.com/transic-robot/transic" },
-          { "label": "tldr", "href": "https://x.com/YunfanJiang/status/1791498916548272489" }
+          { "label": "arXiv", "href": "https://arxiv.org/abs/2501.17879" },
+          { "label": "paper", "href": "https://openreview.net/forum?id=PLJajIUyyH&referrer=%5Bthe%20profile%20of%20Muhammad%20Ahmed%20Mohsin%5D(%2Fprofile%3Fid%3D~Muhammad_Ahmed_Mohsin1)" },
+          { "label": "website", "href": "https://transic-robot.github.io/" }
         ]
       }
     },
     {
-      "selected": false,
+      "selected": true,
       "topic": "fmdm",
       "media": {
         "type": "video",
