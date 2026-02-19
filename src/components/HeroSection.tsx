@@ -81,7 +81,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <p className="text-base text-lg md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
+          <p className="text-base text-2xl md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
             I'm a graduate student @{" "}
             <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">SAIL (Stanford AI Lab)</a>{" "}
             co-advised by{" "}
@@ -106,7 +106,7 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <p className="text-base text-lg md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="text-base text-md md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
             My research spans LLM post-training and inference, including preference optimization, adaptive test-time compute, and agentic planning. Applied reinforcement learning for complex, non-stationary decision-making, and machine learning for optimization, using GNNs to accelerate convex and non-convex solvers.
           </p>
         </motion.div>
