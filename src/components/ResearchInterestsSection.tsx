@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 
 const interests = [
   {
-    title: "RL for Resource Allocation Optimization",
-    desc: "Using RL to optimize allocation of limited resources in complex systems in dynamically changing environments for accelerated decision making towards optima.",
+    title: "LLM Post-Training and Inference",
+    desc: "Working on preference optimization and reinforcement learning for LLM alignment and reasoning, adaptive test-time compute and budget allocation, and agentic planning. Also developing Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation and social graph-based coordination.",
+    venues: "ICML'26, CoLM'26, NeurIPS'26",
+  },
+  {
+    title: "Applied Reinforcement Learning",
+    desc: "Development of reinforcement learning algorithms for complex, dynamic, and non-stationary decision-making environments.",
     venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
   },
   {
-    title: "RL for Non-Linear Optimization",
-    desc: "Enhancing and speeding up solvers for large real-time problems via reinforcement learning techniques for complex systems.",
-    venues: "NeurIPS, ICML, AAAI",
-  },
-  {
-    title: "RL for Large Language Models",
-    desc: "Inference-time thinking capabilities, long-context reasoning models, and RL-informed chain-of-thought processes.",
-    venues: "NeurIPS, CVPR, ICLR",
+    title: "Machine Learning for Optimization",
+    desc: "Leveraging machine learning to accelerate, stabilize, and enhance convex and non-convex optimization solvers, including GNNs for accelerating low-rank SDP solvers.",
+    venues: "JMLR'26, NeurIPS'26",
   },
 ];
 
@@ -33,8 +33,10 @@ export function ResearchInterestsSection() {
             Main Area
           </legend>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            My main research area is applied Reinforcement Learning (RL) for
-            enhancing optimization and decision-making in complex systems.
+            My main research area spans LLM post-training and inference, applied
+            Reinforcement Learning (RL) for enhancing optimization and
+            decision-making, and machine learning for accelerating optimization
+            solvers.
           </p>
         </fieldset>
 

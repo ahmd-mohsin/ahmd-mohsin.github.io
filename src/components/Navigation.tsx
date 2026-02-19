@@ -7,7 +7,7 @@ const navItems = [
   { name: "About", to: "about" },
   { name: "Research", to: "research" },
   { name: "News", to: "news" },
-  { name: "Reviewer", to: "reviewer" },
+  { name: "Service", to: "reviewer" },
   { name: "Contact", to: "contact" },
 ];
 

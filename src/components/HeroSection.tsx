@@ -75,19 +75,20 @@ export function HeroSection() {
         </div>
       </motion.div>
 
-      <div className="max-w-5xl mx-auto px-6 text-center">
+      <div className="max-w-6xl mx-auto px-6 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <p className="text-base text-lg md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-            I am a second year master&apos;s student @{" "}
-            <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Stanford University</a>, advised
-            by{" "}
+          <p className="text-base text-lg md:text-3xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
+            I'm a graduate student @{" "}
+            <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Stanford University</a>{" "}
+            (EE), co-advised by{" "}
             <a href="https://statistics.stanford.edu/people/emily-b-fox" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. Emily Fox</a>{" "}
             and{" "}
-            <a href="https://cioffi-group.stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Prof. John M. Cioffi</a>.
+            <a href="https://cioffi-group.stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. John M. Cioffi</a>{" "}
+            — Research collaboration with Google DeepMind, Meta, Zoox, Intel, Samsung, and Ericsson.
           </p>
         </motion.div>
         <motion.div
@@ -105,10 +106,10 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <p className="text-base text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
-            My research focuses on applied reinforcement learning and machine
-            learning for optimization, with an emphasis on building robust
-            systems for complex, dynamic, and non-stationary decision-making.
+          <p className="text-base text-lg md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
+            My research focuses on LLM post-training and inference, applied
+            reinforcement learning for complex decision-making, and machine
+            learning for accelerating convex and non-convex optimization solvers.
           </p>
         </motion.div>
 
