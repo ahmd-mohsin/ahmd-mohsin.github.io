@@ -1,5 +1,6 @@
 import { Section } from "@/components/Section";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const papers = [
   {
@@ -200,13 +201,34 @@ function PaperCard({
 }
 
 export function ResearchSection() {
+  const [expanded, setExpanded] = useState(false);
+  // First row: 2, next 2 rows: 6 = 8 visible initially
+  const visibleExtra = expanded ? papers.slice(2) : papers.slice(2, 8);
+
   return (
     <Section id="research" title="Selected Publications" className="bg-white/[0.02]">
-      <div className="grid md:grid-cols-2 gap-6 ">
-        {papers.map((paper, i) => (
+      {/* First row: 2 columns */}
+      <div className="grid md:grid-cols-2 gap-6 mb-6">
+        {papers.slice(0, 2).map((paper, i) => (
           <PaperCard key={i} paper={paper} index={i} />
         ))}
       </div>
+      {/* Remaining rows: 3 columns */}
+      <div className="grid md:grid-cols-3 gap-6">
+        {visibleExtra.map((paper, i) => (
+          <PaperCard key={i + 2} paper={paper} index={i + 2} />
+        ))}
+      </div>
+      {papers.length > 8 && (
+        <div className="flex justify-center mt-8">
+          <button
+            onClick={() => setExpanded(!expanded)}
+            className="px-8 py-3 border border-white/15 text-sm font-mono text-white/60 hover:text-white hover:border-white/30 transition-colors tracking-wider uppercase"
+          >
+            {expanded ? "Show Less" : "Show More"}
+          </button>
+        </div>
+      )}
     </Section>
   );
 }

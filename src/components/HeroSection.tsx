@@ -81,14 +81,14 @@ export function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15, duration: 0.6 }}
         >
-          <p className="text-base text-lg md:text-3xl italic text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
+          <p className="text-base text-lg md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
             I'm a graduate student @{" "}
-            <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Stanford University</a>{" "}
-            (EE), co-advised by{" "}
+            <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">SAIL (Stanford AI Lab)</a>{" "}
+            co-advised by{" "}
             <a href="https://statistics.stanford.edu/people/emily-b-fox" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. Emily Fox</a>{" "}
             and{" "}
             <a href="https://cioffi-group.stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. John M. Cioffi</a>{" "}
-            — Research collaboration with Google DeepMind, Meta, Zoox, Intel, Samsung, and Ericsson.
+
           </p>
         </motion.div>
         <motion.div
@@ -107,12 +107,9 @@ export function HeroSection() {
           transition={{ delay: 0.15, duration: 0.6 }}
         >
           <p className="text-base text-lg md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-10">
-            My research focuses on LLM post-training and inference, applied
-            reinforcement learning for complex decision-making, and machine
-            learning for accelerating convex and non-convex optimization solvers.
+            My research spans LLM post-training and inference, including preference optimization, adaptive test-time compute, and agentic planning. Applied reinforcement learning for complex, non-stationary decision-making, and machine learning for optimization, using GNNs to accelerate convex and non-convex solvers.
           </p>
         </motion.div>
-
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -122,6 +119,7 @@ export function HeroSection() {
         >
           <a
             href="mailto:muahmed@stanford.edu"
+            title="Email"
             aria-label="Email"
             data-testid="icon-email"
             className="text-muted-foreground hover:text-white transition-colors"
@@ -132,6 +130,7 @@ export function HeroSection() {
             href="https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en"
             target="_blank"
             rel="noopener noreferrer"
+            title="Google Scholar"
             aria-label="Google Scholar"
             data-testid="icon-scholar"
             className="text-muted-foreground hover:text-white transition-colors"
@@ -142,26 +141,29 @@ export function HeroSection() {
             href="https://dblp.org/pid/354/9627.html"
             target="_blank"
             rel="noopener noreferrer"
+            title="DBLP"
             aria-label="DBLP"
             data-testid="icon-semantic"
             className="text-muted-foreground hover:text-white transition-colors"
           >
             <PiBookOpenTextFill className="w-6 h-6" />
           </a>
-          <a
+          {/* <a
             href="/Muhammad_Ahmed_Mohsin_CV.pdf"
             target="_blank"
             rel="noopener noreferrer"
+            title="CV"
             aria-label="CV"
             data-testid="icon-cv"
             className="text-muted-foreground hover:text-white transition-colors"
           >
             <PiFileTextFill className="w-6 h-6" />
-          </a>
+          </a> */}
           <a
             href="https://github.com/ahmd-mohsin"
             target="_blank"
             rel="noopener noreferrer"
+            title="GitHub"
             aria-label="GitHub"
             data-testid="icon-github"
             className="text-muted-foreground hover:text-white transition-colors"
@@ -172,6 +174,7 @@ export function HeroSection() {
             href="https://twitter.com/ahmedmohsin7338"
             target="_blank"
             rel="noopener noreferrer"
+            title="X (Twitter)"
             aria-label="X"
             data-testid="icon-x"
             className="text-muted-foreground hover:text-white transition-colors"
