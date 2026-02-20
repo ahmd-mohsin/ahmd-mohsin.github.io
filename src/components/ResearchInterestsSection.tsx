@@ -4,19 +4,18 @@ import { motion } from "framer-motion";
 const interests = [
   {
     title: "LLM Post-Training and Inference",
-    desc: "Working on preference optimization and reinforcement learning for LLM alignment and reasoning, adaptive test-time compute and budget allocation, and agentic planning. 
-    Also developing Internet of Evolving Agents frameworks for self - evolving multi- agent systems with dynamic reputation and social graph - based coordination.",
-venues: "ICML'26, CoLM'26, NeurIPS'26",
+    desc: "Working on preference optimization and reinforcement learning for LLM alignment and reasoning, adaptive test-time compute and budget allocation, and agentic planning. Also developing Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation and social graph-based coordination.",
+    venues: "ICML'26, CoLM'26, NeurIPS'26",
   },
-{
-  title: "Applied Reinforcement Learning",
+  {
+    title: "Applied Reinforcement Learning",
     desc: "Development of reinforcement learning algorithms for complex, dynamic, and non-stationary decision-making environments.",
-      venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
+    venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
   },
-{
-  title: "Machine Learning for Optimization",
+  {
+    title: "Machine Learning for Optimization",
     desc: "Leveraging machine learning to accelerate, stabilize, and enhance convex and non-convex optimization solvers, including GNNs for accelerating low-rank SDP solvers.",
-      venues: "JMLR'26, NeurIPS'26",
+    venues: "JMLR'26, NeurIPS'26",
   },
 ];
 
