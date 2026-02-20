@@ -67,7 +67,7 @@ export function HeroSection() {
           style={{ clipPath: "circle(50% at 50% 50%)" }}
         >
           <img
-            src="/ahmed-v2.jpeg"
+            src="/ahmed.jpeg"
             alt=""
             className="w-full h-full object-cover rounded-full"
             draggable={false}
