@@ -2,6 +2,7 @@ import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { ResearchInterestsSection } from "@/components/ResearchInterestsSection";
 import { ResearchSection } from "@/components/ResearchSection";
+import { ConferenceTravelsSection } from "@/components/ConferenceTravelsSection";
 import { NewsSection } from "@/components/NewsSection";
 import { ReviewerSection } from "@/components/ReviewerSection";
 import { ContactSection } from "@/components/ContactSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <HeroSection />
       <ResearchInterestsSection />
       <ResearchSection />
+      <ConferenceTravelsSection />
       <NewsSection />
       <ReviewerSection />
       <ContactSection />

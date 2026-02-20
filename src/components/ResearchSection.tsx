@@ -163,10 +163,10 @@ function PaperCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group border border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
+      className="group border border-white/20 bg-white/[0.02] hover:bg-white/[0.04] transition-colors"
       data-testid={`card-paper-${index}`}
     >
-      <div className="h-32 bg-gradient-to-br from-white/[0.03] to-white/[0.08] border-b border-white/10 flex items-center justify-center px-6">
+      <div className="h-32 bg-gradient-to-br from-white/[0.03] to-white/[0.08] border-b border-white/20 flex items-center justify-center px-6">
         <span className="font-mono text-xs text-white/30 uppercase tracking-widest text-center">
           {paper.venue} {paper.year}
           {paper.status && (

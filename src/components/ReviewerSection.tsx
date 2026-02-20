@@ -54,7 +54,7 @@ export function ReviewerSection() {
     <Section id="reviewer" title="Service & Awards" className="bg-white/[0.02]">
       <div className="space-y-8">
         <motion.fieldset
-          className="border border-white/10 px-6 pb-6 pt-4"
+          className="border border-white/20 px-6 pb-6 pt-4"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -81,7 +81,7 @@ export function ReviewerSection() {
         </motion.fieldset>
 
         <motion.fieldset
-          className="border border-white/10 px-6 pb-6 pt-4"
+          className="border border-white/20 px-6 pb-6 pt-4"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -114,7 +114,7 @@ export function ReviewerSection() {
         </motion.fieldset>
 
         <motion.fieldset
-          className="border border-white/10 px-6 pb-6 pt-4"
+          className="border border-white/20 px-6 pb-6 pt-4"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -152,7 +152,7 @@ export function ReviewerSection() {
         </motion.fieldset>
 
         <motion.fieldset
-          className="border border-white/10 px-6 pb-6 pt-4"
+          className="border border-white/20 px-6 pb-6 pt-4"
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -173,7 +173,7 @@ export function ReviewerSection() {
             {travelGrants.map((grant, i) => (
               <span
                 key={i}
-                className="px-4 py-2 border border-white/10 font-mono text-xs text-white/40"
+                className="px-4 py-2 border border-white/20 font-mono text-xs text-white/40"
               >
                 {grant}
               </span>
