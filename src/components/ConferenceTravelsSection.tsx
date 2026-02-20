@@ -54,34 +54,42 @@ export function ConferenceTravelsSection() {
                                 transition={{ duration: 0.35, ease: "easeInOut" }}
                                 className="absolute inset-0"
                             >
+                                {/* Blurred background for fill */}
+                                <div
+                                    className="absolute inset-0 bg-cover bg-center blur-xl opacity-30 scale-110"
+                                    style={{ backgroundImage: `url(${travels[current].image})` }}
+                                />
+
+                                {/* Main image */}
                                 <img
                                     src={travels[current].image}
                                     alt={travels[current].event}
-                                    className="w-full h-full object-cover"
+                                    className="relative w-full h-full object-contain z-10"
                                 />
+
                                 {/* Gradient overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
                             </motion.div>
                         </AnimatePresence>
 
                         {/* Arrow buttons */}
                         <button
                             onClick={prev}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-10"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 md:w-10 md:h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-50"
                             aria-label="Previous"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
                             onClick={next}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-10"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 md:w-10 md:h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-50"
                             aria-label="Next"
                         >
                             <ChevronRight className="w-5 h-5" />
                         </button>
 
                         {/* Caption overlay */}
-                        <div className="absolute bottom-0 left-0 right-0 p-6 z-10">
+                        <div className="absolute bottom-0 left-0 right-0 p-6 z-30">
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={current}
