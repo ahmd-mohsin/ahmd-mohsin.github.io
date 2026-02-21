@@ -1,6 +1,7 @@
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
 import { ResearchInterestsSection } from "@/components/ResearchInterestsSection";
+import { ExperienceSection } from "@/components/ExperienceSection";
 import { ResearchSection } from "@/components/ResearchSection";
 import { ConferenceTravelsSection } from "@/components/ConferenceTravelsSection";
 import { NewsSection } from "@/components/NewsSection";
@@ -14,6 +15,7 @@ export default function Home() {
       <Navigation />
       <HeroSection />
       <ResearchInterestsSection />
+      <ExperienceSection />
       <ResearchSection />
       <ConferenceTravelsSection />
       <NewsSection />
