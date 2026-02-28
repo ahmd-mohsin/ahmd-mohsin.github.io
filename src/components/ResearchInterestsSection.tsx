@@ -4,18 +4,18 @@ import { motion } from "framer-motion";
 const interests = [
   {
     title: "LLM Post-Training and Inference",
-    desc: "Working on preference optimization and reinforcement learning for LLM alignment and reasoning, adaptive test-time compute and budget allocation, and agentic planning. Also developing Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation and social graph-based coordination.",
+    desc: "Working on preference optimization, active learning, and alignment for LLM reasoning models. Additional work includes reinforcement learning for high-diversity output generation and agentic test-time compute adaptation.",
     venues: "ICML'26, CoLM'26, NeurIPS'26",
   },
   {
-    title: "Applied Reinforcement Learning",
-    desc: "Development of reinforcement learning algorithms for complex, dynamic, and non-stationary decision-making environments.",
-    venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
+    title: "Evolving Agentic Systems",
+    desc: "Developing Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation modeling and social graph-based coordination mechanisms.",
+    venues: "NeurIPS'26, Ongoing",
   },
   {
-    title: "Machine Learning for Optimization",
-    desc: "Leveraging machine learning to accelerate, stabilize, and enhance convex and non-convex optimization solvers, including GNNs for accelerating low-rank SDP solvers.",
-    venues: "JMLR'26, NeurIPS'26",
+    title: "Applied Reinforcement Learning",
+    desc: "Development of reinforcement learning algorithms for complex, dynamic, and non-stationary decision-making environments. Also working on RL methods tailored for LLM reasoning models.",
+    venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
   },
 ];
 
@@ -33,10 +33,7 @@ export function ResearchInterestsSection() {
             Main Area
           </legend>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            My main research area spans LLM post-training and inference, applied
-            Reinforcement Learning (RL) for enhancing optimization and
-            decision-making, and machine learning for accelerating optimization
-            solvers.
+          My primary research spans LLM post-training and inference, including preference optimization, active learning, alignment, and adaptive test-time compute for reasoning models. I also work on applied Reinforcement Learning (RL) for complex, dynamic, and non-stationary decision-making, including RL for LLM reasoning. In addition, I focus on leveraging machine learning to accelerate and stabilize large-scale optimization solvers, particularly via learning-augmented and graph-based approaches.
           </p>
         </fieldset>
 
