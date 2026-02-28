@@ -1,8 +1,7 @@
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mail } from "lucide-react";
 import { SiGooglescholar, SiGithub, SiX } from "react-icons/si";
-import { PiFileTextFill, PiBookOpenTextFill } from "react-icons/pi";
-import { useEffect, useRef, useState } from "react";
+import { PiBookOpenTextFill } from "react-icons/pi";
 
 export function HeroSection() {
   return (
@@ -13,6 +12,7 @@ export function HeroSection() {
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-col md:flex-row-reverse items-center gap-12 md:gap-20">
 
+          {/* Profile Image */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -31,14 +31,45 @@ export function HeroSection() {
 
           {/* Text Content */}
           <div className="text-center md:text-left flex-1">
+
+            {/* Affiliation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
             >
-              <p className="text-xl md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl  mb-10"> I'm a graduate student @{" "} <a href="https://stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">SAIL (Stanford AI Lab)</a>{" "} co-advised by{" "} <a href="https://statistics.stanford.edu/people/emily-b-fox" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. Emily Fox</a>{" "} and{" "} <a href="https://cioffi-group.stanford.edu/" target="_blank" rel="noopener noreferrer" className="text-white/80 hover:text-white transition-colors">Dr. John M. Cioffi</a>{" "} </p>
-
+              <p className="text-xl md:text-3xl italic text-muted-foreground leading-relaxed max-w-2xl mb-10">
+                I'm a graduate student @{" "}
+                <a
+                  href="https://stanford.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  SAIL (Stanford AI Lab)
+                </a>{" "}
+                co-advised by{" "}
+                <a
+                  href="https://statistics.stanford.edu/people/emily-b-fox"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  Dr. Emily Fox
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://cioffi-group.stanford.edu/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white transition-colors"
+                >
+                  Dr. John M. Cioffi
+                </a>
+              </p>
             </motion.div>
+
+            {/* Name */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -49,8 +80,7 @@ export function HeroSection() {
               </h1>
             </motion.div>
 
-
-
+            {/* Research Description */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -58,12 +88,15 @@ export function HeroSection() {
               className="space-y-4"
             >
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0">
-                My research spans LLM post-training and inference, including preference optimization, adaptive test-time compute, and agentic planning.
+                My research spans LLM post-training and inference, including preference optimization, active learning, alignment for reasoning models, reinforcement learning for high-diversity generation, and adaptive agentic test-time compute.
               </p>
+
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0 mb-10">
-                Applied reinforcement learning for complex, non-stationary decision-making, and machine learning for optimization, using GNNs to accelerate convex and non-convex solvers.
+                I also work on applied reinforcement learning for complex, dynamic, and non-stationary decision-making — including RL for LLM reasoning — and on machine learning for optimization, leveraging graph-based and learning-augmented methods to accelerate convex and non-convex solvers.
               </p>
             </motion.div>
+
+            {/* Social Icons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,70 +108,59 @@ export function HeroSection() {
                 href="mailto:muahmed@stanford.edu"
                 title="Email"
                 aria-label="Email"
-                data-testid="icon-email"
                 className="text-muted-foreground hover:text-white transition-colors"
               >
                 <Mail className="w-6 h-6" />
               </a>
+
               <a
                 href="https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="Google Scholar"
                 aria-label="Google Scholar"
-                data-testid="icon-scholar"
                 className="text-muted-foreground hover:text-white transition-colors"
               >
                 <SiGooglescholar className="w-6 h-6" />
               </a>
+
               <a
                 href="https://dblp.org/pid/354/9627.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="DBLP"
                 aria-label="DBLP"
-                data-testid="icon-semantic"
                 className="text-muted-foreground hover:text-white transition-colors"
               >
                 <PiBookOpenTextFill className="w-6 h-6" />
               </a>
-              {/* <a
-            href="/Muhammad_Ahmed_Mohsin_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="CV"
-            aria-label="CV"
-            data-testid="icon-cv"
-            className="text-muted-foreground hover:text-white transition-colors"
-          >
-            <PiFileTextFill className="w-6 h-6" />
-          </a> */}
+
               <a
                 href="https://github.com/ahmd-mohsin"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="GitHub"
                 aria-label="GitHub"
-                data-testid="icon-github"
                 className="text-muted-foreground hover:text-white transition-colors"
               >
                 <SiGithub className="w-6 h-6" />
               </a>
+
               <a
                 href="https://twitter.com/ahmedmohsin7338"
                 target="_blank"
                 rel="noopener noreferrer"
                 title="X (Twitter)"
                 aria-label="X"
-                data-testid="icon-x"
                 className="text-muted-foreground hover:text-white transition-colors"
               >
                 <SiX className="w-5 h-5" />
               </a>
             </motion.div>
+
           </div>
         </div>
       </div>
-    </section >
+    </section>
   );
 }
