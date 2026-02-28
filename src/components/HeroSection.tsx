@@ -88,11 +88,11 @@ export function HeroSection() {
               className="space-y-4"
             >
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0">
-                My research spans LLM post-training and inference, including preference optimization, active learning, alignment for reasoning models, reinforcement learning for high-diversity generation, and adaptive agentic test-time compute.
+                My research focuses on LLM post-training and inference, including preference optimization, active learning, and alignment for reasoning models, alongside reinforcement learning for high-diversity generation and adaptive agentic test-time compute.
               </p>
 
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0 mb-10">
-                I also work on applied reinforcement learning for complex, dynamic, and non-stationary decision-making — including RL for LLM reasoning — and on machine learning for optimization, leveraging graph-based and learning-augmented methods to accelerate convex and non-convex solvers.
+                I also develop Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation modeling and social graph-based coordination, and work on applied reinforcement learning for complex, dynamic, and non-stationary decision-making — including RL methods tailored for LLM reasoning.
               </p>
             </motion.div>
 
@@ -100,7 +100,7 @@ export function HeroSection() {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
               className="flex flex-wrap items-center justify-center md:justify-start gap-6"
               data-no-custom-cursor
             >
