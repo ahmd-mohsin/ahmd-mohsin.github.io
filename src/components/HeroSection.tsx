@@ -58,11 +58,11 @@ export function HeroSection() {
               className="space-y-4"
             >
               <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0">
-                My research spans LLM post-training and inference, including preference optimization, adaptive test-time compute, and agentic planning.
-              </p>
-              <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0 mb-10">
-                Applied reinforcement learning for complex, non-stationary decision-making, and machine learning for optimization, using GNNs to accelerate convex and non-convex solvers.
-              </p>
+              My research spans LLM post-training and inference, including preference optimization, active learning, alignment for reasoning models, reinforcement learning for high-diversity generation, and adaptive agentic test-time compute.
+            </p>
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto md:mx-0 mb-10">
+              I also work on applied reinforcement learning for complex, dynamic, and non-stationary decision-making — including RL for LLM reasoning — and on machine learning for optimization, leveraging graph-based and learning-augmented methods to accelerate convex and non-convex solvers.
+            </p>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
