@@ -173,6 +173,23 @@ export function HeroSection() {
                 </a>
               ))}
             </motion.div>
+
+            {/* Conoid Link */}
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.65 }}
+              className="mt-12 flex justify-center md:justify-start"
+            >
+              <a
+                href="https://conoid.ai/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-full border border-yellow-700/40 bg-yellow-600/10 px-5 py-2.5 text-sm md:text-base font-medium text-yellow-400 transition-all duration-300 hover:-translate-y-1 hover:border-yellow-500 hover:bg-yellow-500/15 hover:text-yellow-300 hover:shadow-[0_0_24px_rgba(234,179,8,0.18)]"
+              >
+                Building Conoid — visit conoid.ai
+              </a>
+            </motion.div>
           </div>
         </div>
       </div>
