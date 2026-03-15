@@ -10,7 +10,7 @@ const newsItems = [
   {
     date: "August 2025",
     content:
-      "Received recognition for exemplary reviewer 2025 for IEEE Wireless Communications Magazine special issue October 2025.",
+      "Received recognition for exemplary reviewer 2025 for IEEE Wireless Communications Letters 2025.",
   },
   {
     date: "July 2025",
