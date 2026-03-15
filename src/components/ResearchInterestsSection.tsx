@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 
 const interests = [
   {
-    title: "LLM Post-Training and Inference",
-    desc: "Working on preference optimization, active learning, and alignment for LLM reasoning models. Additional work includes reinforcement learning for high-diversity output generation and agentic test-time compute adaptation.",
-    venues: "ICML'26, CoLM'26, NeurIPS'26",
+    title: "LLM Inference and Test-Time Scaling",
+    desc: "Working on test-time training methods for scientific discovery under uncertainty, with a focus on adaptive compute allocation, agentic planning, and stratified scaling search for test-time reasoning in large language models and diffusion language models.",
+    venues: "CoLM'26, NeurIPS'26, Ongoing",
   },
   {
     title: "Evolving Agentic Systems",
@@ -13,9 +13,9 @@ const interests = [
     venues: "NeurIPS'26, Ongoing",
   },
   {
-    title: "Applied Reinforcement Learning",
-    desc: "Development of reinforcement learning algorithms for complex, dynamic, and non-stationary decision-making environments. Also working on RL methods tailored for LLM reasoning models.",
-    venues: "WCNC'25, Globecom'26, ICML'25, NeurIPS'25, AAAI'25",
+    title: "Reinforcement Learning for LLMs",
+    desc: "Research on preference optimization, active learning, and alignment methods for large language model reasoning systems. Current work also explores reinforcement learning approaches for reward decomposition to mitigate sycophancy and improve alignment.",
+    venues: "ICML'26, NeurIPS'26, Ongoing",
   },
 ];
 
@@ -26,31 +26,41 @@ export function ResearchInterestsSection() {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.4 }}
+        transition={{ duration: 0.5 }}
       >
-        <fieldset className="border border-white/20 px-6 pb-6 pt-2 mb-10">
-          <legend className="px-2 text-xs font-mono uppercase tracking-widest text-white/50">
+        <fieldset className="mb-10 rounded-2xl border border-yellow-500/30 bg-yellow-500/5 px-6 pb-6 pt-3 shadow-[0_0_30px_rgba(234,179,8,0.08)]">
+          <legend className="px-3 text-xs font-mono uppercase tracking-[0.25em] text-yellow-400/80">
             Main Area
           </legend>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-          My primary research spans LLM post-training and inference, including preference optimization, active learning, alignment, and adaptive test-time compute for reasoning models. I also work on applied Reinforcement Learning (RL) for complex, dynamic, and non-stationary decision-making, including RL for LLM reasoning. In addition, I focus on leveraging machine learning to accelerate and stabilize large-scale optimization solvers, particularly via learning-augmented and graph-based approaches.
+          <p className="text-sm leading-relaxed text-yellow-50/80">
+            My primary research spans LLM inference and test-time scaling,
+            including test-time training for scientific discovery under
+            uncertainty, adaptive compute allocation, agentic planning, and
+            stratified scaling search for reasoning in large language models and
+            diffusion language models. I also work on evolving agentic systems
+            through Internet of Evolving Agents frameworks with dynamic
+            reputation modeling and social graph-based coordination. In
+            addition, I focus on reinforcement learning for LLMs, including
+            preference optimization, active learning, alignment, and reward
+            decomposition methods to reduce sycophancy and improve reasoning
+            reliability.
           </p>
         </fieldset>
 
-        <div className="border border-white/20">
+        <div className="overflow-hidden rounded-2xl border border-yellow-500/25 bg-black/40 shadow-[0_0_30px_rgba(234,179,8,0.06)]">
           {interests.map((interest, i) => (
             <div
               key={i}
-              className="px-6 py-5 border-b border-white/20 last:border-b-0"
+              className="px-6 py-5 border-b border-yellow-500/15 last:border-b-0 transition-colors duration-300 hover:bg-yellow-500/[0.04]"
               data-testid={`row-interest-${i}`}
             >
-              <p className="font-display font-bold text-md md:text-lg text-white mb-2">
+              <p className="mb-2 font-display text-md font-bold text-yellow-300 md:text-lg">
                 {interest.title}
               </p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+              <p className="mb-3 text-sm leading-relaxed text-yellow-50/75">
                 {interest.desc}
               </p>
-              <span className="text-xs font-mono text-white/40">
+              <span className="text-xs font-mono text-yellow-400/50">
                 {interest.venues}
               </span>
             </div>
@@ -60,4 +70,3 @@ export function ResearchInterestsSection() {
     </Section>
   );
 }
-
