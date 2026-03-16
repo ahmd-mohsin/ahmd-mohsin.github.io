@@ -66,25 +66,28 @@ export function ExperienceSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
       >
-        <div className="border border-white/20">
+        <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
           {experiences.map((exp, i) => (
             <div
               key={i}
-              className="px-6 py-5 border-b border-white/20 last:border-b-0"
+              className="border-b border-yellow-500/25 px-6 py-5 last:border-b-0"
               data-testid={`row-experience-${i}`}
             >
-              <p className="font-display font-bold text-md md:text-lg text-white mb-1">
+              <p className="mb-1 font-display text-base font-bold text-yellow-400 md:text-lg">
                 {exp.org}
               </p>
-              <span className="text-xs font-mono text-white/40 block mb-3">
+
+              <span className="mb-3 block text-xs font-mono text-yellow-500/70">
                 {exp.dateRange} · Advisor: {exp.advisor}
               </span>
+
               {exp.projects.map((project, j) => (
                 <div key={j} className="mb-4 last:mb-0">
-                  <p className="font-semibold text-sm text-white/90 mb-2">
+                  <p className="mb-2 text-sm font-semibold text-yellow-300">
                     Project: {project.name}
                   </p>
-                  <ul className="list-disc list-inside text-sm text-muted-foreground leading-relaxed space-y-1">
+
+                  <ul className="list-disc list-inside space-y-1 text-sm leading-relaxed text-muted-foreground">
                     {project.bullets.map((bullet, k) => (
                       <li key={k}>{bullet}</li>
                     ))}
