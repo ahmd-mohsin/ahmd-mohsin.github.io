@@ -28,7 +28,7 @@ const experiences = [
     ],
   },
   {
-    org: "Intel Corporation, Ph.D. Researcher",
+    org: "Intel Corporation",
     dateRange: "September 2024 – December 2024",
     advisor: "Dr. John M. Cioffi",
     projects: [
@@ -42,7 +42,7 @@ const experiences = [
     ],
   },
   {
-    org: "Samsung Semiconductors, Ph.D. Researcher",
+    org: "Samsung Semiconductors",
     dateRange: "June 2024 – September 2025",
     advisor: "Dr. John M. Cioffi",
     projects: [
