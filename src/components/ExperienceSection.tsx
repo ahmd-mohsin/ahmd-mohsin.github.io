@@ -54,7 +54,7 @@ export function ResearchInterestsSection() {
               className="border-b border-yellow-500/25 px-6 py-5 last:border-b-0"
               data-testid={`row-interest-${i}`}
             >
-              <p className="mb-2 font-display text-md font-bold text-yellow-400 md:text-lg">
+              <p className="mb-2 font-display text-base font-bold text-yellow-400 md:text-lg">
                 {interest.title}
               </p>
               <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
