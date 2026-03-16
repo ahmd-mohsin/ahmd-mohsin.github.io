@@ -3,78 +3,93 @@ import { motion } from "framer-motion";
 
 const newsItems = [
   {
+    date: "2026",
+    content: "Served as an Area Chair for ICASSP.",
+  },
+  {
+    date: "2026",
+    content: "Selected as a Qualcomm Fellowship finalist.",
+  },
+  {
+    date: "2026",
+    content: "Serving as Workshop Co-Chair for VTC Fall 2026 in Boston.",
+  },
+  {
     date: "September 2025",
     content:
-      "Served as a member of technical program committee @ NeurIPS 2025 and a NeurIPS reviewer as well.",
+      "Served as a member of the Technical Program Committee at NeurIPS 2025 and also as a NeurIPS reviewer.",
   },
   {
     date: "August 2025",
     content:
-      "Received recognition for exemplary reviewer 2025 for IEEE Wireless Communications Letters 2025.",
+      "Received the Exemplary Reviewer recognition for IEEE Wireless Communications Letters 2025.",
   },
   {
     date: "July 2025",
     content:
-      "Added to the IEEE special interests group (SIG) on AI-driven TN-NTN Networks founding members.",
+      "Added as a founding member of the IEEE Special Interest Group on AI-driven TN-NTN Networks.",
   },
   {
     date: "July 2025",
     content:
-      'ICML 2025 paper accepted on "Continual Learning for Wireless Channel Estimation" and won a student travel grant to ICML.',
+      'Paper accepted at ICML 2025 on "Continual Learning for Wireless Channel Estimation," along with a student travel grant to ICML.',
   },
   {
     date: "May 2025",
     content:
-      "ICC Student travel grant awarded for Montreal and best workshop paper award for RAG optimized wireless environment perception.",
+      "Received an ICC student travel grant for Montreal and a best workshop paper award for RAG-optimized wireless environment perception.",
   },
   {
     date: "Jan 2025",
     content:
-      "2 papers for Hierarchical Deep RL and Joint Source Compression accepted @ AAAI 2025 taking place in Philadelphia.",
+      "Two papers on Hierarchical Deep RL and Joint Source Compression accepted at AAAI 2025 in Philadelphia.",
   },
   {
     date: "Dec 2024",
     content:
-      "2 papers for Diffusion based Langevin dynamics and minPMAC optimization accepted @ IEEE ICASSP 2025 taking place in India.",
+      "Two papers on diffusion-based Langevin dynamics and minPMAC optimization accepted at IEEE ICASSP 2025 in India.",
   },
   {
     date: "Dec 2024",
-    content: "Globecom 2024 travel grant awarded for travel to Cape Town.",
+    content: "Awarded a Globecom 2024 travel grant for travel to Cape Town.",
   },
   {
     date: "Sept 2024",
-    content: "Best poster award nomination @ 6G Summit in Abu Dhabi.",
+    content: "Received a Best Poster Award nomination at the 6G Summit in Abu Dhabi.",
   },
   {
     date: "Apr 2024",
-    content: "Rectors Gold Medal for best undergraduate thesis.",
+    content: "Awarded the Rector’s Gold Medal for best undergraduate thesis.",
   },
   {
     date: "Jan 2024",
-    content: "PhD Acceptance from Stanford with Stanford Graduate Fellowship.",
+    content: "Accepted to Stanford with the Stanford Graduate Fellowship.",
   },
   {
     date: "Aug 2022",
     content:
-      "First paper accepted at ICDAR 2023 beating Microsoft's DiT for tabular recognition tasks (SOTA Model).",
+      "First paper accepted at ICDAR 2023, outperforming Microsoft’s DiT on table recognition tasks.",
   },
   {
     date: "Oct 2021",
     content:
-      "ECAT Scholarship, for being top 10 in Pakistan in Engineering category test.",
+      "Received the ECAT Scholarship for ranking among the top 10 in Pakistan in the engineering category test.",
   },
   {
     date: "Jun 2021",
     content:
-      "President's medal for being among top 3 all over Pakistan at HSSC level.",
+      "Received the President’s Medal for ranking among the top 3 students across Pakistan at the HSSC level.",
   },
-  { date: "Jan 2021 - Jun 2023", content: "NUST scholarship for 4 pointer." },
+  {
+    date: "Jan 2021 - Jun 2023",
+    content: "Awarded the NUST scholarship for maintaining a 4.0 GPA.",
+  },
 ];
 
 export function NewsSection() {
   return (
     <Section id="news" title="News">
-      <div className="border border-white/20">
+      <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
         <div className="grid md:grid-cols-3">
           {newsItems.map((item, i) => (
             <motion.div
@@ -83,13 +98,13 @@ export function NewsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.03, duration: 0.3 }}
-              className="p-6 border-b border-white/20 md:border-r md:odd:border-white/20 last:border-b-0 md:[&:nth-last-child(2):nth-child(odd)]:border-b-0"
+              className="border-b border-yellow-500/25 p-6 md:border-r md:border-r-yellow-500/25 last:border-b-0 md:[&:nth-last-child(2):nth-child(odd)]:border-b-0"
               data-testid={`card-news-${i}`}
             >
-              <span className="inline-block px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest text-white/50 border border-white/15 mb-4">
+              <span className="mb-4 inline-block border border-yellow-500/30 px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest text-yellow-400/80">
                 {item.date}
               </span>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm leading-relaxed text-muted-foreground">
                 {item.content}
               </p>
             </motion.div>
