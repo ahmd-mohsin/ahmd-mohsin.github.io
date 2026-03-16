@@ -28,11 +28,11 @@ export function ResearchInterestsSection() {
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
       >
-        <fieldset className="mb-10 rounded-2xl border border-yellow-500/40 px-6 pb-6 pt-3">
+        <fieldset className="mb-10 rounded-2xl border border-yellow-500/30 bg-yellow-500/5 px-6 pb-6 pt-3 shadow-[0_0_30px_rgba(234,179,8,0.08)]">
           <legend className="px-3 text-xs font-mono uppercase tracking-[0.25em] text-yellow-400/80">
             Main Area
           </legend>
-          <p className="text-sm leading-relaxed text-muted-foreground">
+          <p className="text-sm leading-relaxed text-yellow-50/80">
             My primary research spans LLM inference and test-time scaling,
             including test-time training for scientific discovery under
             uncertainty, adaptive compute allocation, agentic planning, and
@@ -47,20 +47,20 @@ export function ResearchInterestsSection() {
           </p>
         </fieldset>
 
-        <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
+        <div className="overflow-hidden rounded-2xl border border-yellow-500/25 bg-black/40 shadow-[0_0_30px_rgba(234,179,8,0.06)]">
           {interests.map((interest, i) => (
             <div
               key={i}
-              className="border-b border-yellow-500/25 px-6 py-5 last:border-b-0"
+              className="px-6 py-5 border-b border-yellow-500/15 last:border-b-0 transition-colors duration-300 hover:bg-yellow-500/[0.04]"
               data-testid={`row-interest-${i}`}
             >
-              <p className="mb-2 font-display text-base font-bold text-yellow-400 md:text-lg">
+              <p className="mb-2 font-display text-md font-bold text-yellow-300 md:text-lg">
                 {interest.title}
               </p>
-              <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="mb-3 text-sm leading-relaxed text-yellow-50/75">
                 {interest.desc}
               </p>
-              <span className="text-xs font-mono text-yellow-500/70">
+              <span className="text-xs font-mono text-yellow-400/50">
                 {interest.venues}
               </span>
             </div>
