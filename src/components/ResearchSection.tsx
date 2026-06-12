@@ -120,13 +120,7 @@ const papers = [
 
 const INITIAL_COUNT = 6;
 
-function PaperRow({
-  paper,
-  index,
-}: {
-  paper: (typeof papers)[number];
-  index: number;
-}) {
+function PaperRow({ paper, index }: { paper: (typeof papers)[number]; index: number }) {
   const num = String(index + 1).padStart(2, "0");
 
   return (
@@ -135,32 +129,28 @@ function PaperRow({
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ delay: (index % INITIAL_COUNT) * 0.04, duration: 0.5 }}
-      className="border-t border-white/[0.06] py-6 grid grid-cols-[2rem_1fr] md:grid-cols-[2rem_120px_1fr] gap-x-5 gap-y-2 group"
+      className="border-t border-[#c0d4c2]/50 py-6 grid grid-cols-[2rem_1fr] md:grid-cols-[2rem_110px_1fr] gap-x-5 gap-y-1 group"
       data-testid={`card-paper-${index}`}
     >
-      {/* Index */}
-      <span className="font-mono text-[10px] text-white/15 pt-0.5 row-span-3 md:row-span-1 self-start">
+      <span className="font-mono text-[10px] text-[#c0d4c2] pt-0.5 self-start">
         {num}
       </span>
 
-      {/* Venue (hidden on mobile, beside index on md) */}
-      <span className="hidden md:block font-mono text-[10px] text-white/20 pt-0.5 self-start">
+      <span className="hidden md:block font-mono text-[10px] text-[#90aa98] pt-0.5 self-start leading-relaxed">
         {paper.venue} '{paper.year.slice(2)}
         {paper.status && (
-          <span className="block text-white/15 mt-0.5">· {paper.status}</span>
+          <span className="block text-[#a0b8a4] mt-0.5">· {paper.status}</span>
         )}
       </span>
 
-      {/* Title */}
       <div className="col-start-2 md:col-start-3">
-        {/* Mobile venue */}
-        <span className="md:hidden font-mono text-[10px] text-white/20 block mb-1.5">
+        <span className="md:hidden font-mono text-[10px] text-[#90aa98] block mb-1.5">
           {paper.venue} {paper.year}{paper.status && ` · ${paper.status}`}
         </span>
-        <h3 className="text-sm font-medium text-white/75 leading-snug group-hover:text-white/90 transition-colors mb-2">
+        <h3 className="text-sm font-semibold text-[#1a3520] leading-snug group-hover:text-[#2d5035] transition-colors mb-2">
           {paper.title}
         </h3>
-        <p className="text-xs text-white/25 leading-relaxed mb-3">
+        <p className="text-xs text-[#90aa98] leading-relaxed mb-3">
           {paper.authors}
         </p>
         <div className="flex flex-wrap gap-4">
@@ -168,7 +158,7 @@ function PaperRow({
             <a
               key={j}
               href="#"
-              className="font-mono text-[10px] text-white/30 hover:text-white/70 underline underline-offset-4 transition-colors"
+              className="font-mono text-[10px] text-[#6a8a72] hover:text-[#2d5035] underline underline-offset-4 decoration-[#c0d4c2] hover:decoration-[#4a6852] transition-colors"
               data-testid={`link-paper-${index}-${link}`}
             >
               {link} ↗
@@ -193,15 +183,15 @@ export function ResearchSection() {
       </div>
 
       {papers.length > INITIAL_COUNT && (
-        <div className="border-t border-white/[0.06] pt-6 flex items-center justify-between">
+        <div className="border-t border-[#c0d4c2]/50 pt-6 flex items-center justify-between">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="font-mono text-[10px] text-white/25 hover:text-white/55 transition-colors uppercase tracking-widest"
+            className="font-mono text-[10px] text-[#90aa98] hover:text-[#2d5035] transition-colors uppercase tracking-widest"
           >
             {expanded ? "↑ Show Less" : `Show All ${papers.length} Publications`}
           </button>
           {!expanded && (
-            <span className="font-mono text-[10px] text-white/15">
+            <span className="font-mono text-[10px] text-[#c0d4c2]">
               {papers.length - INITIAL_COUNT} more
             </span>
           )}

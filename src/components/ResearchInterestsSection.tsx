@@ -27,7 +27,7 @@ export function ResearchInterestsSection() {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-sm leading-relaxed text-white/35 mb-12 max-w-2xl"
+        className="text-sm leading-relaxed text-[#5d7a65] mb-12 max-w-2xl italic"
       >
         My primary research spans LLM inference and test-time scaling, evolving
         agentic systems, and reinforcement learning for LLMs — including
@@ -44,18 +44,18 @@ export function ResearchInterestsSection() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: i * 0.07, duration: 0.5 }}
-            className="border-t border-white/[0.06] py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
+            className="border-t border-[#c0d4c2]/50 py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
             data-testid={`row-interest-${i}`}
           >
             <div>
-              <p className="text-sm font-medium text-white/80 leading-snug mb-2">
+              <p className="text-sm font-semibold text-[#1a3520] leading-snug mb-2">
                 {interest.title}
               </p>
-              <span className="font-mono text-[10px] text-white/20 tracking-wider">
+              <span className="font-mono text-[10px] text-[#90aa98] tracking-wider">
                 {interest.venues}
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-white/40">
+            <p className="text-sm leading-relaxed text-[#5d7a65]">
               {interest.desc}
             </p>
           </motion.div>

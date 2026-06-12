@@ -13,7 +13,7 @@ export function Section({ id, title, children, className }: SectionProps) {
   return (
     <section
       id={id}
-      className={cn("py-24 md:py-32 border-b border-white/[0.06] last:border-0", className)}
+      className={cn("py-24 md:py-32 border-b border-[#c0d4c2]/50 last:border-0", className)}
     >
       <div className="max-w-5xl mx-auto px-6">
         {title && (
@@ -24,8 +24,8 @@ export function Section({ id, title, children, className }: SectionProps) {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-4 mb-12"
           >
-            <span className="block h-px w-6 bg-white/15" />
-            <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-white/25">
+            <span className="block h-px w-6 bg-[#c0d4c2]" />
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#90aa98]">
               {title}
             </h2>
           </motion.div>
