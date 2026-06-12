@@ -47,7 +47,7 @@ export function HeroSection() {
               transition={{ duration: 0.6 }}
               className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#4a6852] mb-7"
             >
-              Ph.D. Candidate · Stanford EE · SAIL
+              Graduate Student · Stanford · SAIL
             </motion.p>
 
             {/* Name — large serif */}
@@ -100,9 +100,9 @@ export function HeroSection() {
                 multi-agent systems.
               </p>
               <p className="text-sm leading-relaxed text-[#2d5035] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
-                Ph.D. in Electrical Engineering at Stanford — LLM post-training,
-                test-time scaling, and reinforcement learning. Collaborations
-                with Google DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
+                Graduate student at Stanford — LLM post-training, test-time
+                scaling, and reinforcement learning. Collaborations with Google
+                DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
               </p>
             </motion.div>
 
