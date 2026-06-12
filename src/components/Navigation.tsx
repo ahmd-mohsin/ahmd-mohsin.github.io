@@ -48,7 +48,7 @@ export function Navigation() {
           onClick={() => setIsOpen(!isOpen)}
           data-testid="button-mobile-menu"
         >
-          {isOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+          {isOpen ? <X className="w-5 h-5" strokeWidth={2.5} /> : <Menu className="w-5 h-5" strokeWidth={2.5} />}
         </button>
       </div>
 

@@ -16,13 +16,13 @@ export function ContactSection() {
             className="flex items-center gap-5 group"
             data-testid="link-email"
           >
-            <Mail className="w-4 h-4 text-[#c0d4c2] group-hover:text-[#4a6852] transition-colors shrink-0" />
+            <Mail className="w-5 h-5 text-[#5d7a65] group-hover:text-[#2d5035] transition-colors shrink-0" strokeWidth={2.5} />
             <span className="font-mono text-sm text-[#6a8a72] group-hover:text-[#2d5035] transition-colors">
               muahmed@stanford.edu
             </span>
           </a>
           <div className="flex items-center gap-5">
-            <MapPin className="w-4 h-4 text-[#c0d4c2] shrink-0" />
+            <MapPin className="w-5 h-5 text-[#5d7a65] shrink-0" strokeWidth={2.5} />
             <span className="font-mono text-sm text-[#90aa98]">Stanford, CA, USA</span>
           </div>
         </div>

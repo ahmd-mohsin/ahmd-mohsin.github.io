@@ -19,7 +19,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(160deg, rgba(238,246,238,0.10) 0%, rgba(232,243,232,0.14) 50%, rgba(225,240,228,0.22) 100%)",
+            "linear-gradient(160deg, rgba(238,246,238,0.06) 0%, rgba(232,243,232,0.10) 50%, rgba(225,240,228,0.16) 100%)",
         }}
       />
       {/* Left scrim — readability for text without hiding the photo */}
@@ -27,22 +27,19 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to right, rgba(238,246,238,0.45) 0%, rgba(238,246,238,0.18) 48%, transparent 62%)",
+            "linear-gradient(to right, rgba(238,246,238,0.38) 0%, rgba(238,246,238,0.14) 48%, transparent 62%)",
         }}
       />
       {/* Bottom blend into page background */}
       <div
         className="absolute bottom-0 left-0 right-0 h-40"
         style={{
-          background: "linear-gradient(to bottom, transparent, rgba(238,244,238,0.65))",
+          background: "linear-gradient(to bottom, transparent, rgba(238,244,238,0.50))",
         }}
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-24 w-full">
-        <div className="flex flex-col md:flex-row items-center gap-16 md:gap-24">
-
-          {/* Text Content */}
-          <div className="flex-1 text-center md:text-left">
+          <div className="text-center md:text-left">
             {/* Label */}
             <motion.p
               initial={{ opacity: 0, y: 10 }}
@@ -117,11 +114,11 @@ export function HeroSection() {
               className="flex flex-wrap items-center justify-center md:justify-start gap-5 mt-9"
             >
               {[
-                { href: "mailto:muahmed@stanford.edu", label: "Email", icon: <Mail className="w-4 h-4" /> },
-                { href: "https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en", label: "Google Scholar", icon: <SiGooglescholar className="w-4 h-4" />, external: true },
-                { href: "https://dblp.org/pid/354/9627.html", label: "DBLP", icon: <PiBookOpenTextFill className="w-4 h-4" />, external: true },
-                { href: "https://github.com/ahmd-mohsin", label: "GitHub", icon: <SiGithub className="w-4 h-4" />, external: true },
-                { href: "https://twitter.com/ahmedmohsin7338", label: "X", icon: <SiX className="w-4 h-4" />, external: true },
+                { href: "mailto:muahmed@stanford.edu", label: "Email", icon: <Mail className="w-5 h-5" strokeWidth={2.5} /> },
+                { href: "https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en", label: "Google Scholar", icon: <SiGooglescholar className="w-5 h-5" />, external: true },
+                { href: "https://dblp.org/pid/354/9627.html", label: "DBLP", icon: <PiBookOpenTextFill className="w-5 h-5" />, external: true },
+                { href: "https://github.com/ahmd-mohsin", label: "GitHub", icon: <SiGithub className="w-5 h-5" />, external: true },
+                { href: "https://twitter.com/ahmedmohsin7338", label: "X", icon: <SiX className="w-5 h-5" />, external: true },
               ].map((item) => (
                 <a
                   key={item.label}
@@ -130,13 +127,13 @@ export function HeroSection() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   title={item.label}
                   aria-label={item.label}
-                  className="text-[#90aa98] hover:text-[#2d5035] transition-colors duration-200"
+                  className="text-[#5d7a65] hover:text-[#2d5035] transition-colors duration-200"
                 >
                   {item.icon}
                 </a>
               ))}
 
-              <span className="w-px h-4 bg-[#c0d4c2]" />
+              <span className="w-px h-5 bg-[#a0c0a8]" />
 
               <a
                 href="https://conoid.ai/"
@@ -148,25 +145,6 @@ export function HeroSection() {
               </a>
             </motion.div>
           </div>
-
-          {/* Profile Image */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.1, duration: 0.9 }}
-            className="flex-shrink-0"
-          >
-            <div className="relative w-52 h-52 md:w-72 md:h-72 overflow-hidden border border-[#a0c0a8]/50 shadow-[0_4px_40px_rgba(45,80,53,0.12)]">
-              <img
-                src="/ahmed.jpeg"
-                alt="Muhammad Ahmed Mohsin"
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            </div>
-          </motion.div>
-
-        </div>
       </div>
     </section>
   );
