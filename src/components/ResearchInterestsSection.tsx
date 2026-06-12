@@ -3,19 +3,19 @@ import { motion } from "framer-motion";
 
 const interests = [
   {
-    title: "LLM Inference and Test-Time Scaling",
-    desc: "Working on test-time training methods for scientific discovery under uncertainty, with a focus on adaptive compute allocation, agentic planning, and stratified scaling search for test-time reasoning in large language models and diffusion language models.",
-    venues: "CoLM'26 · NeurIPS'26 · Ongoing",
+    title: "Preference Optimization and Alignment for LLMs",
+    desc: "Designing sample-efficient preference learning and reinforcement-learning methods for aligning language-model reasoning: continuous-utility and general-preference formulations (CU-DPO, General Preference RL), active alignment under Bayesian general preference models with calibrated uncertainty, and sycophancy reduction.",
+    venues: "ICML'26 · CoLM'26 · NeurIPS'26 · EMNLP'26",
   },
   {
-    title: "Evolving Agentic Systems",
-    desc: "Developing Internet of Evolving Agents frameworks for self-evolving multi-agent systems with dynamic reputation modeling and social graph-based coordination mechanisms.",
+    title: "Test-Time Scaling and Test-Time Discovery",
+    desc: "Developing adaptive test-time compute methods for reasoning and scientific discovery under uncertainty: dynamic control of inference depth, tool invocation, and verification under strict budgets; stratified scaling search for diffusion language models; and epistemic-uncertainty-driven test-time training for discovery.",
+    venues: "ICML'26 · CoLM'26 · NeurIPS'26 · EMNLP'26",
+  },
+  {
+    title: "Interactive and Multi-Agent Systems",
+    desc: "Building self-evolving multi-agent ecosystems in which agents accumulate scoped memory, earn reputation through Bayesian posteriors, and coordinate over an evolving social graph. Related work on learning from code-agent trajectories via causal redundancy analysis, and on privacy, security, and shared context in collaborative agentic reasoning.",
     venues: "NeurIPS'26 · Ongoing",
-  },
-  {
-    title: "Reinforcement Learning for LLMs",
-    desc: "Research on preference optimization, active learning, and alignment methods for large language model reasoning systems. Current work also explores reinforcement learning approaches for reward decomposition to mitigate sycophancy and improve alignment.",
-    venues: "ICML'26 · NeurIPS'26 · Ongoing",
   },
 ];
 
@@ -29,11 +29,10 @@ export function ResearchInterestsSection() {
         transition={{ duration: 0.5 }}
         className="text-sm leading-relaxed text-[#5d7a65] mb-12 max-w-2xl italic"
       >
-        My primary research spans LLM inference and test-time scaling, evolving
-        agentic systems, and reinforcement learning for LLMs — including
-        preference optimization, active learning, alignment, and reward
-        decomposition methods to reduce sycophancy and improve reasoning
-        reliability.
+        My research spans preference optimization and alignment for LLMs,
+        adaptive test-time scaling and discovery, and interactive multi-agent
+        systems — with collaborations across Google DeepMind, Meta, Amazon AGI,
+        and Microsoft Core AI.
       </motion.p>
 
       <div>

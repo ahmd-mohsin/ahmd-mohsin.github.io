@@ -47,7 +47,7 @@ export function HeroSection() {
               transition={{ duration: 0.6 }}
               className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#4a6852] mb-7"
             >
-              Graduate Researcher · Stanford SAIL
+              Ph.D. Candidate · Stanford EE · SAIL
             </motion.p>
 
             {/* Name — large serif */}
@@ -95,14 +95,14 @@ export function HeroSection() {
               className="space-y-3 max-w-xl"
             >
               <p className="text-sm leading-relaxed text-[#1a3520] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
-                Research on LLM post-training and inference — preference
-                optimization, active learning, alignment for reasoning models,
-                and adaptive agentic test-time compute.
+                Research on preference optimization and alignment for LLMs,
+                adaptive test-time scaling and discovery, and self-evolving
+                multi-agent systems.
               </p>
               <p className="text-sm leading-relaxed text-[#2d5035] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
-                Also working on Internet of Evolving Agents frameworks and
-                applied reinforcement learning for complex, non-stationary
-                decision-making.
+                Ph.D. in Electrical Engineering at Stanford — LLM post-training,
+                test-time scaling, and reinforcement learning. Collaborations
+                with Google DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
               </p>
             </motion.div>
 
@@ -134,6 +134,15 @@ export function HeroSection() {
               ))}
 
               <span className="w-px h-5 bg-[#a0c0a8]" />
+
+              <a
+                href="/Masters.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[11px] text-[#2d5035] hover:text-[#1a3520] transition-colors border border-[#4a6852]/60 hover:border-[#2d5035] px-3 py-1.5 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
+              >
+                CV ↗
+              </a>
 
               <a
                 href="https://conoid.ai/"

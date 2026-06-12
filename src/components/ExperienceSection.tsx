@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 const experiences = [
   {
     org: "Stanford Artificial Intelligence Laboratory (SAIL)",
-    dateRange: "Dec 2025 – Present",
+    dateRange: "Sep 2025 – Present",
     advisor: "Prof. Emily Fox",
     projects: [
       {
@@ -16,13 +16,13 @@ const experiences = [
       {
         name: "Test-Time Compute and Reasoning in Large Language Models",
         bullets: [
-          "Currently working on adaptive test-time compute strategies for improving reasoning accuracy in LLMs, focusing on dynamic control of inference depth, tool usage, and verification under strict compute constraints.",
+          "Submitted work on adaptive test-time compute allocation for LLM reasoning, focusing on dynamic control of inference depth, tool invocation, and verification under strict compute budgets, and analyzing principled trade-offs among accuracy, latency, and reliability.",
         ],
       },
       {
         name: "Bayesian Preference Alignment for Mathematical Reasoning",
         bullets: [
-          "Developed active learning frameworks for Bayesian General Preference Models and CU-DPO to align small language models for mathematical reasoning tasks, enabling sample-efficient preference learning with calibrated uncertainty (ICML 2026 and CoLM 2026).",
+          "Developed active learning frameworks for Bayesian General Preference Models and CU-DPO to align small language models for mathematical reasoning, enabling sample-efficient preference learning with calibrated uncertainty (ICML 2026, CoLM 2026).",
         ],
       },
     ],
@@ -35,8 +35,7 @@ const experiences = [
       {
         name: "Neural Gaussian Radio Fields for Environment Perception",
         bullets: [
-          "Worked on 3D computer vision-based channel estimation for next-generation wireless networks.",
-          "Implemented a CUDA-based differentiable real-time pipeline with 1 ms inference time, leading to KDD 2026 submission.",
+          "Developed a 3D computer vision-based channel estimation framework for next-generation wireless networks, implementing a CUDA-based differentiable real-time pipeline achieving 1 ms inference latency (KDD 2026 submission).",
         ],
       },
     ],
@@ -47,10 +46,9 @@ const experiences = [
     advisor: "Dr. John M. Cioffi",
     projects: [
       {
-        name: "GNN for Accelerating Low-Rank SDP Solvers",
+        name: "Graph Neural Networks for Accelerating Low-Rank SDP Solvers",
         bullets: [
-          "Developed a constraint-graph representation of SDPs and a GNN encoder (Graph Attention) with sequence prediction to learn rank trajectories directly from problem structure.",
-          "Integrated learned rank schedules into low-rank solvers, yielding up to 3× speedups on large-scale benchmarks (expected NeurIPS 2026).",
+          "Developed a constraint-graph representation of SDPs with a Graph Attention Network encoder to predict rank trajectories, integrating learned rank schedules into low-rank solvers to eliminate manual heuristics and achieve up to 3× speedups on large-scale benchmarks (JMLR 2026).",
         ],
       },
     ],

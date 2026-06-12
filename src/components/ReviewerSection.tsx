@@ -2,14 +2,11 @@ import { Section } from "@/components/Section";
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
 
-const conferences = ["AAAI", "ICDAR", "GLOBECOM", "WCNC", "ICASSP", "ICC", "ICML", "NeurIPS", "TMLR", "KDD"];
+const conferences = ["AAAI", "ICDAR", "NeurIPS", "ICML", "ICLR", "KDD", "CoLM"];
 const journals = [
-  { name: "IEEE TVT", desc: "Vehicular Technology" },
-  { name: "IEEE GCN", desc: "Green Comm. & Networks" },
-  { name: "IEEE CL", desc: "Communication Letters" },
-  { name: "IEEE WC", desc: "Wireless Communications" },
-  { name: "IEEE WCM", desc: "Wireless Comm. Magazine" },
-  { name: "IEEE TNSE", desc: "Network Science & Engineering" },
+  { name: "IEEE TAI", desc: "Transactions on AI" },
+  { name: "TMLR", desc: "Transactions on Machine Learning Research" },
+  { name: "AAI", desc: "Applied Artificial Intelligence" },
 ];
 const travelGrants = [
   "IEEE GLOBECOM 2024 (Cape Town, South Africa)",
@@ -17,12 +14,16 @@ const travelGrants = [
   "Stanford Conference Travel Grant 2025",
 ];
 const awards = [
+  "Stanford Graduate Fellowship",
+  "Knight-Hennessy Fellowship — Finalist",
+  "President's Medal — Third position nationwide in pre-engineering",
   "6G Summit Abu Dhabi — Best Poster Nomination",
   "IEEE ICC Canada — Best Workshop Paper Award",
   "IEEE Communications Society Competition — Honorary Mention",
   "IEEE FIT 2026 — Best Main Conference Paper Award",
+  "Rector's Gold Medal — Best final year project cohort (NUST, 2024)",
 ];
-const tpc = ["WCNC 2026", "ICC 2026", "VTC 2026", "NeurIPS 2025", "ICASSP 2026"];
+const tpc = ["NeurIPS 2025", "ICASSP 2026"];
 const leadership = [
   { role: "Workshop Co-Chair", venue: "IEEE ICC 2026" },
   { role: "Area Chair", venue: "ICASSP 2026, NeurIPS 2025" },

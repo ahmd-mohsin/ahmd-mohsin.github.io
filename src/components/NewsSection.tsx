@@ -2,7 +2,8 @@ import { Section } from "@/components/Section";
 import { motion } from "framer-motion";
 
 const newsItems = [
-  { date: "2026", content: "Served as an Area Chair for ICASSP." },
+  { date: "2026", content: "Knight-Hennessy Fellowship finalist." },
+  { date: "2026", content: "Served as an Area Chair for ICASSP and NeurIPS 2025." },
   { date: "2026", content: "Selected as a Qualcomm Fellowship finalist." },
   { date: "2026", content: "Serving as Workshop Co-Chair for VTC Fall 2026 in Boston." },
   { date: "Sep 2025", content: "Served as a member of the Technical Program Committee at NeurIPS 2025 and also as a NeurIPS reviewer." },

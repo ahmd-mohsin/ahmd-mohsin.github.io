@@ -2,22 +2,64 @@ import { Section } from "@/components/Section";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const papers = [
+type PaperLink = { label: string; url: string };
+
+type Paper = {
+  title: string;
+  authors: string;
+  venue: string;
+  year: string;
+  status?: string;
+  links?: PaperLink[];
+};
+
+const papers: Paper[] = [
   {
-    title: "Internet of Evolving Agents",
-    authors: "Z. Ali*, M. T. Shah*, M. A. Mohsin*, M. Umer, A. Bilal, E. Fox",
+    title: "Distilling Disagreement at Test Time",
+    authors: "Muhammad Ahmed Mohsin, Muhammad Umer, Ahsan Bilal, John M. Cioffi, Emily Fox",
+    venue: "EMNLP",
+    year: "2026",
+    status: "in progress",
+  },
+  {
+    title: "General Preference Reinforcement Learning",
+    authors: "Muhammad Umer*, M. A. Mohsin*, A. Bilal*, E. Fox",
     venue: "NeurIPS",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2605.18721" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2605.18721" },
+    ],
+  },
+  {
+    title: "Epistemic Uncertainty for Test-Time Discovery",
+    authors: "Muhammad Ahmed Mohsin*, Kainat Riaz*, Muhammad Umer, Ahsan Bilal, John M. Cioffi, Emily Fox",
+    venue: "NeurIPS",
+    year: "2026",
+    status: "in progress",
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2605.11328" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2605.11328" },
+    ],
+  },
+  {
+    title: "Internet of Evolving Agents",
+    authors: "Z. Ali*, M. A. Mohsin*, M. Umer, A. Bilal, E. Fox",
+    venue: "NeurIPS",
+    year: "2026",
+    status: "in progress",
   },
   {
     title: "Sycophancy Disentanglement in LLMs via Reward Decomposition",
-    authors: "M. A. Mohsin, A. Bilal, M. Umer, E. Fox",
-    venue: "NeurIPS",
+    authors: "M. A. Mohsin*, A. Bilal*, M. Umer, E. Fox",
+    venue: "CoLM",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2604.05279" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2604.05279" },
+    ],
   },
   {
     title: "S³: Stratified Scaling Search for Test-Time in Diffusion Language Models",
@@ -25,7 +67,10 @@ const papers = [
     venue: "CoLM",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2604.06260" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2604.06260" },
+    ],
   },
   {
     title: "Active Alignment with Bayesian General Preference Models",
@@ -33,7 +78,6 @@ const papers = [
     venue: "CoLM",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
   },
   {
     title: "Continuous-Utility Direct Preference Optimization",
@@ -41,7 +85,10 @@ const papers = [
     venue: "ICML",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2602.00931" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2602.00931" },
+    ],
   },
   {
     title: "What If We Allocate Test-Time Compute Adaptively?",
@@ -49,15 +96,17 @@ const papers = [
     venue: "ICML",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2602.01070" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2602.01070" },
+    ],
   },
   {
-    title: "Graph Neural Network for Accelerating Low-Rank SDP Solvers",
+    title: "Graph Neural Networks for Accelerating Low-Rank SDP Solvers",
     authors: "M. A. Mohsin, M. Umer, A. Bilal, J. M. Cioffi, Ellen Vitercik",
     venue: "JMLR",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
   },
   {
     title: "Neural Gaussian Radio Fields for Channel Estimation",
@@ -65,62 +114,92 @@ const papers = [
     venue: "KDD",
     year: "2026",
     status: "in progress",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2508.11668" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2508.11668" },
+    ],
   },
   {
     title: "Continual Learning for Wireless Channel Prediction",
     authors: "M. A. Mohsin, M. Umer, A. Bilal, J. M. Cioffi",
     venue: "ICML",
     year: "2025",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2506.22471" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2506.22471" },
+    ],
   },
   {
     title: "Automated Prompt Optimization Improves Robustness of Medical Benchmarks for LLMs",
-    authors: "Asad Aali, Muhammad Ahmed Mohsin, Vasiliki Bikia, Arnav Singhvi, Suhana Bedi, Hejie Cui, Miguel Angel Fuentes Hernandez, Alyssa Unell, Yifan Mai, Michael Adam Pfeffer, Sanmi Koyejo, Roxana Daneshjou, Emily Alsentzer, Christopher Potts, Akshay S. Chaudhari",
+    authors: "Asad Aali, Muhammad Ahmed Mohsin, V. Bikia, A. Singhvi, S. Bedi, H. Cui, M. A. F. Hernandez, A. Unell, Y. Mai, M. A. Pfeffer, S. Koyejo, R. Daneshjou, E. Alsentzer, C. Potts, A. S. Chaudhari",
     venue: "ML4H",
     year: "2025",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://openreview.net/forum?id=PfjLpuLJi0" },
+      { label: "pdf", url: "https://openreview.net/pdf?id=PfjLpuLJi0" },
+    ],
   },
   {
     title: "On the Fundamental Limits of Large Models at Scale",
-    authors: "Muhammad Ahmed Mohsin, Muhammad Umer, Ahsan Bilal, Zeeshan Memon, Muhammad Ibtsaam Qadir, Sagnik Bhattacharya, Hassan Rizwan, Abhiram Rao Gorle, Maahe Zehra Kazmi, Ayesha Mohsin, Ali Subhan, M. Usman Rafique, Zihao He, Pulkit Mehta, Jinda Han, Muhammad Ali Jamshed, Dean F. Hougen, John M. Cioffi",
+    authors: "Muhammad Ahmed Mohsin, Muhammad Umer, Ahsan Bilal, Z. Memon, M. I. Qadir, S. Bhattacharya, H. Rizwan, A. R. Gorle, M. Z. Kazmi, A. Mohsin, A. Subhan, M. U. Rafique, Z. He, P. Mehta, J. Han, M. A. Jamshed, D. F. Hougen, J. M. Cioffi",
     venue: "TMLR",
     year: "2025",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2511.12869" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2511.12869" },
+    ],
   },
   {
     title: "Task-Aware Distributed Source Coding for Correlated Audio Signals Using Perceptual Loss",
     authors: "M. A. Mohsin, A. Bilal, S. Bhattacharya, J. M. Cioffi",
     venue: "AAAI",
     year: "2024",
-    links: ["paper"],
-  },
-  {
-    title: "Conditional Prior-Based Non-Stationary Channel Estimation Using Accelerated Diffusion Model-Based Denoising",
-    authors: "M. A. Mohsin, A. Bilal, M. Umer, A. Aali, M. A. Jamshed, J. M. Cioffi",
-    venue: "ICASSP",
-    year: "2025",
-    links: ["paper"],
-  },
-  {
-    title: "Successive Interference Cancellation-Aided Diffusion Models for Joint Channel Estimation and Data Detection in Low-Rank Channel Scenarios",
-    authors: "S. Bhattacharya, M. A. Mohsin, K. Rajabalifardi, J. M. Cioffi",
-    venue: "ICASSP",
-    year: "2024",
-    links: ["paper"],
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2501.17879" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2501.17879" },
+    ],
   },
   {
     title: "PyramidTabNet: Transformer-Based Table Recognition in Image-Based Documents",
     authors: "M. Umer, M. A. Mohsin, A. Ul-Hasan, F. Shafait",
     venue: "ICDAR",
     year: "2023",
-    links: ["paper"],
+    links: [
+      {
+        label: "paper",
+        url: "https://tukl.seecs.nust.edu.pk/members/projects/conference/PyramidTabNet-Transformer-based-Table-Recognition-in-Image-based-Documents.pdf",
+      },
+      {
+        label: "pdf",
+        url: "https://tukl.seecs.nust.edu.pk/members/projects/conference/PyramidTabNet-Transformer-based-Table-Recognition-in-Image-based-Documents.pdf",
+      },
+    ],
+  },
+  {
+    title: "Conditional Prior-Based Non-Stationary Channel Estimation Using Accelerated Diffusion Model-Based Denoising",
+    authors: "M. A. Mohsin, A. Bilal, M. Umer, A. Aali, M. A. Jamshed, J. M. Cioffi",
+    venue: "ICASSP",
+    year: "2025",
+    links: [
+      { label: "paper", url: "https://ieeexplore.ieee.org/abstract/document/11463983/" },
+      { label: "pdf", url: "https://ieeexplore.ieee.org/iel8/11460365/11460314/11463983.pdf" },
+    ],
+  },
+  {
+    title: "Successive Interference Cancellation-Aided Diffusion Models for Joint Channel Estimation and Data Detection",
+    authors: "S. Bhattacharya, M. A. Mohsin, K. Rajabalifardi, J. M. Cioffi",
+    venue: "ICASSP",
+    year: "2024",
+    links: [
+      { label: "paper", url: "https://ieeexplore.ieee.org/abstract/document/10888845/" },
+      { label: "pdf", url: "https://ieeexplore.ieee.org/iel8/10887540/10887541/10888845.pdf" },
+    ],
   },
 ];
 
 const INITIAL_COUNT = 6;
 
-function PaperRow({ paper, index }: { paper: (typeof papers)[number]; index: number }) {
+function PaperRow({ paper, index }: { paper: Paper; index: number }) {
   const num = String(index + 1).padStart(2, "0");
 
   return (
@@ -153,18 +232,22 @@ function PaperRow({ paper, index }: { paper: (typeof papers)[number]; index: num
         <p className="text-xs text-[#90aa98] leading-relaxed mb-3">
           {paper.authors}
         </p>
-        <div className="flex flex-wrap gap-4">
-          {paper.links.map((link, j) => (
-            <a
-              key={j}
-              href="#"
-              className="font-mono text-[10px] text-[#6a8a72] hover:text-[#2d5035] underline underline-offset-4 decoration-[#c0d4c2] hover:decoration-[#4a6852] transition-colors"
-              data-testid={`link-paper-${index}-${link}`}
-            >
-              {link} ↗
-            </a>
-          ))}
-        </div>
+        {paper.links && paper.links.length > 0 && (
+          <div className="flex flex-wrap gap-4">
+            {paper.links.map((link) => (
+              <a
+                key={link.label}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[10px] text-[#6a8a72] hover:text-[#2d5035] underline underline-offset-4 decoration-[#c0d4c2] hover:decoration-[#4a6852] transition-colors"
+                data-testid={`link-paper-${index}-${link.label}`}
+              >
+                {link.label} ↗
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </motion.div>
   );
