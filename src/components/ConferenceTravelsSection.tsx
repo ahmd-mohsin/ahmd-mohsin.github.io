@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 
 const travels = [
+  { image: "/ICASSP.jpeg", event: "IEEE ICASSP 2026", location: "Barcelona, Spain", caption: "Presenting work on diffusion models and non-stationary channel estimation" },
   { image: "/ieeeglobecom2024_1.jpeg", event: "IEEE Globecom 2024", location: "Cape Town, South Africa", caption: "Presenting research on AI-driven wireless networks" },
   { image: "/ieeeglobecom2024_2.jpeg", event: "IEEE Globecom 2024", location: "Cape Town, South Africa", caption: "Presenting research on AI-driven wireless networks" },
   { image: "/ieeeicc2025_1.jpeg", event: "IEEE ICC 2025", location: "Montreal, Canada", caption: "Best Workshop Paper Award for RAG-optimized wireless perception" },
