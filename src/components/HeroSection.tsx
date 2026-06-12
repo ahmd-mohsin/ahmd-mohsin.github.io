@@ -19,7 +19,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(160deg, rgba(238,246,238,0.18) 0%, rgba(232,243,232,0.24) 50%, rgba(225,240,228,0.34) 100%)",
+            "linear-gradient(160deg, rgba(238,246,238,0.10) 0%, rgba(232,243,232,0.14) 50%, rgba(225,240,228,0.22) 100%)",
         }}
       />
       {/* Left scrim — readability for text without hiding the photo */}
@@ -27,14 +27,14 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to right, rgba(238,246,238,0.58) 0%, rgba(238,246,238,0.28) 50%, transparent 72%)",
+            "linear-gradient(to right, rgba(238,246,238,0.45) 0%, rgba(238,246,238,0.18) 48%, transparent 62%)",
         }}
       />
       {/* Bottom blend into page background */}
       <div
         className="absolute bottom-0 left-0 right-0 h-40"
         style={{
-          background: "linear-gradient(to bottom, transparent, rgba(238,244,238,0.85))",
+          background: "linear-gradient(to bottom, transparent, rgba(238,244,238,0.65))",
         }}
       />
 
