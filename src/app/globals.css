@@ -9,33 +9,33 @@
   --font-display: 'Inter', sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --background: 120 30% 4%;
-  --foreground: 100 21% 95%;
+  --background: 0 0% 6%;
+  --foreground: 0 0% 100%;
 
-  --card: 113 27% 6%;
-  --card-foreground: 100 21% 95%;
+  --card: 0 0% 8%;
+  --card-foreground: 0 0% 100%;
 
-  --popover: 113 27% 6%;
-  --popover-foreground: 100 21% 95%;
+  --popover: 0 0% 8%;
+  --popover-foreground: 0 0% 100%;
 
-  --primary: 100 21% 95%;
-  --primary-foreground: 120 30% 4%;
+  --primary: 0 0% 100%;
+  --primary-foreground: 0 0% 6%;
 
-  --secondary: 113 27% 6%;
-  --secondary-foreground: 100 21% 95%;
+  --secondary: 0 0% 10%;
+  --secondary-foreground: 0 0% 100%;
 
-  --muted: 113 25% 10%;
-  --muted-foreground: 106 14% 51%;
+  --muted: 0 0% 10%;
+  --muted-foreground: 0 0% 55%;
 
-  --accent: 112 26% 44%;
-  --accent-foreground: 100 21% 95%;
+  --accent: 0 0% 15%;
+  --accent-foreground: 0 0% 100%;
 
   --destructive: 0 62.8% 30.6%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 113 25% 13%;
-  --input: 113 25% 13%;
-  --ring: 112 26% 44%;
+  --border: 0 0% 15%;
+  --input: 0 0% 15%;
+  --ring: 0 0% 83%;
   --radius: 0px;
 }
 
@@ -44,7 +44,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-sans antialiased selection:bg-white/10 selection:text-white;
+    @apply bg-[#0f0f0f] text-white font-sans antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02";
   }
 
@@ -55,14 +55,9 @@
 
 @layer utilities {
   .glass {
-    @apply bg-[#070d07]/90 border-b border-[#1a2818];
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-white/80 to-white/50;
-  }
-
-  .link-underline {
-    @apply relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-0 after:bg-[#5a8c52] after:transition-all after:duration-300 hover:after:w-full;
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   }
 }

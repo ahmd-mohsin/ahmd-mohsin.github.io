@@ -16,12 +16,12 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 glass" data-testid="navbar">
-      <div className="max-w-6xl mx-auto px-6 h-10 flex items-center justify-between gap-4">
+      <div className="max-w-6xl mx-auto px-6 h-12 flex items-center justify-between gap-4">
         <ScrollLink
           to="about"
           smooth={true}
           duration={500}
-          className="font-mono text-xs text-[#f0f4ee] cursor-pointer shrink-0 tracking-wider"
+          className="font-mono text-xs text-white/80 cursor-pointer shrink-0 tracking-wider hover:text-white transition-colors"
           data-testid="link-home"
         >
           mohsin
@@ -34,8 +34,8 @@ export function Navigation() {
               to={item.to}
               smooth={true}
               duration={500}
-              offset={-40}
-              className="text-[10px] font-mono text-[#3d5239] hover:text-[#c8d4c0] cursor-pointer transition-colors uppercase tracking-widest"
+              offset={-48}
+              className="text-[11px] font-mono text-white/25 hover:text-white/70 cursor-pointer transition-colors uppercase tracking-widest"
               data-testid={`link-nav-${item.to}`}
             >
               {item.name}
@@ -44,7 +44,7 @@ export function Navigation() {
         </div>
 
         <button
-          className="md:hidden text-[#7a9472]"
+          className="md:hidden text-white/40 hover:text-white/70 transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           data-testid="button-mobile-menu"
         >
@@ -56,19 +56,19 @@ export function Navigation() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.2 }}
-          className="md:hidden border-t border-[#1a2818] bg-[#070d07] px-6 py-4"
+          transition={{ duration: 0.15 }}
+          className="md:hidden border-t border-white/[0.06] bg-[#0f0f0f] px-6 py-5"
         >
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-5">
             {navItems.map((item) => (
               <ScrollLink
                 key={item.name}
                 to={item.to}
                 smooth={true}
                 duration={500}
-                offset={-40}
+                offset={-48}
                 onClick={() => setIsOpen(false)}
-                className="text-[10px] font-mono text-[#3d5239] hover:text-[#c8d4c0] cursor-pointer uppercase tracking-widest"
+                className="text-[11px] font-mono text-white/30 hover:text-white/70 cursor-pointer uppercase tracking-widest"
                 data-testid={`link-mobile-${item.to}`}
               >
                 {item.name}

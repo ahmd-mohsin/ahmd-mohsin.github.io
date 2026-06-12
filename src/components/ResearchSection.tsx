@@ -8,7 +8,7 @@ const papers = [
     authors: "Z. Ali*, M. T. Shah*, M. A. Mohsin*, M. Umer, A. Bilal, E. Fox",
     venue: "NeurIPS",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -16,7 +16,7 @@ const papers = [
     authors: "M. A. Mohsin, A. Bilal, M. Umer, E. Fox",
     venue: "NeurIPS",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -24,7 +24,7 @@ const papers = [
     authors: "A. Bilal*, M. A. Mohsin*, M. Umer, D. F. Hougen",
     venue: "CoLM",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -32,7 +32,7 @@ const papers = [
     authors: "M. Umer*, M. A. Mohsin*, A. Bilal, Ellen Vitercik, J. M. Cioffi",
     venue: "CoLM",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -40,7 +40,7 @@ const papers = [
     authors: "M. A. Mohsin, M. Umer, A. Bilal, Ellen Vitercik, J. M. Cioffi",
     venue: "ICML",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -48,7 +48,7 @@ const papers = [
     authors: "A. Bilal*, M. A. Mohsin*, M. Umer, D. F. Hougen, J. M. Cioffi",
     venue: "ICML",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -56,7 +56,7 @@ const papers = [
     authors: "M. A. Mohsin, M. Umer, A. Bilal, J. M. Cioffi, Ellen Vitercik",
     venue: "JMLR",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -64,7 +64,7 @@ const papers = [
     authors: "M. A. Mohsin*, M. Umer*, A. Bilal, J. M. Cioffi",
     venue: "KDD",
     year: "2026",
-    status: "In progress",
+    status: "in progress",
     links: ["paper"],
   },
   {
@@ -76,16 +76,14 @@ const papers = [
   },
   {
     title: "Automated Prompt Optimization Improves Robustness of Medical Benchmarks for LLMs",
-    authors:
-      "Asad Aali, Muhammad Ahmed Mohsin, Vasiliki Bikia, Arnav Singhvi, Suhana Bedi, Hejie Cui, Miguel Angel Fuentes Hernandez, Alyssa Unell, Yifan Mai, Michael Adam Pfeffer, Sanmi Koyejo, Roxana Daneshjou, Emily Alsentzer, Christopher Potts, Akshay S. Chaudhari",
+    authors: "Asad Aali, Muhammad Ahmed Mohsin, Vasiliki Bikia, Arnav Singhvi, Suhana Bedi, Hejie Cui, Miguel Angel Fuentes Hernandez, Alyssa Unell, Yifan Mai, Michael Adam Pfeffer, Sanmi Koyejo, Roxana Daneshjou, Emily Alsentzer, Christopher Potts, Akshay S. Chaudhari",
     venue: "ML4H",
     year: "2025",
     links: ["paper"],
   },
   {
     title: "On the Fundamental Limits of Large Models at Scale",
-    authors:
-      "Muhammad Ahmed Mohsin, Muhammad Umer, Ahsan Bilal, Zeeshan Memon, Muhammad Ibtsaam Qadir, Sagnik Bhattacharya, Hassan Rizwan, Abhiram Rao Gorle, Maahe Zehra Kazmi, Ayesha Mohsin, Ali Subhan, M. Usman Rafique, Zihao He, Pulkit Mehta, Jinda Han, Muhammad Ali Jamshed, Dean F. Hougen, John M. Cioffi",
+    authors: "Muhammad Ahmed Mohsin, Muhammad Umer, Ahsan Bilal, Zeeshan Memon, Muhammad Ibtsaam Qadir, Sagnik Bhattacharya, Hassan Rizwan, Abhiram Rao Gorle, Maahe Zehra Kazmi, Ayesha Mohsin, Ali Subhan, M. Usman Rafique, Zihao He, Pulkit Mehta, Jinda Han, Muhammad Ali Jamshed, Dean F. Hougen, John M. Cioffi",
     venue: "TMLR",
     year: "2025",
     links: ["paper"],
@@ -129,39 +127,54 @@ function PaperRow({
   paper: (typeof papers)[number];
   index: number;
 }) {
+  const num = String(index + 1).padStart(2, "0");
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.03, duration: 0.4 }}
-      className="border-t border-[#1a2818] py-6"
+      transition={{ delay: (index % INITIAL_COUNT) * 0.04, duration: 0.5 }}
+      className="border-t border-white/[0.06] py-6 grid grid-cols-[2rem_1fr] md:grid-cols-[2rem_120px_1fr] gap-x-5 gap-y-2 group"
       data-testid={`card-paper-${index}`}
     >
-      <span className="font-mono text-xs text-[#3d5239] block mb-2">
-        {paper.venue} {paper.year}
-        {paper.status && ` · ${paper.status}`}
+      {/* Index */}
+      <span className="font-mono text-[10px] text-white/15 pt-0.5 row-span-3 md:row-span-1 self-start">
+        {num}
       </span>
 
-      <h3 className="text-sm font-semibold text-[#f0f4ee] leading-snug mb-2">
-        {paper.title}
-      </h3>
+      {/* Venue (hidden on mobile, beside index on md) */}
+      <span className="hidden md:block font-mono text-[10px] text-white/20 pt-0.5 self-start">
+        {paper.venue} '{paper.year.slice(2)}
+        {paper.status && (
+          <span className="block text-white/15 mt-0.5">· {paper.status}</span>
+        )}
+      </span>
 
-      <p className="text-xs text-[#7a9472] leading-relaxed mb-3">
-        {paper.authors}
-      </p>
-
-      <div className="flex flex-wrap gap-4">
-        {paper.links.map((link, j) => (
-          <a
-            key={j}
-            href="#"
-            className="font-mono text-xs text-[#5a8c52] hover:text-[#7ab870] underline underline-offset-4 transition-colors"
-            data-testid={`link-paper-${index}-${link}`}
-          >
-            {link}
-          </a>
-        ))}
+      {/* Title */}
+      <div className="col-start-2 md:col-start-3">
+        {/* Mobile venue */}
+        <span className="md:hidden font-mono text-[10px] text-white/20 block mb-1.5">
+          {paper.venue} {paper.year}{paper.status && ` · ${paper.status}`}
+        </span>
+        <h3 className="text-sm font-medium text-white/75 leading-snug group-hover:text-white/90 transition-colors mb-2">
+          {paper.title}
+        </h3>
+        <p className="text-xs text-white/25 leading-relaxed mb-3">
+          {paper.authors}
+        </p>
+        <div className="flex flex-wrap gap-4">
+          {paper.links.map((link, j) => (
+            <a
+              key={j}
+              href="#"
+              className="font-mono text-[10px] text-white/30 hover:text-white/70 underline underline-offset-4 transition-colors"
+              data-testid={`link-paper-${index}-${link}`}
+            >
+              {link} ↗
+            </a>
+          ))}
+        </div>
       </div>
     </motion.div>
   );
@@ -180,13 +193,18 @@ export function ResearchSection() {
       </div>
 
       {papers.length > INITIAL_COUNT && (
-        <div className="border-t border-[#1a2818] pt-6">
+        <div className="border-t border-white/[0.06] pt-6 flex items-center justify-between">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="font-mono text-[10px] text-[#3d5239] hover:text-[#7a9472] transition-colors uppercase tracking-widest"
+            className="font-mono text-[10px] text-white/25 hover:text-white/55 transition-colors uppercase tracking-widest"
           >
-            {expanded ? "Show Less" : `Show All ${papers.length} Publications`}
+            {expanded ? "↑ Show Less" : `Show All ${papers.length} Publications`}
           </button>
+          {!expanded && (
+            <span className="font-mono text-[10px] text-white/15">
+              {papers.length - INITIAL_COUNT} more
+            </span>
+          )}
         </div>
       )}
     </Section>

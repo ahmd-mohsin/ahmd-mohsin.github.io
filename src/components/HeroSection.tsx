@@ -7,51 +7,78 @@ export function HeroSection() {
   return (
     <section
       id="about"
-      className="relative min-h-[90vh] overflow-hidden bg-[#070d07] pt-28 pb-28 flex items-center justify-center"
+      className="relative min-h-screen overflow-hidden bg-[#0f0f0f] flex items-center"
     >
-      <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row-reverse items-center gap-14 md:gap-24">
-          {/* Profile Image */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7 }}
-            className="flex-shrink-0"
-          >
-            <div className="w-56 h-56 md:w-80 md:h-80 overflow-hidden border border-[#1a2818] bg-[#0d150c]">
-              <img
-                src="/ahmed.jpeg"
-                alt="Muhammad Ahmed Mohsin"
-                className="w-full h-full object-cover"
-                draggable={false}
-              />
-            </div>
-          </motion.div>
+      {/* Dot grid — fades from top, invisible at bottom */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle, rgba(255,255,255,0.09) 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 100% 70% at 50% 0%, black 20%, transparent 75%)",
+          maskImage:
+            "radial-gradient(ellipse 100% 70% at 50% 0%, black 20%, transparent 75%)",
+        }}
+      />
+
+      {/* Subtle top-center radial glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 35% at 50% -5%, rgba(255,255,255,0.07) 0%, transparent 100%)",
+        }}
+      />
+
+      {/* Left edge fade */}
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#0f0f0f] to-transparent" />
+      {/* Right edge fade */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#0f0f0f] to-transparent" />
+      {/* Bottom fade */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0f0f0f] to-transparent" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-28 pb-24 w-full">
+        <div className="flex flex-col md:flex-row items-center gap-16 md:gap-20">
 
           {/* Text Content */}
-          <div className="text-center md:text-left flex-1">
+          <div className="flex-1 text-center md:text-left">
+            {/* Label */}
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/30 mb-6">
+                Graduate Researcher · Stanford SAIL
+              </p>
+            </motion.div>
+
+            {/* Name */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.05, duration: 0.6 }}
+            >
+              <h1 className="text-5xl md:text-7xl lg:text-[5.5rem] font-bold tracking-[-0.03em] leading-[1.05] mb-6 text-white">
+                Muhammad<br />Ahmed Mohsin
+              </h1>
+            </motion.div>
+
             {/* Affiliation */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.15, duration: 0.5 }}
             >
-              <p className="text-sm italic text-[#7a9472] leading-relaxed max-w-2xl mb-5">
-                I&apos;m a graduate student @{" "}
-                <a
-                  href="https://stanford.edu/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#5a8c52] hover:text-[#7ab870] transition-colors"
-                >
-                  SAIL (Stanford AI Lab)
-                </a>{" "}
-                co-advised by{" "}
+              <p className="text-sm text-white/40 leading-relaxed max-w-xl mb-2">
+                Co-advised by{" "}
                 <a
                   href="https://statistics.stanford.edu/people/emily-b-fox"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#5a8c52] hover:text-[#7ab870] transition-colors"
+                  className="text-white/70 hover:text-white transition-colors"
                 >
                   Dr. Emily Fox
                 </a>{" "}
@@ -60,96 +87,45 @@ export function HeroSection() {
                   href="https://cioffi-group.stanford.edu/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[#5a8c52] hover:text-[#7ab870] transition-colors"
+                  className="text-white/70 hover:text-white transition-colors"
                 >
                   Dr. John M. Cioffi
                 </a>
               </p>
             </motion.div>
 
-            {/* Name */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.05, duration: 0.5 }}
-            >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-5 text-[#f0f4ee]">
-                Muhammad Ahmed Mohsin
-              </h1>
-            </motion.div>
-
-            {/* Divider */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
-              className="mb-6 md:mb-8"
-            >
-              <div className="h-px w-20 mx-auto md:mx-0 bg-[#1a2818]" />
-            </motion.div>
-
             {/* Research Description */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.25, duration: 0.5 }}
-              className="space-y-4"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              className="mt-6 space-y-3 max-w-xl"
             >
-              <p className="text-sm md:text-base text-[#c8d4c0] leading-relaxed max-w-2xl mx-auto md:mx-0">
-                My research focuses on LLM post-training and inference,
-                including preference optimization, active learning, and
-                alignment for reasoning models, alongside reinforcement
-                learning for high-diversity generation and adaptive agentic
-                test-time compute.
+              <p className="text-sm text-white/50 leading-relaxed mx-auto md:mx-0">
+                Research on LLM post-training and inference — preference
+                optimization, active learning, alignment for reasoning models,
+                and adaptive agentic test-time compute.
               </p>
-
-              <p className="text-sm md:text-base text-[#7a9472] leading-relaxed max-w-2xl mx-auto md:mx-0">
-                I also develop Internet of Evolving Agents frameworks for
-                self-evolving multi-agent systems with dynamic reputation
-                modeling and social graph-based coordination, and work on
-                applied reinforcement learning for complex, dynamic, and
-                non-stationary decision-making, including RL methods tailored
-                for LLM reasoning.
+              <p className="text-sm text-white/35 leading-relaxed mx-auto md:mx-0">
+                Also working on Internet of Evolving Agents frameworks and
+                applied reinforcement learning for complex, non-stationary
+                decision-making.
               </p>
             </motion.div>
 
-            {/* Social Icons */}
+            {/* Social + Conoid */}
             <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.35, duration: 0.5 }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.5 }}
               className="flex flex-wrap items-center justify-center md:justify-start gap-5 mt-8"
             >
               {[
-                {
-                  href: "mailto:muahmed@stanford.edu",
-                  label: "Email",
-                  icon: <Mail className="w-4 h-4" />,
-                },
-                {
-                  href: "https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en",
-                  label: "Google Scholar",
-                  icon: <SiGooglescholar className="w-4 h-4" />,
-                  external: true,
-                },
-                {
-                  href: "https://dblp.org/pid/354/9627.html",
-                  label: "DBLP",
-                  icon: <PiBookOpenTextFill className="w-4 h-4" />,
-                  external: true,
-                },
-                {
-                  href: "https://github.com/ahmd-mohsin",
-                  label: "GitHub",
-                  icon: <SiGithub className="w-4 h-4" />,
-                  external: true,
-                },
-                {
-                  href: "https://twitter.com/ahmedmohsin7338",
-                  label: "X",
-                  icon: <SiX className="w-4 h-4" />,
-                  external: true,
-                },
+                { href: "mailto:muahmed@stanford.edu", label: "Email", icon: <Mail className="w-4 h-4" /> },
+                { href: "https://scholar.google.co.uk/citations?user=ccxOv_QAAAAJ&hl=en", label: "Google Scholar", icon: <SiGooglescholar className="w-4 h-4" />, external: true },
+                { href: "https://dblp.org/pid/354/9627.html", label: "DBLP", icon: <PiBookOpenTextFill className="w-4 h-4" />, external: true },
+                { href: "https://github.com/ahmd-mohsin", label: "GitHub", icon: <SiGithub className="w-4 h-4" />, external: true },
+                { href: "https://twitter.com/ahmedmohsin7338", label: "X", icon: <SiX className="w-4 h-4" />, external: true },
               ].map((item) => (
                 <a
                   key={item.label}
@@ -158,30 +134,46 @@ export function HeroSection() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   title={item.label}
                   aria-label={item.label}
-                  className="text-[#3d5239] hover:text-[#7ab870] transition-colors duration-300"
+                  className="text-white/25 hover:text-white/80 transition-colors duration-200"
                 >
                   {item.icon}
                 </a>
               ))}
-            </motion.div>
 
-            {/* Conoid Link */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.45, duration: 0.5 }}
-              className="mt-7 flex justify-center md:justify-start"
-            >
+              <span className="w-px h-4 bg-white/10" />
+
               <a
                 href="https://conoid.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center border border-[#1a2818] px-4 py-2 text-xs font-mono text-[#5a8c52] hover:text-[#7ab870] hover:border-[#5a8c52] transition-all duration-300"
+                className="font-mono text-[11px] text-white/30 hover:text-white/70 transition-colors border border-white/10 hover:border-white/25 px-3 py-1.5"
               >
-                Building Conoid — visit conoid.ai
+                conoid.ai ↗
               </a>
             </motion.div>
           </div>
+
+          {/* Profile Image */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="flex-shrink-0"
+          >
+            <div className="relative">
+              {/* Glow behind photo */}
+              <div className="absolute -inset-4 bg-white/[0.03] blur-2xl" />
+              <div className="relative w-52 h-52 md:w-72 md:h-72 overflow-hidden border border-white/10 bg-[#141414]">
+                <img
+                  src="/ahmed.jpeg"
+                  alt="Muhammad Ahmed Mohsin"
+                  className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity duration-500"
+                  draggable={false}
+                />
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </div>
     </section>
