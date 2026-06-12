@@ -94,12 +94,12 @@ export function HeroSection() {
               transition={{ delay: 0.22, duration: 0.55 }}
               className="space-y-3 max-w-xl"
             >
-              <p className="text-sm leading-relaxed text-[#3a5440]">
+              <p className="text-sm leading-relaxed text-[#1a3520] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
                 Research on LLM post-training and inference — preference
                 optimization, active learning, alignment for reasoning models,
                 and adaptive agentic test-time compute.
               </p>
-              <p className="text-sm leading-relaxed text-[#5d7a65]">
+              <p className="text-sm leading-relaxed text-[#2d5035] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
                 Also working on Internet of Evolving Agents frameworks and
                 applied reinforcement learning for complex, non-stationary
                 decision-making.
@@ -127,7 +127,7 @@ export function HeroSection() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   title={item.label}
                   aria-label={item.label}
-                  className="text-[#5d7a65] hover:text-[#2d5035] transition-colors duration-200"
+                  className="text-[#2d5035] hover:text-[#1a3520] transition-colors duration-200 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
                 >
                   {item.icon}
                 </a>
@@ -139,7 +139,7 @@ export function HeroSection() {
                 href="https://conoid.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] text-[#6a8a72] hover:text-[#2d5035] transition-colors border border-[#c0d4c2] hover:border-[#4a6852] px-3 py-1.5"
+                className="font-mono text-[11px] text-[#2d5035] hover:text-[#1a3520] transition-colors border border-[#4a6852]/60 hover:border-[#2d5035] px-3 py-1.5 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
               >
                 conoid.ai ↗
               </a>
