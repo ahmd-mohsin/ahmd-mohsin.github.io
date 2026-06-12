@@ -5,9 +5,6 @@ import { Providers } from "@/components/providers";
 export const metadata: Metadata = {
     title: "Ahmad Mohsin",
     description: "Academic Portfolio",
-    icons: {
-        icon: "/favicon.png",
-    },
 };
 
 export default function RootLayout({
