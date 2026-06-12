@@ -23,44 +23,39 @@ export function ResearchInterestsSection() {
   return (
     <Section id="research-interests" title="Research Interests">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.4 }}
       >
-        <fieldset className="mb-10 rounded-2xl border border-yellow-500/40 px-6 pb-6 pt-3">
-          <legend className="px-3 text-xs font-mono uppercase tracking-[0.25em] text-yellow-400/80">
-            Main Area
-          </legend>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            My primary research spans LLM inference and test-time scaling,
-            including test-time training for scientific discovery under
-            uncertainty, adaptive compute allocation, agentic planning, and
-            stratified scaling search for reasoning in large language models and
-            diffusion language models. I also work on evolving agentic systems
-            through Internet of Evolving Agents frameworks with dynamic
-            reputation modeling and social graph-based coordination. In
-            addition, I focus on reinforcement learning for LLMs, including
-            preference optimization, active learning, alignment, and reward
-            decomposition methods to reduce sycophancy and improve reasoning
-            reliability.
-          </p>
-        </fieldset>
+        <p className="text-sm leading-relaxed text-[#7a9472] mb-10 max-w-3xl">
+          My primary research spans LLM inference and test-time scaling,
+          including test-time training for scientific discovery under
+          uncertainty, adaptive compute allocation, agentic planning, and
+          stratified scaling search for reasoning in large language models and
+          diffusion language models. I also work on evolving agentic systems
+          through Internet of Evolving Agents frameworks with dynamic
+          reputation modeling and social graph-based coordination. In
+          addition, I focus on reinforcement learning for LLMs, including
+          preference optimization, active learning, alignment, and reward
+          decomposition methods to reduce sycophancy and improve reasoning
+          reliability.
+        </p>
 
-        <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
+        <div>
           {interests.map((interest, i) => (
             <div
               key={i}
-              className="border-b border-yellow-500/25 px-6 py-5 last:border-b-0"
+              className="border-t border-[#1a2818] py-6"
               data-testid={`row-interest-${i}`}
             >
-              <p className="mb-2 font-display text-base font-bold text-yellow-400 md:text-lg">
+              <p className="text-sm font-semibold text-[#f0f4ee] mb-2">
                 {interest.title}
               </p>
-              <p className="mb-3 text-sm leading-relaxed text-muted-foreground">
+              <p className="text-sm leading-relaxed text-[#7a9472] mb-3">
                 {interest.desc}
               </p>
-              <span className="text-xs font-mono text-yellow-500/70">
+              <span className="font-mono text-xs text-[#3d5239]">
                 {interest.venues}
               </span>
             </div>

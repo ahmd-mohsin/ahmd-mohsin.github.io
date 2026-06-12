@@ -5,27 +5,25 @@ export function ContactSection() {
   return (
     <Section id="contact" title="Get in Touch">
       <div className="max-w-2xl">
-        <p className="text-lg text-muted-foreground mb-8">
+        <p className="text-sm text-[#7a9472] leading-relaxed mb-8">
           I am always open to discussing new research collaborations and
           opportunities.
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-5">
           <a
             href="mailto:muahmed@stanford.edu"
-            className="flex items-center gap-4 text-muted-foreground hover:text-white transition-colors"
+            className="flex items-center gap-4 group"
             data-testid="link-email"
           >
-            <div className="w-10 h-10 bg-white/5 flex items-center justify-center border border-white/20">
-              <Mail className="w-5 h-5" />
-            </div>
-            <span className="font-mono text-sm">muahmed@stanford.edu</span>
+            <Mail className="w-4 h-4 text-[#3d5239] group-hover:text-[#5a8c52] transition-colors shrink-0" />
+            <span className="font-mono text-sm text-[#5a8c52] group-hover:text-[#7ab870] transition-colors">
+              muahmed@stanford.edu
+            </span>
           </a>
-          <div className="flex items-center gap-4 text-muted-foreground">
-            <div className="w-10 h-10 bg-white/5 flex items-center justify-center border border-white/20">
-              <MapPin className="w-5 h-5" />
-            </div>
-            <span className="font-mono text-sm">Stanford, CA, USA</span>
+          <div className="flex items-center gap-4">
+            <MapPin className="w-4 h-4 text-[#3d5239] shrink-0" />
+            <span className="font-mono text-sm text-[#7a9472]">Stanford, CA, USA</span>
           </div>
         </div>
       </div>

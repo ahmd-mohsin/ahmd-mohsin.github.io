@@ -59,7 +59,7 @@ const newsItems = [
   },
   {
     date: "Apr 2024",
-    content: "Awarded the Rector’s Gold Medal for best undergraduate thesis.",
+    content: "Awarded the Rector's Gold Medal for best undergraduate thesis.",
   },
   {
     date: "Jan 2024",
@@ -68,7 +68,7 @@ const newsItems = [
   {
     date: "Aug 2022",
     content:
-      "First paper accepted at ICDAR 2023, outperforming Microsoft’s DiT on table recognition tasks.",
+      "First paper accepted at ICDAR 2023, outperforming Microsoft's DiT on table recognition tasks.",
   },
   {
     date: "Oct 2021",
@@ -78,10 +78,10 @@ const newsItems = [
   {
     date: "Jun 2021",
     content:
-      "Received the President’s Medal for ranking among the top 3 students across Pakistan at the HSSC level.",
+      "Received the President's Medal for ranking among the top 3 students across Pakistan at the HSSC level.",
   },
   {
-    date: "Jan 2021 - Jun 2023",
+    date: "Jan 2021 – Jun 2023",
     content: "Awarded the NUST scholarship for maintaining a 4.0 GPA.",
   },
 ];
@@ -89,27 +89,25 @@ const newsItems = [
 export function NewsSection() {
   return (
     <Section id="news" title="News">
-      <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
-        <div className="grid md:grid-cols-3">
-          {newsItems.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.03, duration: 0.3 }}
-              className="border-b border-yellow-500/25 p-6 md:border-r md:border-r-yellow-500/25 last:border-b-0 md:[&:nth-last-child(2):nth-child(odd)]:border-b-0"
-              data-testid={`card-news-${i}`}
-            >
-              <span className="mb-4 inline-block border border-yellow-500/30 px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest text-yellow-400/80">
-                {item.date}
-              </span>
-              <p className="text-sm leading-relaxed text-muted-foreground">
-                {item.content}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+      <div>
+        {newsItems.map((item, i) => (
+          <motion.div
+            key={i}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.02, duration: 0.4 }}
+            className="border-t border-[#1a2818] py-5 flex gap-8 items-start"
+            data-testid={`card-news-${i}`}
+          >
+            <span className="font-mono text-xs text-[#3d5239] w-32 shrink-0 pt-0.5">
+              {item.date}
+            </span>
+            <p className="text-sm leading-relaxed text-[#7a9472]">
+              {item.content}
+            </p>
+          </motion.div>
+        ))}
       </div>
     </Section>
   );

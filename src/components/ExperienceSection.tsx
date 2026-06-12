@@ -61,35 +61,38 @@ export function ExperienceSection() {
   return (
     <Section id="experience" title="Experience">
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.4 }}
       >
-        <div className="overflow-hidden rounded-2xl border border-yellow-500/40">
+        <div>
           {experiences.map((exp, i) => (
             <div
               key={i}
-              className="border-b border-yellow-500/25 px-6 py-5 last:border-b-0"
+              className="border-t border-[#1a2818] py-8"
               data-testid={`row-experience-${i}`}
             >
-              <p className="mb-1 font-display text-base font-bold text-yellow-400 md:text-lg">
+              <p className="font-semibold text-[#f0f4ee] text-sm md:text-base mb-1">
                 {exp.org}
               </p>
 
-              <span className="mb-3 block text-xs font-mono text-yellow-500/70">
+              <span className="block font-mono text-xs text-[#3d5239] mb-5">
                 {exp.dateRange} · Advisor: {exp.advisor}
               </span>
 
               {exp.projects.map((project, j) => (
-                <div key={j} className="mb-4 last:mb-0">
-                  <p className="mb-2 text-sm font-semibold text-yellow-300">
-                    Project: {project.name}
+                <div key={j} className="mb-5 last:mb-0">
+                  <p className="text-sm text-[#c8d4c0] font-medium mb-3">
+                    {project.name}
                   </p>
 
-                  <ul className="list-disc list-inside space-y-1 text-sm leading-relaxed text-muted-foreground">
+                  <ul className="space-y-2">
                     {project.bullets.map((bullet, k) => (
-                      <li key={k}>{bullet}</li>
+                      <li key={k} className="flex gap-3 text-sm leading-relaxed text-[#7a9472]">
+                        <span className="text-[#3d5239] shrink-0 mt-0.5">—</span>
+                        <span>{bullet}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>

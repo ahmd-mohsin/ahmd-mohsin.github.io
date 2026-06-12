@@ -1,5 +1,6 @@
 import { Section } from "@/components/Section";
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
 
 const conferences = [
   "AAAI",
@@ -49,137 +50,113 @@ const leadership = [
   { role: "Area Chair", venue: "ICASSP 2026, NeurIPS 2025" },
 ];
 
+function SubLabel({ children }: { children: ReactNode }) {
+  return (
+    <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#3d5239] mb-3">
+      {children}
+    </p>
+  );
+}
+
+function Chip({ children }: { children: ReactNode }) {
+  return (
+    <span className="border border-[#1a2818] px-3 py-1.5 font-mono text-xs text-[#7a9472]">
+      {children}
+    </span>
+  );
+}
+
 export function ReviewerSection() {
   return (
-    <Section id="reviewer" title="Service & Awards" className="bg-white/[0.02]">
-      <div className="space-y-8">
-        <motion.fieldset
-          className="border border-white/20 px-6 pb-6 pt-4"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+    <Section id="reviewer" title="Service & Awards">
+      <div className="space-y-10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
         >
-          <legend className="px-2 text-xs font-mono uppercase tracking-widest text-white/50">
-            Conference Reviewer
-          </legend>
-          <div className="flex flex-wrap gap-3">
-            {conferences.map((conf, i) => (
-              <motion.span
-                key={conf}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.04, duration: 0.3 }}
-                className="px-4 py-2 border border-white/15 font-display font-semibold text-sm text-white tracking-wide"
-                data-testid={`tag-conf-${conf}`}
-              >
-                {conf}
-              </motion.span>
+          <SubLabel>Conference Reviewer</SubLabel>
+          <div className="flex flex-wrap gap-2">
+            {conferences.map((conf) => (
+              <Chip key={conf}>{conf}</Chip>
             ))}
           </div>
-        </motion.fieldset>
+        </motion.div>
 
-        <motion.fieldset
-          className="border border-white/20 px-6 pb-6 pt-4"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4, delay: 0.05 }}
+        >
+          <SubLabel>Journal Reviewer</SubLabel>
+          <div className="flex flex-wrap gap-2">
+            {journals.map((journal, i) => (
+              <span
+                key={journal.name}
+                className="border border-[#1a2818] px-3 py-1.5 font-mono text-xs text-[#7a9472]"
+                data-testid={`tag-journal-${i}`}
+              >
+                {journal.name}
+                <span className="text-[#3d5239] mx-1.5">/</span>
+                {journal.desc}
+              </span>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.1 }}
         >
-          <legend className="px-2 text-xs font-mono uppercase tracking-widest text-white/50">
-            Journal Reviewer
-          </legend>
-          <div className="flex flex-wrap gap-3">
-            {journals.map((journal, i) => (
-              <motion.span
-                key={journal.name}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.04, duration: 0.3 }}
-                className="px-4 py-2 border border-white/15 text-sm"
-                data-testid={`tag-journal-${i}`}
-              >
-                <span className="font-display font-semibold text-white tracking-wide">
-                  {journal.name}
-                </span>
-                <span className="text-white/30 mx-1.5">/</span>
-                <span className="font-mono text-[11px] text-white/40">
-                  {journal.desc}
-                </span>
-              </motion.span>
-            ))}
-          </div>
-        </motion.fieldset>
-
-        <motion.fieldset
-          className="border border-white/20 px-6 pb-6 pt-4"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.15 }}
-        >
-          <legend className="px-2 text-xs font-mono uppercase tracking-widest text-white/50">
-            Technical Program Committee & Leadership
-          </legend>
-          <div className="flex flex-wrap gap-3 mb-4">
+          <SubLabel>Technical Program Committee</SubLabel>
+          <div className="flex flex-wrap gap-2 mb-6">
             {tpc.map((item, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 border border-white/15 font-display font-semibold text-sm text-white tracking-wide"
-              >
-                {item}
-              </span>
+              <Chip key={i}>{item}</Chip>
             ))}
           </div>
-          <div className="flex flex-wrap gap-3">
+
+          <SubLabel>Leadership</SubLabel>
+          <div className="flex flex-wrap gap-2">
             {leadership.map((item, i) => (
               <span
                 key={i}
-                className="px-4 py-2 border border-yellow-400/20 text-sm"
+                className="border border-[#1a2818] px-3 py-1.5 font-mono text-xs"
               >
-                <span className="font-display font-semibold text-yellow-400/80 tracking-wide">
-                  {item.role}
-                </span>
-                <span className="text-white/30 mx-1.5">—</span>
-                <span className="font-mono text-[11px] text-white/40">
-                  {item.venue}
-                </span>
+                <span className="text-[#5a8c52]">{item.role}</span>
+                <span className="text-[#3d5239] mx-1.5">—</span>
+                <span className="text-[#7a9472]">{item.venue}</span>
               </span>
             ))}
           </div>
-        </motion.fieldset>
+        </motion.div>
 
-        <motion.fieldset
-          className="border border-white/20 px-6 pb-6 pt-4"
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.4, delay: 0.2 }}
+          transition={{ duration: 0.4, delay: 0.15 }}
         >
-          <legend className="px-2 text-xs font-mono uppercase tracking-widest text-white/50">
-            Awards & Travel Grants
-          </legend>
-          <div className="space-y-2 mb-4">
+          <SubLabel>Awards & Recognitions</SubLabel>
+          <div className="space-y-2 mb-8">
             {awards.map((award, i) => (
-              <p key={i} className="text-sm text-muted-foreground">
-                <span className="text-yellow-400/70 mr-2">★</span>
+              <p key={i} className="flex gap-3 text-sm text-[#7a9472]">
+                <span className="text-[#3d5239] shrink-0">—</span>
                 {award}
               </p>
             ))}
           </div>
-          <div className="flex flex-wrap gap-3">
+
+          <SubLabel>Travel Grants</SubLabel>
+          <div className="flex flex-wrap gap-2">
             {travelGrants.map((grant, i) => (
-              <span
-                key={i}
-                className="px-4 py-2 border border-white/20 font-mono text-xs text-white/40"
-              >
-                {grant}
-              </span>
+              <Chip key={i}>{grant}</Chip>
             ))}
           </div>
-        </motion.fieldset>
+        </motion.div>
       </div>
     </Section>
   );

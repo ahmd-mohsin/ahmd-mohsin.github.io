@@ -120,7 +120,9 @@ const papers = [
   },
 ];
 
-function PaperCard({
+const INITIAL_COUNT = 6;
+
+function PaperRow({
   paper,
   index,
 }: {
@@ -129,45 +131,37 @@ function PaperCard({
 }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.05, duration: 0.4 }}
-      className="group overflow-hidden rounded-2xl border border-yellow-500/35 bg-transparent transition-all duration-300 hover:border-yellow-400/60"
+      transition={{ delay: index * 0.03, duration: 0.4 }}
+      className="border-t border-[#1a2818] py-6"
       data-testid={`card-paper-${index}`}
     >
-      <div className="flex h-32 items-center justify-center border-b border-yellow-500/25 bg-gradient-to-br from-yellow-500/[0.03] to-transparent px-6">
-        <span className="text-center font-mono text-xs uppercase tracking-widest text-yellow-400/75">
-          {paper.venue} {paper.year}
-          {paper.status && (
-            <span className="mt-1 block text-[10px] text-yellow-300/80">
-              {paper.status}
-            </span>
-          )}
-        </span>
-      </div>
+      <span className="font-mono text-xs text-[#3d5239] block mb-2">
+        {paper.venue} {paper.year}
+        {paper.status && ` · ${paper.status}`}
+      </span>
 
-      <div className="p-6">
-        <h3 className="mb-3 font-display text-sm font-bold tracking-wide text-yellow-400 md:text-base leading-snug">
-          {paper.title}
-        </h3>
+      <h3 className="text-sm font-semibold text-[#f0f4ee] leading-snug mb-2">
+        {paper.title}
+      </h3>
 
-        <p className="mb-4 text-xs font-sans text-muted-foreground">
-          {paper.authors}
-        </p>
+      <p className="text-xs text-[#7a9472] leading-relaxed mb-3">
+        {paper.authors}
+      </p>
 
-        <div className="flex flex-wrap gap-3">
-          {paper.links.map((link, j) => (
-            <a
-              key={j}
-              href="#"
-              className="font-mono text-xs text-yellow-500/70 underline underline-offset-4 decoration-yellow-500/25 transition-colors hover:text-yellow-300 hover:decoration-yellow-400/60"
-              data-testid={`link-paper-${index}-${link}`}
-            >
-              {link}
-            </a>
-          ))}
-        </div>
+      <div className="flex flex-wrap gap-4">
+        {paper.links.map((link, j) => (
+          <a
+            key={j}
+            href="#"
+            className="font-mono text-xs text-[#5a8c52] hover:text-[#7ab870] underline underline-offset-4 transition-colors"
+            data-testid={`link-paper-${index}-${link}`}
+          >
+            {link}
+          </a>
+        ))}
       </div>
     </motion.div>
   );
@@ -175,29 +169,23 @@ function PaperCard({
 
 export function ResearchSection() {
   const [expanded, setExpanded] = useState(false);
-  const visibleExtra = expanded ? papers.slice(2) : papers.slice(2, 8);
+  const visiblePapers = expanded ? papers : papers.slice(0, INITIAL_COUNT);
 
   return (
     <Section id="research" title="Selected Publications">
-      <div className="grid gap-6 mb-6 md:grid-cols-2">
-        {papers.slice(0, 2).map((paper, i) => (
-          <PaperCard key={i} paper={paper} index={i} />
+      <div>
+        {visiblePapers.map((paper, i) => (
+          <PaperRow key={i} paper={paper} index={i} />
         ))}
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
-        {visibleExtra.map((paper, i) => (
-          <PaperCard key={i + 2} paper={paper} index={i + 2} />
-        ))}
-      </div>
-
-      {papers.length > 8 && (
-        <div className="mt-8 flex justify-center">
+      {papers.length > INITIAL_COUNT && (
+        <div className="border-t border-[#1a2818] pt-6">
           <button
             onClick={() => setExpanded(!expanded)}
-            className="rounded-full border border-yellow-500/35 px-8 py-3 font-mono text-sm uppercase tracking-wider text-yellow-400/80 transition-colors hover:border-yellow-400/60 hover:text-yellow-300"
+            className="font-mono text-[10px] text-[#3d5239] hover:text-[#7a9472] transition-colors uppercase tracking-widest"
           >
-            {expanded ? "Show Less" : "Show More"}
+            {expanded ? "Show Less" : `Show All ${papers.length} Publications`}
           </button>
         </div>
       )}

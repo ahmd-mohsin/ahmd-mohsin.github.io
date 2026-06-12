@@ -28,7 +28,6 @@ const travels = [
         location: "Montreal, Canada",
         caption: "Best Workshop Paper Award for RAG-optimized wireless perception",
     },
-
 ];
 
 export function ConferenceTravelsSection() {
@@ -41,22 +40,22 @@ export function ConferenceTravelsSection() {
 
     return (
         <Section id="travels" title="Conference Travels">
-            <div className="max-w-5xl mx-auto">
+            <div className="max-w-4xl mx-auto">
                 {/* Image carousel */}
-                <div className="relative overflow-hidden border border-white/20 bg-white/[0.02]">
-                    <div className="relative aspect-[16/10]  w-full">
+                <div className="relative overflow-hidden">
+                    <div className="relative aspect-[16/10] w-full">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={current}
-                                initial={{ opacity: 0, x: 60 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -60 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
                                 transition={{ duration: 0.35, ease: "easeInOut" }}
                                 className="absolute inset-0"
                             >
-                                {/* Blurred background for fill */}
+                                {/* Blurred background fill */}
                                 <div
-                                    className="absolute inset-0 bg-cover bg-center blur-xl opacity-30 scale-110"
+                                    className="absolute inset-0 bg-cover bg-center blur-xl opacity-20 scale-110"
                                     style={{ backgroundImage: `url(${travels[current].image})` }}
                                 />
 
@@ -68,21 +67,21 @@ export function ConferenceTravelsSection() {
                                 />
 
                                 {/* Gradient overlay */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-20" />
+                                <div className="absolute inset-0 bg-gradient-to-t from-[#070d07]/80 via-transparent to-transparent z-20" />
                             </motion.div>
                         </AnimatePresence>
 
                         {/* Arrow buttons */}
                         <button
                             onClick={prev}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 w-12 h-12 md:w-10 md:h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-50"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#3d5239] hover:text-[#c8d4c0] transition-colors z-50 p-2"
                             aria-label="Previous"
                         >
                             <ChevronLeft className="w-5 h-5" />
                         </button>
                         <button
                             onClick={next}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 w-12 h-12 md:w-10 md:h-10 flex items-center justify-center bg-black/20 border border-white/20 text-white/70 hover:text-white hover:bg-black/60 transition-colors z-50"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#3d5239] hover:text-[#c8d4c0] transition-colors z-50 p-2"
                             aria-label="Next"
                         >
                             <ChevronRight className="w-5 h-5" />
@@ -93,18 +92,18 @@ export function ConferenceTravelsSection() {
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={current}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -10 }}
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    exit={{ opacity: 0 }}
                                     transition={{ duration: 0.25 }}
                                 >
-                                    <h3 className="font-display font-bold text-lg md:text-xl text-white mb-1">
+                                    <h3 className="font-semibold text-base text-[#f0f4ee] mb-1">
                                         {travels[current].event}
                                     </h3>
-                                    <p className="text-sm text-white/70 font-mono">
+                                    <p className="text-xs text-[#7a9472] font-mono">
                                         {travels[current].location}
                                     </p>
-                                    <p className="text-xs text-white/50 mt-2">
+                                    <p className="text-xs text-[#3d5239] mt-1">
                                         {travels[current].caption}
                                     </p>
                                 </motion.div>
@@ -113,16 +112,17 @@ export function ConferenceTravelsSection() {
                     </div>
                 </div>
 
-                {/* Dot navigation */}
-                <div className="flex items-center justify-center gap-3 mt-6">
+                {/* Dash navigation */}
+                <div className="flex items-center justify-center gap-2 mt-5">
                     {travels.map((_, i) => (
                         <button
                             key={i}
                             onClick={() => setCurrent(i)}
-                            className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${i === current
-                                ? "bg-white scale-110"
-                                : "bg-white/20 hover:bg-white/40"
-                                }`}
+                            className={`h-px transition-all duration-300 ${
+                                i === current
+                                    ? "w-8 bg-[#5a8c52]"
+                                    : "w-4 bg-[#1a2818] hover:bg-[#3d5239]"
+                            }`}
                             aria-label={`Go to slide ${i + 1}`}
                         />
                     ))}
