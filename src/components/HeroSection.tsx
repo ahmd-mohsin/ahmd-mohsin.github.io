@@ -94,12 +94,12 @@ export function HeroSection() {
               transition={{ delay: 0.22, duration: 0.55 }}
               className="space-y-3 max-w-xl"
             >
-              <p className="text-sm leading-relaxed text-[#1a3520] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
+              <p className="text-sm font-medium leading-relaxed text-[#0a1a0e] [text-shadow:0_0_12px_rgba(238,244,238,0.95),0_1px_2px_rgba(238,244,238,0.9)]">
                 Research on preference optimization and alignment for LLMs,
                 adaptive test-time scaling and discovery, and self-evolving
                 multi-agent systems.
               </p>
-              <p className="text-sm leading-relaxed text-[#2d5035] [text-shadow:0_1px_4px_rgba(238,244,238,0.85)]">
+              <p className="text-sm font-medium leading-relaxed text-[#0d1f12] [text-shadow:0_0_12px_rgba(238,244,238,0.95),0_1px_2px_rgba(238,244,238,0.9)]">
                 Graduate student at Stanford — LLM post-training, test-time
                 scaling, and reinforcement learning. Collaborations with Google
                 DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
@@ -139,7 +139,7 @@ export function HeroSection() {
                 href="/Masters.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] text-[#2d5035] hover:text-[#1a3520] transition-colors border border-[#4a6852]/60 hover:border-[#2d5035] px-3 py-1.5 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
+                className="font-mono text-[11px] font-medium text-[#0a1a0e] hover:text-[#0d1f12] transition-colors border border-[#1a3520] hover:border-[#0a1a0e] bg-[#eef4ee]/75 px-3 py-1.5 drop-shadow-[0_1px_4px_rgba(238,244,238,0.95)]"
               >
                 CV ↗
               </a>
@@ -148,7 +148,7 @@ export function HeroSection() {
                 href="https://conoid.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] text-[#2d5035] hover:text-[#1a3520] transition-colors border border-[#4a6852]/60 hover:border-[#2d5035] px-3 py-1.5 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
+                className="font-mono text-[11px] font-medium text-[#0a1a0e] hover:text-[#0d1f12] transition-colors border border-[#1a3520] hover:border-[#0a1a0e] bg-[#eef4ee]/75 px-3 py-1.5 drop-shadow-[0_1px_4px_rgba(238,244,238,0.95)]"
               >
                 conoid.ai ↗
               </a>
