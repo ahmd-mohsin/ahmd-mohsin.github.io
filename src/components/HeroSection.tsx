@@ -45,7 +45,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#4a6852] mb-7"
+              className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#0a1a0e] mb-7 [text-shadow:0_0_10px_rgba(238,244,238,0.95)]"
             >
               Graduate Student · Stanford · SAIL
             </motion.p>
@@ -65,14 +65,14 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.16, duration: 0.55 }}
-              className="italic text-sm text-[#4a6852] leading-relaxed max-w-xl mb-6"
+              className="italic text-sm text-[#0a1a0e] leading-relaxed max-w-xl mb-6 [text-shadow:0_0_10px_rgba(238,244,238,0.95)]"
             >
               Co-advised by{" "}
               <a
                 href="https://statistics.stanford.edu/people/emily-b-fox"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#2d5035] hover:text-[#1a3520] transition-colors underline underline-offset-4 decoration-[#90aa98]/60"
+                className="text-[#000000] hover:text-[#0a1a0e] transition-colors underline underline-offset-4 decoration-[#1a3520]/70 font-medium"
               >
                 Dr. Emily Fox
               </a>{" "}
@@ -81,7 +81,7 @@ export function HeroSection() {
                 href="https://cioffi-group.stanford.edu/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#2d5035] hover:text-[#1a3520] transition-colors underline underline-offset-4 decoration-[#90aa98]/60"
+                className="text-[#000000] hover:text-[#0a1a0e] transition-colors underline underline-offset-4 decoration-[#1a3520]/70 font-medium"
               >
                 Dr. John M. Cioffi
               </a>
@@ -94,12 +94,12 @@ export function HeroSection() {
               transition={{ delay: 0.22, duration: 0.55 }}
               className="space-y-3 max-w-xl"
             >
-              <p className="text-sm font-medium leading-relaxed text-[#0a1a0e] [text-shadow:0_0_12px_rgba(238,244,238,0.95),0_1px_2px_rgba(238,244,238,0.9)]">
+              <p className="text-sm font-semibold leading-relaxed text-black [text-shadow:0_0_14px_rgba(238,244,238,1),0_0_6px_rgba(238,244,238,1)]">
                 Research on preference optimization and alignment for LLMs,
                 adaptive test-time scaling and discovery, and self-evolving
                 multi-agent systems.
               </p>
-              <p className="text-sm font-medium leading-relaxed text-[#0d1f12] [text-shadow:0_0_12px_rgba(238,244,238,0.95),0_1px_2px_rgba(238,244,238,0.9)]">
+              <p className="text-sm font-semibold leading-relaxed text-black [text-shadow:0_0_14px_rgba(238,244,238,1),0_0_6px_rgba(238,244,238,1)]">
                 Graduate student at Stanford — LLM post-training, test-time
                 scaling, and reinforcement learning. Collaborations with Google
                 DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
@@ -127,7 +127,7 @@ export function HeroSection() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   title={item.label}
                   aria-label={item.label}
-                  className="text-[#2d5035] hover:text-[#1a3520] transition-colors duration-200 drop-shadow-[0_1px_3px_rgba(238,244,238,0.9)]"
+                  className="text-black hover:text-[#0a1a0e] transition-colors duration-200 drop-shadow-[0_0_8px_rgba(238,244,238,1)]"
                 >
                   {item.icon}
                 </a>
@@ -139,7 +139,7 @@ export function HeroSection() {
                 href="/Masters.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] font-medium text-[#0a1a0e] hover:text-[#0d1f12] transition-colors border border-[#1a3520] hover:border-[#0a1a0e] bg-[#eef4ee]/75 px-3 py-1.5 drop-shadow-[0_1px_4px_rgba(238,244,238,0.95)]"
+                className="font-mono text-[11px] font-semibold text-black hover:text-[#0a1a0e] transition-colors border border-black/80 hover:border-black bg-[#eef4ee]/92 px-3 py-1.5 shadow-[0_0_12px_rgba(238,244,238,0.95)]"
               >
                 CV ↗
               </a>
@@ -148,7 +148,7 @@ export function HeroSection() {
                 href="https://conoid.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] font-medium text-[#0a1a0e] hover:text-[#0d1f12] transition-colors border border-[#1a3520] hover:border-[#0a1a0e] bg-[#eef4ee]/75 px-3 py-1.5 drop-shadow-[0_1px_4px_rgba(238,244,238,0.95)]"
+                className="font-mono text-[11px] font-semibold text-black hover:text-[#0a1a0e] transition-colors border border-black/80 hover:border-black bg-[#eef4ee]/92 px-3 py-1.5 shadow-[0_0_12px_rgba(238,244,238,0.95)]"
               >
                 conoid.ai ↗
               </a>
