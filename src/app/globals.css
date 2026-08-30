@@ -9,34 +9,39 @@
   --font-display: 'Lora', Georgia, serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  /* Light misty forest palette — derived from picture.jpg */
-  --background: 120 22% 95%;       /* #eef4ee — cloud mist */
-  --foreground: 133 34% 16%;       /* #1a3520 — dark forest */
+  /* Dark RL-world palette — deep near-black ocean with an emerald agent accent.
+     Section components read these hex values directly (see the palette contract):
+       page bg      #070b0a   deep       #0b1210
+       heading      #e8f0ea   body       #b9c8bd   muted #8aa090   faint #63796b
+       accent       #5fae7a   accent-hi  #8fd6a6   border rgba(122,166,134,.18)
+       panel bg     rgba(11,17,15,.55) + backdrop-blur */
+  --background: 156 16% 4%;         /* #070b0a — deep ocean night */
+  --foreground: 138 22% 92%;        /* #e8f0ea — near-white mist */
 
-  --card: 120 18% 92%;
-  --card-foreground: 133 34% 16%;
+  --card: 156 14% 7%;
+  --card-foreground: 138 22% 92%;
 
-  --popover: 120 18% 92%;
-  --popover-foreground: 133 34% 16%;
+  --popover: 156 14% 7%;
+  --popover-foreground: 138 22% 92%;
 
-  --primary: 133 34% 16%;
-  --primary-foreground: 120 22% 95%;
+  --primary: 145 34% 53%;           /* #5fae7a — emerald agent glow */
+  --primary-foreground: 156 16% 4%;
 
-  --secondary: 126 16% 88%;
-  --secondary-foreground: 133 34% 16%;
+  --secondary: 156 12% 12%;
+  --secondary-foreground: 138 22% 92%;
 
-  --muted: 120 14% 90%;
-  --muted-foreground: 135 12% 48%;  /* #6a8a72 — sage */
+  --muted: 156 12% 12%;
+  --muted-foreground: 140 12% 60%;  /* #8aa090 — sage */
 
-  --accent: 126 19% 84%;
-  --accent-foreground: 133 34% 16%;
+  --accent: 145 34% 53%;
+  --accent-foreground: 156 16% 4%;
 
-  --destructive: 0 62.8% 30.6%;
+  --destructive: 0 62.8% 40%;
   --destructive-foreground: 0 0% 98%;
 
-  --border: 126 19% 79%;           /* #c0d4c2 — mist border */
-  --input: 126 19% 79%;
-  --ring: 133 34% 16%;
+  --border: 145 20% 30%;
+  --input: 145 20% 30%;
+  --ring: 145 34% 53%;
   --radius: 0px;
 }
 
@@ -44,9 +49,13 @@
   * {
     @apply border-border;
   }
+  html {
+    background-color: #070b0a;
+  }
   body {
-    background-color: #eef4ee;
-    color: #1a3520;
+    /* Transparent so the fixed 3D RL world shows through every section. */
+    background-color: transparent;
+    color: #e8f0ea;
     @apply font-sans antialiased;
     font-feature-settings: "ss01", "ss02";
   }
@@ -57,10 +66,24 @@
 }
 
 @layer utilities {
+  /* Legacy nav glass (kept for compatibility) — dark variant. */
   .glass {
-    background: rgba(238, 244, 238, 0.88);
+    background: rgba(7, 11, 10, 0.72);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border-bottom: 1px solid rgba(160, 200, 165, 0.35);
+    border-bottom: 1px solid rgba(122, 166, 134, 0.16);
+  }
+
+  /* Dark translucent floating panel — the vmax-style content surface.
+     Applied via the GlassPanel component; use the class directly only for
+     one-off surfaces. */
+  .glass-panel {
+    background: rgba(9, 14, 12, 0.68);
+    backdrop-filter: blur(18px) saturate(1.1);
+    -webkit-backdrop-filter: blur(18px) saturate(1.1);
+    border: 1px solid rgba(122, 166, 134, 0.18);
+    box-shadow:
+      0 24px 60px -24px rgba(0, 0, 0, 0.75),
+      inset 0 1px 0 0 rgba(180, 220, 190, 0.06);
   }
 }

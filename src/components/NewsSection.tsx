@@ -1,4 +1,5 @@
 import { Section } from "@/components/Section";
+import { GlassPanel } from "@/components/GlassPanel";
 import { motion } from "framer-motion";
 
 const newsItems = [
@@ -26,26 +27,28 @@ const newsItems = [
 export function NewsSection() {
   return (
     <Section id="news" title="News">
-      <div>
-        {newsItems.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.015, duration: 0.4 }}
-            className="border-t border-[#c0d4c2]/50 py-4 grid grid-cols-[7rem_1fr] gap-6 items-start"
-            data-testid={`card-news-${i}`}
-          >
-            <span className="font-mono text-[10px] text-[#90aa98] pt-0.5 tracking-wide">
-              {item.date}
-            </span>
-            <p className="text-sm leading-relaxed text-[#5d7a65]">
-              {item.content}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+      <GlassPanel className="p-6 md:p-8">
+        <div>
+          {newsItems.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.015, duration: 0.4 }}
+              className="border-t border-[#7aa686]/20 py-4 grid grid-cols-[7rem_1fr] gap-6 items-start"
+              data-testid={`card-news-${i}`}
+            >
+              <span className="font-mono text-[10px] text-[#8aa090] pt-0.5 tracking-wide">
+                {item.date}
+              </span>
+              <p className="text-sm leading-relaxed text-[#b9c8bd]">
+                {item.content}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </GlassPanel>
     </Section>
   );
 }

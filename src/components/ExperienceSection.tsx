@@ -1,4 +1,5 @@
 import { Section } from "@/components/Section";
+import { GlassPanel } from "@/components/GlassPanel";
 import { motion } from "framer-motion";
 
 const experiences = [
@@ -58,49 +59,51 @@ const experiences = [
 export function ExperienceSection() {
   return (
     <Section id="experience" title="Experience">
-      <div>
-        {experiences.map((exp, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.08, duration: 0.5 }}
-            className="border-t border-[#c0d4c2]/50 py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12"
-            data-testid={`row-experience-${i}`}
-          >
-            <div className="shrink-0">
-              <p className="text-sm font-semibold text-[#1a3520] leading-snug mb-2">
-                {exp.org}
-              </p>
-              <p className="font-mono text-[10px] text-[#90aa98] leading-relaxed">
-                {exp.dateRange}
-              </p>
-              <p className="font-mono text-[10px] text-[#a0b8a4] mt-1">
-                {exp.advisor}
-              </p>
-            </div>
+      <GlassPanel className="p-8 md:p-10">
+        <div>
+          {experiences.map((exp, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="border-t border-[#7aa686]/20 py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12"
+              data-testid={`row-experience-${i}`}
+            >
+              <div className="shrink-0">
+                <p className="text-sm font-semibold text-[#e8f0ea] leading-snug mb-2">
+                  {exp.org}
+                </p>
+                <p className="font-mono text-[10px] text-[#63796b] leading-relaxed">
+                  {exp.dateRange}
+                </p>
+                <p className="font-mono text-[10px] text-[#63796b] mt-1">
+                  {exp.advisor}
+                </p>
+              </div>
 
-            <div className="space-y-5">
-              {exp.projects.map((project, j) => (
-                <div key={j}>
-                  <p className="text-sm text-[#3a5440] font-medium mb-2">
-                    {project.name}
-                  </p>
-                  <ul className="space-y-2">
-                    {project.bullets.map((bullet, k) => (
-                      <li key={k} className="flex gap-3 text-sm leading-relaxed text-[#5d7a65]">
-                        <span className="text-[#c0d4c2] shrink-0 mt-0.5">—</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        ))}
-      </div>
+              <div className="space-y-5">
+                {exp.projects.map((project, j) => (
+                  <div key={j}>
+                    <p className="text-sm text-[#e8f0ea] font-medium mb-2">
+                      {project.name}
+                    </p>
+                    <ul className="space-y-2">
+                      {project.bullets.map((bullet, k) => (
+                        <li key={k} className="flex gap-3 text-sm leading-relaxed text-[#b9c8bd]">
+                          <span className="text-[#63796b] shrink-0 mt-0.5">—</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </GlassPanel>
     </Section>
   );
 }

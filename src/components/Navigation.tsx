@@ -21,7 +21,7 @@ export function Navigation() {
           to="about"
           smooth={true}
           duration={500}
-          className="font-mono text-xs text-[#2d5035] cursor-pointer shrink-0 tracking-wider hover:text-[#1a3520] transition-colors"
+          className="font-mono text-xs text-[#5fae7a] cursor-pointer shrink-0 tracking-wider hover:text-[#8fd6a6] transition-colors"
           data-testid="link-home"
         >
           mohsin
@@ -35,7 +35,7 @@ export function Navigation() {
               smooth={true}
               duration={500}
               offset={-48}
-              className="text-[11px] font-mono text-[#90aa98] hover:text-[#2d5035] cursor-pointer transition-colors uppercase tracking-widest"
+              className="text-[11px] font-mono text-[#8aa090] hover:text-[#5fae7a] cursor-pointer transition-colors uppercase tracking-widest"
               data-testid={`link-nav-${item.to}`}
             >
               {item.name}
@@ -44,7 +44,7 @@ export function Navigation() {
         </div>
 
         <button
-          className="md:hidden text-[#6a8a72] hover:text-[#2d5035] transition-colors"
+          className="md:hidden text-[#8aa090] hover:text-[#5fae7a] transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           data-testid="button-mobile-menu"
         >
@@ -57,7 +57,7 @@ export function Navigation() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.15 }}
-          className="md:hidden border-t border-[#c0d4c2]/50 bg-[#eef4ee] px-6 py-5"
+          className="md:hidden border-t border-[#7aa686]/20 bg-[#070b0a]/95 px-6 py-5"
         >
           <div className="flex flex-col gap-5">
             {navItems.map((item) => (
@@ -68,7 +68,7 @@ export function Navigation() {
                 duration={500}
                 offset={-48}
                 onClick={() => setIsOpen(false)}
-                className="text-[11px] font-mono text-[#90aa98] hover:text-[#2d5035] cursor-pointer uppercase tracking-widest"
+                className="text-[11px] font-mono text-[#8aa090] hover:text-[#5fae7a] cursor-pointer uppercase tracking-widest"
                 data-testid={`link-mobile-${item.to}`}
               >
                 {item.name}

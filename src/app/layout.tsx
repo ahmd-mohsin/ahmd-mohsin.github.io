@@ -4,7 +4,8 @@ import { Providers } from "@/components/providers";
 
 export const metadata: Metadata = {
     title: "Ahmad Mohsin",
-    description: "Academic Portfolio",
+    description:
+        "Ahmad Mohsin — academic portfolio: research in machine learning and reinforcement learning, publications, experience, and news.",
 };
 
 export default function RootLayout({
@@ -14,7 +15,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body>
+            <body style={{ backgroundColor: "#070b0a" }}>
                 <Providers>{children}</Providers>
             </body>
         </html>

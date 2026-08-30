@@ -1,65 +1,68 @@
 import { Section } from "@/components/Section";
+import { GlassPanel } from "@/components/GlassPanel";
 import { motion } from "framer-motion";
 
 const interests = [
   {
-    title: "Preference Optimization and Alignment for LLMs",
-    desc: "Designing sample-efficient preference learning and reinforcement-learning methods for aligning language-model reasoning: continuous-utility and general-preference formulations (CU-DPO, General Preference RL), active alignment under Bayesian general preference models with calibrated uncertainty, and sycophancy reduction.",
-    venues: "ICML'26 · CoLM'26 · NeurIPS'26 · EMNLP'26",
+    title: "Preference Optimization and Test-Time Scaling",
+    desc: "Designing sample-efficient preference-learning and reinforcement-learning methods for aligning language-model reasoning, and adaptive test-time compute methods that dynamically control inference depth, tool invocation, and verification under strict budgets. I am interested in how post-training and inference-time search jointly shape reasoning, and in principled trade-offs among accuracy, latency, and reliability.",
+    venues: "Post-training · Inference-time search",
   },
   {
-    title: "Test-Time Scaling and Test-Time Discovery",
-    desc: "Developing adaptive test-time compute methods for reasoning and scientific discovery under uncertainty: dynamic control of inference depth, tool invocation, and verification under strict budgets; stratified scaling search for diffusion language models; and epistemic-uncertainty-driven test-time training for discovery.",
-    venues: "ICML'26 · CoLM'26 · NeurIPS'26 · EMNLP'26",
+    title: "Agentic System Architectures and Coding Agents",
+    desc: "Building agentic systems that plan, act, and self-verify over long horizons, spanning multi-agent coordination and the software agents I develop at alexein.ai. Through my work at Amazon AGI on coding agents, I study how agents convert test-time compute into solved tasks by exploring diverse solutions and writing trustworthy verifiers, and how these behaviors can be internalized through supervised and reinforcement post-training.",
+    venues: "alexein.ai · Amazon AGI",
   },
   {
-    title: "Interactive and Multi-Agent Systems",
-    desc: "Building self-evolving multi-agent ecosystems in which agents accumulate scoped memory, earn reputation through Bayesian posteriors, and coordinate over an evolving social graph. Related work on learning from code-agent trajectories via causal redundancy analysis, and on privacy, security, and shared context in collaborative agentic reasoning.",
-    venues: "NeurIPS'26 · Ongoing",
+    title: "AI Alignment and Benchmarking",
+    desc: "Developing persona-based benchmarks and user-simulation frameworks that evaluate how models behave across diverse populations and interactive settings. I am broadly interested in AI alignment, including calibrated uncertainty and reducing sycophancy, and in measurement methodology that makes alignment progress observable and reproducible.",
+    venues: "Alignment · Evaluation",
   },
 ];
 
 export function ResearchInterestsSection() {
   return (
     <Section id="research-interests" title="Research Interests">
-      <motion.p
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
-        className="text-sm leading-relaxed text-[#5d7a65] mb-12 max-w-2xl italic"
-      >
-        My research spans preference optimization and alignment for LLMs,
-        adaptive test-time scaling and discovery, and interactive multi-agent
-        systems — with collaborations across Google DeepMind, Meta, Amazon AGI,
-        and Microsoft Core AI.
-      </motion.p>
+      <GlassPanel className="p-8 md:p-10">
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+          className="text-sm leading-relaxed text-[#8aa090] mb-12 max-w-2xl italic"
+        >
+          My research spans preference optimization and test-time scaling for LLM
+          reasoning, agentic system architectures and coding agents, and AI
+          alignment and benchmarking — with collaborations across Google DeepMind,
+          Meta, Amazon AGI, and Microsoft Core AI.
+        </motion.p>
 
-      <div>
-        {interests.map((interest, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.07, duration: 0.5 }}
-            className="border-t border-[#c0d4c2]/50 py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
-            data-testid={`row-interest-${i}`}
-          >
-            <div>
-              <p className="text-sm font-semibold text-[#1a3520] leading-snug mb-2">
-                {interest.title}
+        <div>
+          {interests.map((interest, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.07, duration: 0.5 }}
+              className="border-t border-[#7aa686]/20 py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
+              data-testid={`row-interest-${i}`}
+            >
+              <div>
+                <p className="text-sm font-semibold text-[#e8f0ea] leading-snug mb-2">
+                  {interest.title}
+                </p>
+                <span className="font-mono text-[10px] text-[#63796b] tracking-wider">
+                  {interest.venues}
+                </span>
+              </div>
+              <p className="text-sm leading-relaxed text-[#b9c8bd]">
+                {interest.desc}
               </p>
-              <span className="font-mono text-[10px] text-[#90aa98] tracking-wider">
-                {interest.venues}
-              </span>
-            </div>
-            <p className="text-sm leading-relaxed text-[#5d7a65]">
-              {interest.desc}
-            </p>
-          </motion.div>
-        ))}
-      </div>
+            </motion.div>
+          ))}
+        </div>
+      </GlassPanel>
     </Section>
   );
 }
