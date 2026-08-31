@@ -11,7 +11,7 @@ import RLWorld from "./RLWorld";
  *
  * Handles motion/perf policy:
  *  - prefers-reduced-motion  -> render a single still frame (frameloop "demand",
- *    animate=false): no camera drift, no agent motion, no ocean ripple.
+ *    animate=false): no camera drift, no agent motion, no arrow-trail motion.
  *  - document.hidden          -> pause the render loop (frameloop "never").
  *  - otherwise                -> frameloop "always" at 60fps.
  */
