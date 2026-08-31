@@ -26,8 +26,8 @@ const GOAL_COLOR = "#ffd27a";
 const WALL_COLOR = "#1b3627";
 const WALL_RIM = "#4f976c";
 const AGENT_BASE = new THREE.Color("#78e6a0");
-const AGENT_BUMP = new THREE.Color("#ff6a4d");
-const TRAIL_EARLY = new THREE.Color("#e0663c"); // messy / exploring
+const AGENT_BUMP = new THREE.Color("#ff2d2d");
+const TRAIL_EARLY = new THREE.Color("#e12626"); // messy / exploring (mistakes = red)
 const TRAIL_LEARNED = new THREE.Color("#5fae7a"); // converged
 
 const HALF = 7;
