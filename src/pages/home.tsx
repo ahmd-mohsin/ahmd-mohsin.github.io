@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-transparent text-foreground overflow-x-hidden selection:bg-white/20">
       <Scene3DBackground />
-      <div className="relative z-0">
+      <div className="relative z-10">
         <Navigation />
         <HeroSection />
         <ResearchInterestsSection />

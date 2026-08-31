@@ -40,7 +40,7 @@ export function Scene3DBackground() {
 
   return (
     <div
-      className="fixed inset-0 -z-10 pointer-events-none"
+      className="fixed inset-0 z-0 pointer-events-none"
       aria-hidden="true"
       style={{
         // Static dark fallback — always visible behind the canvas so there is

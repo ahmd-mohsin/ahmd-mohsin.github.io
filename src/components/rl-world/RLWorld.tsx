@@ -18,11 +18,11 @@ import * as THREE from "three";
  */
 
 const CLEAR_COLOR = "#070b0a";
-const OCEAN_COLOR = "#0b1512";
-const OCEAN_EMISSIVE = "#0a1f16";
-const LAND_COLOR = "#14241b";
-const LAND_RIM = "#1c3326";
-const TREE_COLOR = "#1c3326";
+const OCEAN_COLOR = "#102420";
+const OCEAN_EMISSIVE = "#123a2a";
+const LAND_COLOR = "#1b3225";
+const LAND_RIM = "#2c4d38";
+const TREE_COLOR = "#244534";
 const AGENT_COLOR = "#5fae7a";
 
 // Deterministic island layout — no Math.random() (unavailable). Positions,
@@ -155,17 +155,17 @@ function Agent({ index, animate }: { index: number; animate: boolean }) {
         <meshStandardMaterial
           color={AGENT_COLOR}
           emissive={AGENT_COLOR}
-          emissiveIntensity={1.8}
+          emissiveIntensity={2.6}
           toneMapped={false}
         />
       </mesh>
       {/* soft additive halo */}
       <mesh>
-        <sphereGeometry args={[0.34, 12, 12]} />
+        <sphereGeometry args={[0.38, 12, 12]} />
         <meshBasicMaterial
           color={AGENT_COLOR}
           transparent
-          opacity={0.13}
+          opacity={0.2}
           blending={THREE.AdditiveBlending}
           depthWrite={false}
           toneMapped={false}
@@ -210,9 +210,9 @@ function Ocean({ animate }: { animate: boolean }) {
       <meshStandardMaterial
         color={OCEAN_COLOR}
         emissive={OCEAN_EMISSIVE}
-        emissiveIntensity={0.25}
-        roughness={0.35}
-        metalness={0.5}
+        emissiveIntensity={0.5}
+        roughness={0.4}
+        metalness={0.55}
       />
     </mesh>
   );
@@ -225,7 +225,7 @@ function CameraRig({ animate }: { animate: boolean }) {
 
   // Establish a high angle looking across the ocean toward the fogged horizon.
   useMemo(() => {
-    camera.position.set(0, 7.5, 15);
+    camera.position.set(0, 5.2, 12);
     camera.lookAt(target);
   }, [camera, target]);
 
@@ -233,8 +233,8 @@ function CameraRig({ animate }: { animate: boolean }) {
     if (!animate) return;
     const t = state.clock.elapsedTime;
     camera.position.x = Math.sin(t * 0.05) * 2.2;
-    camera.position.y = 7.5 + Math.sin(t * 0.04) * 0.6;
-    camera.position.z = 15 + Math.cos(t * 0.05) * 1.2;
+    camera.position.y = 5.2 + Math.sin(t * 0.04) * 0.5;
+    camera.position.z = 12 + Math.cos(t * 0.05) * 1.2;
     camera.lookAt(target);
   });
 
@@ -251,12 +251,12 @@ export default function RLWorld({ animate = true }: { animate?: boolean }) {
     <>
       {/* clear color + deep fog so distant geometry dissolves into black */}
       <color attach="background" args={[CLEAR_COLOR]} />
-      <fog attach="fog" args={[CLEAR_COLOR, 14, 42]} />
+      <fog attach="fog" args={[CLEAR_COLOR, 22, 72]} />
 
-      {/* lighting: low ambient, one dim directional, faint emerald point light */}
-      <ambientLight intensity={0.25} color="#8aa090" />
-      <directionalLight position={[6, 12, 8]} intensity={0.5} color="#cfe6d6" />
-      <pointLight position={[0, 4, 0]} intensity={7} distance={30} decay={2} color={AGENT_COLOR} />
+      {/* lighting: soft ambient, one directional key, faint emerald point light */}
+      <ambientLight intensity={0.55} color="#9fbfa9" />
+      <directionalLight position={[6, 12, 8]} intensity={0.9} color="#cfe6d6" />
+      <pointLight position={[0, 4, 0]} intensity={9} distance={34} decay={2} color={AGENT_COLOR} />
 
       <CameraRig animate={animate} />
       <Ocean animate={animate} />
