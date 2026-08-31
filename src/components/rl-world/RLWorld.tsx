@@ -8,110 +8,129 @@ import * as THREE from "three";
 /**
  * RLWorld — the r3f scene CONTENTS (everything inside <Canvas>).
  *
- * A calm, beautiful, and legible REINFORCEMENT-LEARNING gridworld:
- *   - a glowing grid floor (the environment / state space)
- *   - a POLICY ARROW FIELD: every cell holds a small arrow pointing the optimal
- *     action toward the goal, brightening as it nears the goal (a value gradient)
- *   - a bright pulsing GOAL cell with an expanding reward ring
- *   - a few glowing AGENTS that roll out the policy step-by-step to the goal,
- *     then restart a new episode
+ * A calm, beautiful REINFORCEMENT-LEARNING gridworld that tells a LEARNING
+ * story: box "agents" start with a noisy policy — they wander and BUMP into
+ * walls (red flashes) taking long messy routes — and over successive EPISODES
+ * their exploration decays until they trace the clean optimal path around the
+ * walls to the glowing GOAL. The trail recolors red -> green as the agent
+ * learns. Then a fresh agent starts learning again.
  *
  * `animate` (prefers-reduced-motion / tab visibility): when false, one still
  * frame — no motion, no pulsing.
  */
 
 const CLEAR_COLOR = "#070b0a";
-const CELL_COLOR = "#274d39";
-const SECTION_COLOR = "#3f7d5a";
-const AGENT_COLOR = "#78e6a0";
+const CELL_COLOR = "#264a37";
+const SECTION_COLOR = "#3a7052";
 const GOAL_COLOR = "#ffd27a";
-const ARROW_DIM = new THREE.Color("#183327");
-const ARROW_BRIGHT = new THREE.Color("#5fae7a");
+const WALL_COLOR = "#1b3627";
+const WALL_RIM = "#4f976c";
+const AGENT_BASE = new THREE.Color("#78e6a0");
+const AGENT_BUMP = new THREE.Color("#ff6a4d");
+const TRAIL_EARLY = new THREE.Color("#e0663c"); // messy / exploring
+const TRAIL_LEARNED = new THREE.Color("#5fae7a"); // converged
 
-const HALF = 7; // cells span -HALF..HALF in x and z
-const GOAL: [number, number] = [3, -2];
-const AGENT_COUNT = 4;
+const HALF = 7;
+const GOAL: [number, number] = [4, -3];
+const AGENT_COUNT = 3;
+const EPISODES = 5;
+const PAUSE = 3; // frames held at the goal between episodes
 const GOLDEN_ANGLE = 2.399963229728653;
+
+// A wall with a single gap, so agents must learn to route around it.
+const WALLS: [number, number][] = [
+  [1, -5], [1, -4], [1, -3], [1, -1], [1, 0], [1, 1], [1, 2],
+];
+const wallKey = (x: number, z: number) => `${x},${z}`;
+const WALL_SET = new Set(WALLS.map(([x, z]) => wallKey(x, z)));
+const inBounds = (x: number, z: number) =>
+  x >= -HALF && x <= HALF && z >= -HALF && z <= HALF;
+const passable = (x: number, z: number) => inBounds(x, z) && !WALL_SET.has(wallKey(x, z));
+
+const DIRS: [number, number][] = [[1, 0], [-1, 0], [0, 1], [0, -1]];
 
 function hash01(n: number): number {
   const s = Math.sin(n * 12.9898) * 43758.5453;
   return s - Math.floor(s);
 }
 
-// Optimal gridworld policy: the greedy cardinal step from (x,z) toward the goal.
-function policyStep(x: number, z: number): [number, number] {
-  const dx = GOAL[0] - x;
-  const dz = GOAL[1] - z;
-  if (dx === 0 && dz === 0) return [0, 0];
-  if (Math.abs(dx) >= Math.abs(dz)) return [Math.sign(dx), 0];
-  return [0, Math.sign(dz)];
-}
-
-/** All grid cells and the cell -> world helpers. */
-const CELLS: [number, number][] = (() => {
-  const out: [number, number][] = [];
-  for (let x = -HALF; x <= HALF; x++)
-    for (let z = -HALF; z <= HALF; z++) out.push([x, z]);
-  return out;
+// BFS distance-to-goal over passable cells — defines the optimal policy.
+const DIST: Map<string, number> = (() => {
+  const d = new Map<string, number>();
+  d.set(wallKey(GOAL[0], GOAL[1]), 0);
+  let frontier: [number, number][] = [GOAL];
+  while (frontier.length) {
+    const next: [number, number][] = [];
+    for (const [x, z] of frontier) {
+      const base = d.get(wallKey(x, z))!;
+      for (const [dx, dz] of DIRS) {
+        const nx = x + dx, nz = z + dz;
+        if (!passable(nx, nz)) continue;
+        const k = wallKey(nx, nz);
+        if (!d.has(k)) {
+          d.set(k, base + 1);
+          next.push([nx, nz]);
+        }
+      }
+    }
+    frontier = next;
+  }
+  return d;
 })();
 
-const MAX_DIST = HALF * 2 + Math.abs(GOAL[0]) + Math.abs(GOAL[1]);
+// Greedy optimal step: the passable neighbor with the smallest distance-to-goal.
+function greedyStep(x: number, z: number): [number, number] {
+  let best: [number, number] = [0, 0];
+  let bestD = DIST.get(wallKey(x, z)) ?? Infinity;
+  for (const [dx, dz] of DIRS) {
+    const nx = x + dx, nz = z + dz;
+    if (!passable(nx, nz)) continue;
+    const nd = DIST.get(wallKey(nx, nz));
+    if (nd !== undefined && nd < bestD) {
+      bestD = nd;
+      best = [dx, dz];
+    }
+  }
+  return best;
+}
 
-/** Instanced policy-arrow field — one draw call for the whole board. Arrows are
- *  flat triangles lying on the grid, aimed along the optimal action, and colored
- *  from dim (far) to bright emerald (near goal): a value gradient. */
-function PolicyField() {
-  const meshRef = useRef<THREE.InstancedMesh>(null);
+type Frame = { cell: [number, number]; ep: number; bump: boolean; goal: boolean };
 
-  const geom = useMemo(() => {
-    const g = new THREE.BufferGeometry();
-    // triangle pointing +X, lying flat in the XZ plane
-    const verts = new Float32Array([
-      0.34, 0, 0, -0.2, 0, 0.16, -0.2, 0, -0.16,
-    ]);
-    g.setAttribute("position", new THREE.BufferAttribute(verts, 3));
-    g.computeVertexNormals();
-    return g;
-  }, []);
-
-  const cells = useMemo(
-    () => CELLS.filter(([x, z]) => !(x === GOAL[0] && z === GOAL[1])),
-    []
-  );
-
-  useLayoutEffect(() => {
-    const mesh = meshRef.current;
-    if (!mesh) return;
-    const dummy = new THREE.Object3D();
-    const color = new THREE.Color();
-    cells.forEach(([x, z], i) => {
-      const [dx, dz] = policyStep(x, z);
-      const angle = Math.atan2(-dz, dx); // rotate +X -> (dx,dz)
-      dummy.position.set(x, 0.06, z);
-      dummy.rotation.set(0, angle, 0);
-      dummy.updateMatrix();
-      mesh.setMatrixAt(i, dummy.matrix);
-      const dist = Math.abs(GOAL[0] - x) + Math.abs(GOAL[1] - z);
-      const t = 1 - dist / MAX_DIST; // 1 near goal, 0 far
-      color.copy(ARROW_DIM).lerp(ARROW_BRIGHT, t * t);
-      mesh.setColorAt(i, color);
-    });
-    mesh.instanceMatrix.needsUpdate = true;
-    if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-  }, [cells]);
-
-  return (
-    <instancedMesh ref={meshRef} args={[geom, undefined, cells.length]}>
-      <meshBasicMaterial
-        transparent
-        opacity={0.9}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-        toneMapped={false}
-        side={THREE.DoubleSide}
-      />
-    </instancedMesh>
-  );
+/** Precompute the full learning timeline for one agent: EPISODES rollouts from
+ *  a start cell with exploration decaying to zero, flattened into unit-step
+ *  frames. Deterministic (hashed), so it is stable and resumable. */
+function buildTimeline(agentSeed: number, start: [number, number]): Frame[] {
+  const frames: Frame[] = [];
+  for (let e = 0; e < EPISODES; e++) {
+    const epsilon = 0.62 * (1 - e / (EPISODES - 1)); // 0.62 -> 0
+    let [cx, cz] = start;
+    frames.push({ cell: [cx, cz], ep: e, bump: false, goal: false });
+    let steps = 0;
+    const maxSteps = 80;
+    while (!(cx === GOAL[0] && cz === GOAL[1]) && steps < maxSteps) {
+      const seed = agentSeed * 1e5 + e * 1e3 + steps;
+      const explore = hash01(seed) < epsilon;
+      let dir: [number, number];
+      if (explore) {
+        dir = DIRS[Math.floor(hash01(seed + 0.37) * 4) % 4];
+      } else {
+        dir = greedyStep(cx, cz);
+      }
+      const nx = cx + dir[0], nz = cz + dir[1];
+      if (!passable(nx, nz)) {
+        // bump: the agent tries an invalid move, stays put, and flashes.
+        frames.push({ cell: [cx, cz], ep: e, bump: true, goal: false });
+      } else {
+        cx = nx; cz = nz;
+        frames.push({ cell: [cx, cz], ep: e, bump: false, goal: cx === GOAL[0] && cz === GOAL[1] });
+      }
+      steps++;
+    }
+    // hold at the goal for a beat before the next episode
+    for (let p = 0; p < PAUSE; p++)
+      frames.push({ cell: [cx, cz], ep: e, bump: false, goal: true });
+  }
+  return frames;
 }
 
 /** The goal cell: a bright pulsing tile plus an expanding reward ring. */
@@ -125,7 +144,7 @@ function GoalMarker({ animate }: { animate: boolean }) {
     if (tileRef.current)
       tileRef.current.opacity = 0.55 + 0.35 * (0.5 + 0.5 * Math.sin(t * 2.2));
     if (ringRef.current && ringMat.current) {
-      const p = (t * 0.5) % 1; // 0..1 expanding pulse
+      const p = (t * 0.5) % 1;
       const s = 0.5 + p * 2.6;
       ringRef.current.scale.set(s, s, s);
       ringMat.current.opacity = animate ? (1 - p) * 0.5 : 0.3;
@@ -136,140 +155,137 @@ function GoalMarker({ animate }: { animate: boolean }) {
     <group position={[GOAL[0], 0, GOAL[1]]}>
       <mesh position={[0, 0.05, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[0.96, 0.96]} />
-        <meshBasicMaterial
-          ref={tileRef}
-          color={GOAL_COLOR}
-          transparent
-          opacity={0.7}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          toneMapped={false}
-        />
+        <meshBasicMaterial ref={tileRef} color={GOAL_COLOR} transparent opacity={0.7}
+          blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
       </mesh>
       <mesh ref={ringRef} position={[0, 0.06, 0]} rotation={[-Math.PI / 2, 0, 0]}>
         <ringGeometry args={[0.42, 0.5, 40]} />
-        <meshBasicMaterial
-          ref={ringMat}
-          color={GOAL_COLOR}
-          transparent
-          opacity={0.4}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          toneMapped={false}
-        />
+        <meshBasicMaterial ref={ringMat} color={GOAL_COLOR} transparent opacity={0.4}
+          blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
       </mesh>
     </group>
   );
 }
 
-/** An agent that rolls out the policy from a start cell to the goal, leaving a
- *  fading trail, then restarts a fresh episode. */
+/** Walls the agents must learn to route around. */
+function Walls() {
+  const geom = useMemo(() => new THREE.BoxGeometry(0.88, 0.8, 0.88), []);
+  const edges = useMemo(() => new THREE.EdgesGeometry(geom), [geom]);
+  return (
+    <>
+      {WALLS.map(([x, z], i) => (
+        <group key={i} position={[x, 0.4, z]}>
+          <mesh geometry={geom}>
+            <meshStandardMaterial color={WALL_COLOR} emissive={WALL_RIM} emissiveIntensity={0.55}
+              roughness={0.85} metalness={0.1} flatShading />
+          </mesh>
+          <lineSegments geometry={edges}>
+            <lineBasicMaterial color={WALL_RIM} transparent opacity={0.8} toneMapped={false} />
+          </lineSegments>
+        </group>
+      ))}
+    </>
+  );
+}
+
+/** A learning agent: a glowing box that rolls out episodes from messy to clean,
+ *  flashing red on wall bumps, with a trail that recolors red -> green as it
+ *  learns. */
 function Agent({ index, animate }: { index: number; animate: boolean }) {
   const groupRef = useRef<THREE.Group>(null);
+  const boxMat = useRef<THREE.MeshStandardMaterial>(null);
   const trailRef = useRef<THREE.InstancedMesh>(null);
-  const TRAIL = 7;
+  const trailMat = useRef<THREE.MeshBasicMaterial>(null);
+  const TRAIL = 12;
 
-  const { path, speed } = useMemo(() => {
-    const seed = index * 4 + 1;
-    // deterministic start cell on the board
-    const sx = Math.round((hash01(seed * 1.7) - 0.5) * (HALF * 2));
-    const sz = Math.round((hash01(seed * 2.9) - 0.5) * (HALF * 2));
-    const cells: [number, number][] = [[sx, sz]];
-    let [cx, cz] = [sx, sz];
-    let guard = 0;
-    while (!(cx === GOAL[0] && cz === GOAL[1]) && guard < 200) {
-      const [dx, dz] = policyStep(cx, cz);
-      cx += dx;
-      cz += dz;
-      cells.push([cx, cz]);
-      guard++;
-    }
-    return { path: cells, speed: 1.1 + hash01(seed + 3) * 0.5 };
+  const { frames, speed, phase } = useMemo(() => {
+    const seed = index * 7 + 3;
+    // deterministic start on the left side, away from the goal
+    const sx = -HALF + Math.floor(hash01(seed) * 3); // -7..-5
+    const sz = -HALF + 2 + Math.floor(hash01(seed + 1) * (HALF * 2 - 3));
+    const start: [number, number] =
+      passable(sx, sz) && DIST.has(wallKey(sx, sz)) ? [sx, sz] : [-HALF, HALF];
+    return {
+      frames: buildTimeline(seed, start),
+      speed: 2.4 + hash01(seed + 2) * 0.8, // frames/sec
+      phase: index * GOLDEN_ANGLE * 3,
+    };
   }, [index]);
 
-  const phase = index * GOLDEN_ANGLE;
-
-  const dummy = useMemo(() => new THREE.Object3D(), []);
+  const tmp = useMemo(() => new THREE.Object3D(), []);
+  const col = useMemo(() => new THREE.Color(), []);
 
   const place = (time: number) => {
     const g = groupRef.current;
     if (!g) return;
-    const n = path.length;
-    const cyclePeriod = n + 2; // brief hold at the goal, then new episode
-    const prog = (time * speed + phase) % cyclePeriod;
-    const i = Math.min(Math.floor(prog), n - 1);
-    const frac = Math.min(prog - Math.floor(prog), 1);
+    const n = frames.length;
+    const prog = time * speed + phase;
+    const i = ((Math.floor(prog) % n) + n) % n;
+    const frac = prog - Math.floor(prog);
     const ease = frac * frac * (3 - 2 * frac);
-    const a = path[i];
-    const b = path[Math.min(i + 1, n - 1)];
-    const px = a[0] + (b[0] - a[0]) * ease;
-    const pz = a[1] + (b[1] - a[1]) * ease;
-    g.position.set(px, 0.42 + Math.sin(frac * Math.PI) * 0.12, pz);
+    const a = frames[i];
+    const b = frames[(i + 1) % n];
+    // bump frames keep the same cell → the ease produces a tiny in-place nudge
+    g.position.set(
+      a.cell[0] + (b.cell[0] - a.cell[0]) * ease,
+      0.42 + Math.sin(frac * Math.PI) * (a.bump ? 0.05 : 0.13),
+      a.cell[1] + (b.cell[1] - a.cell[1]) * ease
+    );
 
-    // trail: the last TRAIL cells behind the current index
+    // learning progress → trail color (red early episodes, green once learned)
+    const learn = a.ep / (EPISODES - 1);
+    if (trailMat.current)
+      trailMat.current.color.copy(TRAIL_EARLY).lerp(TRAIL_LEARNED, learn);
+
+    // bump → flash the box red
+    if (boxMat.current) {
+      const flash = a.bump ? Math.max(0, 1 - frac * 2) : 0;
+      col.copy(AGENT_BASE).lerp(AGENT_BUMP, flash);
+      boxMat.current.color.copy(col);
+      boxMat.current.emissive.copy(col);
+      boxMat.current.emissiveIntensity = 2.0 + flash * 2.5;
+    }
+
+    // trail: the last TRAIL cells behind the current step
     const tm = trailRef.current;
     if (tm) {
       for (let k = 0; k < TRAIL; k++) {
         const ci = i - 1 - k;
-        const cell = ci >= 0 ? path[ci] : path[0];
+        const cell = frames[((ci % n) + n) % n].cell;
         const fade = 1 - k / TRAIL;
-        const s = 0.5 * fade + 0.06;
-        dummy.position.set(cell[0], 0.04, cell[1]);
-        dummy.scale.set(s, s, s);
-        dummy.rotation.set(-Math.PI / 2, 0, 0);
-        dummy.updateMatrix();
-        tm.setMatrixAt(k, dummy.matrix);
+        const s = 0.7 * fade + 0.05;
+        tmp.position.set(cell[0], 0.045, cell[1]);
+        tmp.scale.set(s, s, s);
+        tmp.rotation.set(-Math.PI / 2, 0, 0);
+        tmp.updateMatrix();
+        tm.setMatrixAt(k, tmp.matrix);
       }
       tm.instanceMatrix.needsUpdate = true;
     }
   };
 
-  useLayoutEffect(() => {
-    place(0);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useLayoutEffect(() => { place(0); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useFrame((state) => place(animate ? state.clock.elapsedTime : 0));
 
-  useFrame((state) => {
-    place(animate ? state.clock.elapsedTime : 0);
-  });
-
-  const trailGeom = useMemo(() => new THREE.PlaneGeometry(0.9, 0.9), []);
+  const trailGeom = useMemo(() => new THREE.PlaneGeometry(0.82, 0.82), []);
 
   return (
     <>
-      {/* fading trail of visited cells */}
       <instancedMesh ref={trailRef} args={[trailGeom, undefined, TRAIL]}>
-        <meshBasicMaterial
-          color={AGENT_COLOR}
-          transparent
-          opacity={0.14}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-          toneMapped={false}
-        />
+        <meshBasicMaterial ref={trailMat} color={TRAIL_EARLY} transparent opacity={0.24}
+          blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
       </instancedMesh>
 
-      {/* the agent token */}
       <group ref={groupRef}>
-        <mesh rotation={[0, Math.PI / 4, 0]}>
-          <octahedronGeometry args={[0.28, 0]} />
-          <meshStandardMaterial
-            color={AGENT_COLOR}
-            emissive={AGENT_COLOR}
-            emissiveIntensity={2.2}
-            toneMapped={false}
-            flatShading
-          />
+        <mesh>
+          <boxGeometry args={[0.44, 0.44, 0.44]} />
+          <meshStandardMaterial ref={boxMat} color={AGENT_BASE} emissive={AGENT_BASE}
+            emissiveIntensity={2.0} toneMapped={false} flatShading />
         </mesh>
         <mesh>
-          <sphereGeometry args={[0.42, 12, 12]} />
-          <meshBasicMaterial
-            color={AGENT_COLOR}
-            transparent
-            opacity={0.12}
-            blending={THREE.AdditiveBlending}
-            depthWrite={false}
-            toneMapped={false}
-          />
+          <sphereGeometry args={[0.44, 12, 12]} />
+          <meshBasicMaterial color={AGENT_BASE} transparent opacity={0.1}
+            blending={THREE.AdditiveBlending} depthWrite={false} toneMapped={false} />
         </mesh>
       </group>
     </>
@@ -327,7 +343,7 @@ export default function RLWorld({ animate = true }: { animate?: boolean }) {
         position={[0, 0, 0]}
       />
 
-      <PolicyField />
+      <Walls />
       <GoalMarker animate={animate} />
 
       {agents.map((i) => (
