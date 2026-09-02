@@ -22,6 +22,7 @@ export interface Post {
   readingTime?: string;
   external?: string; // if set, the entry links out instead of rendering a page
   content?: string; // Markdown body for local ("blog") posts
+  ogImage?: string; // social-card image path under /public (e.g. "/og/foo.png")
 }
 
 export const posts: Post[] = [
@@ -33,6 +34,7 @@ export const posts: Post[] = [
     readingTime: "9 min read",
     description:
       "RLVR raises pass@1 but narrows reasoning coverage. A base-anchored, off-policy support floor preserves the modes GRPO cannot protect, and turns that coverage into a higher continued-RL ceiling.",
+    ogImage: "/og/coverage-preservation-rlvr.png",
     // Rendered by a custom React body (see writing/registry.tsx) so it can
     // interleave figures. No Markdown content.
   },
