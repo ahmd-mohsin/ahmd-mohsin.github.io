@@ -75,6 +75,11 @@ const round2 = [
   { k: "128", base: 0.9546, ctrl: 0.9696, ours: 0.9754 },
   { k: "256", base: 0.9763, ctrl: 0.9832, ours: 0.99 },
 ];
+const round2Bar = [
+  { name: "base", value: 0.9763, color: C.mauve },
+  { name: "R2 ← plain fork", value: 0.9832, color: C.white },
+  { name: "R2 ← floor fork (ours)", value: 0.99, color: C.pink },
+];
 const generalize = [
   { name: "Qwen2.5-Math / Olympiad", plain: -1.96, expSR: 1.38 },
   { name: "Qwen2.5-Math / Omni-MATH", plain: -1.99, expSR: 1.44 },
@@ -306,6 +311,17 @@ export default function CoveragePreservation() {
           ]}
         />
       </Fig>
+      <Fig
+        caption={
+          <>
+            Figure 7. The same result at a glance, pass@256 on the fragile band after identical round-2 RL.
+            The coverage-preserved fork reaches 0.990, above the plain fork at 0.983 and the base at 0.976.
+            The axis starts at 0.95 so the gap is visible.
+          </>
+        }
+      >
+        <RankBar data={round2Bar} yLabel="pass@256" yDomain={[0.95, 1.0]} />
+      </Fig>
 
       <H2>It holds across models and datasets</H2>
       <P>
@@ -318,7 +334,7 @@ export default function CoveragePreservation() {
       <Fig
         caption={
           <>
-            Figure 7. Mean mode-mass change per cell, plain GRPO against expSR, 150 steps, per-cell
+            Figure 8. Mean mode-mass change per cell, plain GRPO against expSR, 150 steps, per-cell
             base-correct bank. expSR preserves where plain GRPO collapses across two model families and two
             datasets. The Qwen3-8B expSR cell is still running and is omitted here, its plain arm collapses at
             −5.77 nats.
