@@ -82,17 +82,17 @@ export function ExperienceSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08, duration: 0.5 }}
-              className="border-t border-[#7aa686]/20 py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12"
+              className="border-t border-[#b07f95]/20 py-8 grid md:grid-cols-[200px_1fr] gap-6 md:gap-12"
               data-testid={`row-experience-${i}`}
             >
               <div className="shrink-0">
-                <p className="text-sm font-semibold text-[#e8f0ea] leading-snug mb-2">
+                <p className="text-sm font-semibold text-[#f7ecf1] leading-snug mb-2">
                   {exp.org}
                 </p>
-                <p className="font-mono text-[10px] text-[#63796b] leading-relaxed">
+                <p className="font-mono text-[10px] text-[#8a6a78] leading-relaxed">
                   {exp.dateRange}
                 </p>
-                <p className="font-mono text-[10px] text-[#63796b] mt-1">
+                <p className="font-mono text-[10px] text-[#8a6a78] mt-1">
                   {exp.advisor}
                 </p>
               </div>
@@ -100,13 +100,13 @@ export function ExperienceSection() {
               <div className="space-y-5">
                 {exp.projects.map((project, j) => (
                   <div key={j}>
-                    <p className="text-sm text-[#e8f0ea] font-medium mb-2">
+                    <p className="text-sm text-[#f7ecf1] font-medium mb-2">
                       {project.name}
                     </p>
                     <ul className="space-y-2">
                       {project.bullets.map((bullet, k) => (
-                        <li key={k} className="flex gap-3 text-sm leading-relaxed text-[#b9c8bd]">
-                          <span className="text-[#63796b] shrink-0 mt-0.5">—</span>
+                        <li key={k} className="flex gap-3 text-sm leading-relaxed text-[#e2cdd6]">
+                          <span className="text-[#8a6a78] shrink-0 mt-0.5">—</span>
                           <span>{bullet}</span>
                         </li>
                       ))}

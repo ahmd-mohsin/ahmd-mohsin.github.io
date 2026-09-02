@@ -18,7 +18,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#8aa090] mb-7"
+              className="font-mono text-[11px] uppercase tracking-[0.3em] text-[#c79bad] mb-7"
             >
               Graduate Student · Stanford · SAIL
             </motion.p>
@@ -28,7 +28,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.06, duration: 0.7 }}
-              className="text-5xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] leading-[1.06] text-[#e8f0ea] mb-7"
+              className="text-5xl md:text-7xl lg:text-[5.25rem] font-bold tracking-[-0.02em] leading-[1.06] text-[#f7ecf1] mb-7"
             >
               Muhammad<br />Ahmed Mohsin
             </motion.h1>
@@ -38,14 +38,14 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.16, duration: 0.55 }}
-              className="italic text-sm text-[#8aa090] leading-relaxed max-w-xl mb-6"
+              className="italic text-sm text-[#c79bad] leading-relaxed max-w-xl mb-6"
             >
               Co-advised by{" "}
               <a
                 href="https://statistics.stanford.edu/people/emily-b-fox"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5fae7a] hover:text-[#8fd6a6] transition-colors underline underline-offset-4 decoration-[#7aa686]/40 hover:decoration-[#5fae7a] font-medium"
+                className="text-[#f48fb1] hover:text-[#ffc1d9] transition-colors underline underline-offset-4 decoration-[#b07f95]/40 hover:decoration-[#f48fb1] font-medium"
               >
                 Dr. Emily Fox
               </a>{" "}
@@ -54,7 +54,7 @@ export function HeroSection() {
                 href="https://cioffi-group.stanford.edu/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[#5fae7a] hover:text-[#8fd6a6] transition-colors underline underline-offset-4 decoration-[#7aa686]/40 hover:decoration-[#5fae7a] font-medium"
+                className="text-[#f48fb1] hover:text-[#ffc1d9] transition-colors underline underline-offset-4 decoration-[#b07f95]/40 hover:decoration-[#f48fb1] font-medium"
               >
                 Dr. John M. Cioffi
               </a>
@@ -67,12 +67,12 @@ export function HeroSection() {
               transition={{ delay: 0.22, duration: 0.55 }}
               className="space-y-3 max-w-xl"
             >
-              <p className="text-sm font-semibold leading-relaxed text-[#b9c8bd]">
+              <p className="text-sm font-semibold leading-relaxed text-[#e2cdd6]">
                 Research on preference optimization and alignment for LLMs,
                 adaptive test-time scaling and discovery, and self-evolving
                 multi-agent systems.
               </p>
-              <p className="text-sm font-semibold leading-relaxed text-[#b9c8bd]">
+              <p className="text-sm font-semibold leading-relaxed text-[#e2cdd6]">
                 Graduate student at Stanford — LLM post-training, test-time
                 scaling, and reinforcement learning. Collaborations with Google
                 DeepMind, Meta, Amazon AGI, and Microsoft Core AI.
@@ -100,19 +100,19 @@ export function HeroSection() {
                   rel={item.external ? "noopener noreferrer" : undefined}
                   title={item.label}
                   aria-label={item.label}
-                  className="text-[#b9c8bd] hover:text-[#5fae7a] transition-colors duration-200"
+                  className="text-[#e2cdd6] hover:text-[#f48fb1] transition-colors duration-200"
                 >
                   {item.icon}
                 </a>
               ))}
 
-              <span className="w-px h-5 bg-[#7aa686]/30" />
+              <span className="w-px h-5 bg-[#b07f95]/30" />
 
               <a
                 href="/Masters.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] font-semibold text-[#b9c8bd] hover:text-[#5fae7a] transition-colors border border-[#7aa686]/30 hover:border-[#5fae7a]/50 bg-[#0f1613]/60 px-3 py-1.5"
+                className="font-mono text-[11px] font-semibold text-[#e2cdd6] hover:text-[#f48fb1] transition-colors border border-[#b07f95]/30 hover:border-[#f48fb1]/50 bg-[#191016]/60 px-3 py-1.5"
               >
                 CV ↗
               </a>
@@ -121,7 +121,7 @@ export function HeroSection() {
                 href="https://alexein.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[11px] font-semibold text-[#b9c8bd] hover:text-[#5fae7a] transition-colors border border-[#7aa686]/30 hover:border-[#5fae7a]/50 bg-[#0f1613]/60 px-3 py-1.5"
+                className="font-mono text-[11px] font-semibold text-[#e2cdd6] hover:text-[#f48fb1] transition-colors border border-[#b07f95]/30 hover:border-[#f48fb1]/50 bg-[#191016]/60 px-3 py-1.5"
               >
                 alexein.ai ↗
               </a>

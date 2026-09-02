@@ -22,7 +22,7 @@ export function ConferenceTravelsSection() {
       <GlassPanel className="p-6 md:p-8">
       <div className="grid md:grid-cols-[1fr_260px] gap-8 items-start">
         {/* Main image */}
-        <div className="relative overflow-hidden bg-[#0b1210] aspect-[4/3] border border-[#7aa686]/20">
+        <div className="relative overflow-hidden bg-[#0b1210] aspect-[4/3] border border-[#b07f95]/20">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -46,9 +46,9 @@ export function ConferenceTravelsSection() {
         <div className="flex flex-col gap-6">
           <AnimatePresence mode="wait">
             <motion.div key={current} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-              <p className="text-sm font-semibold text-[#e8f0ea] mb-1">{travels[current].event}</p>
-              <p className="font-mono text-[11px] text-[#8aa090] mb-3">{travels[current].location}</p>
-              <p className="text-xs text-[#b9c8bd] leading-relaxed italic">{travels[current].caption}</p>
+              <p className="text-sm font-semibold text-[#f7ecf1] mb-1">{travels[current].event}</p>
+              <p className="font-mono text-[11px] text-[#c79bad] mb-3">{travels[current].location}</p>
+              <p className="text-xs text-[#e2cdd6] leading-relaxed italic">{travels[current].caption}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -59,7 +59,7 @@ export function ConferenceTravelsSection() {
                 key={i}
                 onClick={() => setCurrent(i)}
                 className={`relative overflow-hidden aspect-square border transition-all duration-200 ${
-                  i === current ? "border-[#5fae7a] opacity-100" : "border-[#7aa686]/20 opacity-40 hover:opacity-70"
+                  i === current ? "border-[#f48fb1] opacity-100" : "border-[#b07f95]/20 opacity-40 hover:opacity-70"
                 }`}
                 aria-label={`View ${t.event}`}
               >
@@ -70,14 +70,14 @@ export function ConferenceTravelsSection() {
 
           {/* Controls */}
           <div className="flex items-center gap-3">
-            <button onClick={prev} className="font-mono text-[10px] text-[#8aa090] hover:text-[#5fae7a] transition-colors tracking-widest uppercase" aria-label="Previous">
+            <button onClick={prev} className="font-mono text-[10px] text-[#c79bad] hover:text-[#f48fb1] transition-colors tracking-widest uppercase" aria-label="Previous">
               ← Prev
             </button>
-            <span className="text-[#63796b]">·</span>
-            <button onClick={next} className="font-mono text-[10px] text-[#8aa090] hover:text-[#5fae7a] transition-colors tracking-widest uppercase" aria-label="Next">
+            <span className="text-[#8a6a78]">·</span>
+            <button onClick={next} className="font-mono text-[10px] text-[#c79bad] hover:text-[#f48fb1] transition-colors tracking-widest uppercase" aria-label="Next">
               Next →
             </button>
-            <span className="ml-auto font-mono text-[10px] text-[#63796b]">
+            <span className="ml-auto font-mono text-[10px] text-[#8a6a78]">
               {current + 1} / {travels.length}
             </span>
           </div>

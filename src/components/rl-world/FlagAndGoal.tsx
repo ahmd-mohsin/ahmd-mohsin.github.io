@@ -16,8 +16,8 @@ import { GOAL } from "./maze";
  * Mounted inside an existing <Canvas> — this component never creates one.
  */
 
-const GOLD = "#ffd27a";
-const METAL = "#8aa090";
+const GOLD = "#ff85c0";
+const METAL = "#c79bad";
 
 // Still-frame constants (used when animate === false, and as sane initial values).
 const STILL_RING_SCALE = 1.55;

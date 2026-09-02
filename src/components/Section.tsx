@@ -24,8 +24,8 @@ export function Section({ id, title, children, className }: SectionProps) {
             transition={{ duration: 0.5 }}
             className="flex items-center gap-4 mb-12"
           >
-            <span className="block h-px w-6 bg-[#5fae7a]/60" />
-            <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#5fae7a]">
+            <span className="block h-px w-6 bg-[#f48fb1]/60" />
+            <h2 className="font-mono text-[10px] uppercase tracking-[0.3em] text-[#f48fb1]">
               {title}
             </h2>
           </motion.div>

@@ -36,7 +36,7 @@ const leadership = [
 
 function Tag({ children }: { children: ReactNode }) {
   return (
-    <span className="border border-[#7aa686]/25 bg-[#0f1613]/60 px-3 py-1.5 font-mono text-[11px] text-[#8aa090] hover:text-[#5fae7a] hover:border-[#5fae7a]/40 transition-colors">
+    <span className="border border-[#b07f95]/25 bg-[#191016]/60 px-3 py-1.5 font-mono text-[11px] text-[#c79bad] hover:text-[#f48fb1] hover:border-[#f48fb1]/40 transition-colors">
       {children}
     </span>
   );
@@ -44,8 +44,8 @@ function Tag({ children }: { children: ReactNode }) {
 
 function SubSection({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="border-t border-[#7aa686]/20 pt-8">
-      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#5fae7a] mb-5">
+    <div className="border-t border-[#b07f95]/20 pt-8">
+      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#f48fb1] mb-5">
         {label}
       </p>
       {children}
@@ -70,10 +70,10 @@ export function ReviewerSection() {
           <SubSection label="Journal Reviewer">
             <div className="flex flex-wrap gap-2">
               {journals.map((j, i) => (
-                <span key={j.name} className="border border-[#7aa686]/25 bg-[#0f1613]/60 px-3 py-1.5 font-mono text-[11px] text-[#8fd6a6]" data-testid={`tag-journal-${i}`}>
+                <span key={j.name} className="border border-[#b07f95]/25 bg-[#191016]/60 px-3 py-1.5 font-mono text-[11px] text-[#ffc1d9]" data-testid={`tag-journal-${i}`}>
                   {j.name}
-                  <span className="text-[#63796b] mx-1.5">/</span>
-                  <span className="text-[#8aa090]">{j.desc}</span>
+                  <span className="text-[#8a6a78] mx-1.5">/</span>
+                  <span className="text-[#c79bad]">{j.desc}</span>
                 </span>
               ))}
             </div>
@@ -85,13 +85,13 @@ export function ReviewerSection() {
             <div className="flex flex-wrap gap-2 mb-6">
               {tpc.map((item, i) => <Tag key={i}>{item}</Tag>)}
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#5fae7a] mb-4">Leadership</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#f48fb1] mb-4">Leadership</p>
             <div className="flex flex-wrap gap-2">
               {leadership.map((item, i) => (
-                <span key={i} className="border border-[#7aa686]/25 bg-[#0f1613]/60 px-3 py-1.5 font-mono text-[11px]">
-                  <span className="text-[#8fd6a6] font-medium">{item.role}</span>
-                  <span className="text-[#63796b] mx-1.5">—</span>
-                  <span className="text-[#8aa090]">{item.venue}</span>
+                <span key={i} className="border border-[#b07f95]/25 bg-[#191016]/60 px-3 py-1.5 font-mono text-[11px]">
+                  <span className="text-[#ffc1d9] font-medium">{item.role}</span>
+                  <span className="text-[#8a6a78] mx-1.5">—</span>
+                  <span className="text-[#c79bad]">{item.venue}</span>
                 </span>
               ))}
             </div>
@@ -102,13 +102,13 @@ export function ReviewerSection() {
           <SubSection label="Awards & Recognitions">
             <div className="space-y-2.5 mb-8">
               {awards.map((award, i) => (
-                <p key={i} className="flex gap-3 text-sm text-[#b9c8bd]">
-                  <span className="text-[#63796b] shrink-0">—</span>
+                <p key={i} className="flex gap-3 text-sm text-[#e2cdd6]">
+                  <span className="text-[#8a6a78] shrink-0">—</span>
                   {award}
                 </p>
               ))}
             </div>
-            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#5fae7a] mb-4">Travel Grants</p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#f48fb1] mb-4">Travel Grants</p>
             <div className="flex flex-wrap gap-2">
               {travelGrants.map((grant, i) => <Tag key={i}>{grant}</Tag>)}
             </div>

@@ -29,10 +29,10 @@ import {
  * `animate` false => a single still frame (no motion, no pulsing).
  */
 
-const AGENT_BASE = new THREE.Color("#78e6a0");
+const AGENT_BASE = new THREE.Color("#ffb3d6");
 const AGENT_BUMP = new THREE.Color("#ff2d2d");
 const ARROW_EARLY = new THREE.Color("#e12626"); // exploring / mistakes = red
-const ARROW_LEARNED = new THREE.Color("#5fae7a"); // converged path = green
+const ARROW_LEARNED = new THREE.Color("#f48fb1"); // converged path = green
 const ARROW_BUMP = new THREE.Color("#ff2d2d"); // attempted walled move = red
 
 const TRAIL = 14; // number of recent step-arrows shown

@@ -26,11 +26,11 @@ import FlagAndGoal from "./FlagAndGoal";
  */
 
 const CLEAR_COLOR = "#070b0a";
-const AMBIENT_COLOR = "#9fbfa9";
-const DIR_COLOR = "#cfe6d6";
-const GOAL_COLOR = "#ffd27a";
-const CELL_COLOR = "#264a37";
-const SECTION_COLOR = "#3a7052";
+const AMBIENT_COLOR = "#cfa9bd";
+const DIR_COLOR = "#f0d8e4";
+const GOAL_COLOR = "#ff85c0";
+const CELL_COLOR = "#402637";
+const SECTION_COLOR = "#6e3f57";
 
 /** Slow automatic camera drift over the maze, from a high angle. No user controls. */
 function CameraRig({ animate }: { animate: boolean }) {

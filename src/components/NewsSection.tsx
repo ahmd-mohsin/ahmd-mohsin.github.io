@@ -36,13 +36,13 @@ export function NewsSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.015, duration: 0.4 }}
-              className="border-t border-[#7aa686]/20 py-4 grid grid-cols-[7rem_1fr] gap-6 items-start"
+              className="border-t border-[#b07f95]/20 py-4 grid grid-cols-[7rem_1fr] gap-6 items-start"
               data-testid={`card-news-${i}`}
             >
-              <span className="font-mono text-[10px] text-[#8aa090] pt-0.5 tracking-wide">
+              <span className="font-mono text-[10px] text-[#c79bad] pt-0.5 tracking-wide">
                 {item.date}
               </span>
-              <p className="text-sm leading-relaxed text-[#b9c8bd]">
+              <p className="text-sm leading-relaxed text-[#e2cdd6]">
                 {item.content}
               </p>
             </motion.div>

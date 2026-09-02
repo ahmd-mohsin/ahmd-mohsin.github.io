@@ -20,9 +20,9 @@ import { WALL_SEGMENTS } from "./maze";
  * neon.
  */
 
-const BODY_COLOR = "#12241b";
-const BODY_RIM = "#3f7d5a";
-const CAP_COLOR = "#78e6a0";
+const BODY_COLOR = "#22121b";
+const BODY_RIM = "#a85f80";
+const CAP_COLOR = "#ffb3d6";
 
 const LENGTH = 1.02; // run of a panel along its long axis
 const THICKNESS = 0.12; // panel thickness (short axis)
