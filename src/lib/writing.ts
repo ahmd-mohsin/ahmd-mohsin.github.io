@@ -26,28 +26,15 @@ export interface Post {
 
 export const posts: Post[] = [
   {
-    slug: "hello",
-    title: "Hello — a placeholder post",
+    slug: "coverage-preservation-rlvr",
+    title: "The Answers Reinforcement Learning Learns to Forget",
     kind: "blog",
     date: "August 2026",
-    readingTime: "1 min read",
+    readingTime: "9 min read",
     description:
-      "A placeholder so the Writing section renders. Replace this with real posts.",
-    content: `This is a placeholder article to show the reading layout and typography.
-Tell me what to publish here and I'll add your papers and blog posts.
-
-## What this section is for
-
-I'll use this space to write about my research — papers, notes, and the
-occasional longer blog post on preference optimization, test-time scaling, and
-agentic systems.
-
-- Clean, readable typography
-- Papers can link out (e.g. arXiv); blog posts render here
-- Markdown with **bold**, _italics_, \`code\`, lists, and links
-
-> Placeholder content — replace me.
-`,
+      "RLVR raises pass@1 but narrows reasoning coverage. A base-anchored, off-policy support floor preserves the modes GRPO cannot protect, and turns that coverage into a higher continued-RL ceiling.",
+    // Rendered by a custom React body (see writing/registry.tsx) so it can
+    // interleave figures. No Markdown content.
   },
 ];
 

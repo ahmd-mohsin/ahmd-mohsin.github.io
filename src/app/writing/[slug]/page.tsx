@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPost, localPosts } from "@/lib/writing";
 import { Prose } from "@/components/writing/Prose";
+import { customBodies } from "@/components/writing/registry";
 
 // Static export: prerender one page per local post.
 export function generateStaticParams() {
@@ -52,7 +53,12 @@ export default function WritingPost({ params }: { params: { slug: string } }) {
         )}
       </div>
 
-      {post.content && <Prose content={post.content} />}
+      {(() => {
+        const Body = customBodies[post.slug];
+        if (Body) return <Body />;
+        if (post.content) return <Prose content={post.content} />;
+        return null;
+      })()}
     </article>
   );
 }
