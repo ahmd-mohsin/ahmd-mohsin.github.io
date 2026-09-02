@@ -41,6 +41,13 @@ export function Navigation() {
               {item.name}
             </ScrollLink>
           ))}
+          <a
+            href="/writing"
+            className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer transition-colors uppercase tracking-widest"
+            data-testid="link-nav-writing"
+          >
+            Writing
+          </a>
         </div>
 
         <button
@@ -74,6 +81,14 @@ export function Navigation() {
                 {item.name}
               </ScrollLink>
             ))}
+            <a
+              href="/writing"
+              onClick={() => setIsOpen(false)}
+              className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer uppercase tracking-widest"
+              data-testid="link-mobile-writing"
+            >
+              Writing
+            </a>
           </div>
         </motion.div>
       )}
