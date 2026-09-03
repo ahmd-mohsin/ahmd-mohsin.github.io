@@ -62,7 +62,7 @@ export function LineFig({
   crossoverAt,
 }: {
   title?: string;
-  data: Record<string, number | string>[];
+  data: Record<string, number | string | null>[];
   xKey: string;
   xLabel?: string;
   yLabel?: string;
@@ -131,7 +131,7 @@ export function BarFig({
   series,
 }: {
   title?: string;
-  data: Record<string, number | string>[];
+  data: Record<string, number | string | null>[];
   xKey: string;
   xLabel?: string;
   yLabel?: string;

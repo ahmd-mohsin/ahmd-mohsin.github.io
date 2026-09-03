@@ -1,5 +1,6 @@
 import { ComponentType } from "react";
 import CoveragePreservation from "@/components/writing/posts/CoveragePreservation";
+import AgentsThatWhisper from "@/components/writing/posts/AgentsThatWhisper";
 
 /**
  * Registry of custom React article bodies, keyed by post slug. Posts listed
@@ -8,4 +9,5 @@ import CoveragePreservation from "@/components/writing/posts/CoveragePreservatio
  */
 export const customBodies: Record<string, ComponentType> = {
   "coverage-preservation-rlvr": CoveragePreservation,
+  "agents-that-whisper": AgentsThatWhisper,
 };

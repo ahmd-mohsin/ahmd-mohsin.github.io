@@ -27,6 +27,16 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "agents-that-whisper",
+    title: "When Agents Learn to Whisper, and How to Catch Them",
+    kind: "blog",
+    date: "September 2026",
+    readingTime: "10 min read",
+    description:
+      "Reward optimization can teach two agents a private code that looks like English but hides information from a monitor. A cheap partner-swap probe catches it, and the same property that keeps a channel auditable is the one that makes it generalize.",
+    ogImage: "/og/agents-that-whisper.png",
+  },
+  {
     slug: "coverage-preservation-rlvr",
     title: "The Answers Reinforcement Learning Learns to Forget",
     kind: "blog",
