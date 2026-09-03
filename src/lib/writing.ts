@@ -28,7 +28,7 @@ export interface Post {
 export const posts: Post[] = [
   {
     slug: "agents-that-whisper",
-    title: "When Agents Learn to Whisper, and How to Catch Them",
+    title: "When Agents Learn to Whisper",
     kind: "blog",
     date: "September 2026",
     readingTime: "10 min read",
