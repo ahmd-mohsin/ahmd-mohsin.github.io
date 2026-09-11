@@ -9,9 +9,9 @@ export default function WritingLayout({ children }: { children: React.ReactNode 
     <div
       className="min-h-screen text-foreground"
       style={{
-        backgroundColor: "#070b0a",
+        backgroundColor: "#ffffff",
         backgroundImage:
-          "radial-gradient(120% 80% at 80% -10%, rgba(244,143,177,0.10) 0%, rgba(7,11,10,0) 55%)",
+          "radial-gradient(120% 80% at 80% -10%, rgba(140,21,21,0.10) 0%, rgba(255,255,255,0) 55%)",
       }}
     >
       <WritingHeader />

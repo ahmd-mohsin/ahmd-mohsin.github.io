@@ -46,7 +46,7 @@ export function Scene3DBackground() {
         // Static dark fallback — always visible behind the canvas so there is
         // never a blank/white flash while the scene mounts.
         background:
-          "radial-gradient(120% 90% at 50% 0%, #0b1210 0%, #070b0a 60%, #05080700 100%), linear-gradient(#0b1210, #070b0a)",
+          "radial-gradient(120% 90% at 50% 0%, #f7f7f7 0%, #ffffff 60%, #ffffff00 100%), linear-gradient(#f7f7f7, #ffffff)",
       }}
     >
       {mounted && enabled ? <CanvasScene /> : null}

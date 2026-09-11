@@ -45,28 +45,28 @@ export default function WritingPost({ params }: { params: { slug: string } }) {
     <article className="max-w-2xl mx-auto px-6 pt-28 pb-28">
       <a
         href="/writing"
-        className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#c79bad] hover:text-[#f48fb1] transition-colors"
+        className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#4b5563] hover:text-[#8C1515] transition-colors"
       >
         ← Writing
       </a>
 
-      <div className="mt-8 mb-10 border-b border-[#b07f95]/20 pb-8">
-        <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#8a6a78] mb-4 flex items-center gap-3">
-          <span className="text-[#f48fb1]">{post.kind === "paper" ? "Paper" : "Post"}</span>
-          <span className="text-[#b07f95]/40">·</span>
+      <div className="mt-8 mb-10 border-b border-[#d4d4d8]/20 pb-8">
+        <div className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#9a9a9a] mb-4 flex items-center gap-3">
+          <span className="text-[#8C1515]">{post.kind === "paper" ? "Paper" : "Post"}</span>
+          <span className="text-[#d4d4d8]/40">·</span>
           <span>{post.date}</span>
           {post.readingTime && (
             <>
-              <span className="text-[#b07f95]/40">·</span>
+              <span className="text-[#d4d4d8]/40">·</span>
               <span>{post.readingTime}</span>
             </>
           )}
         </div>
-        <h1 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] text-[#f7ecf1] leading-[1.1]">
+        <h1 className="text-3xl md:text-4xl font-bold tracking-[-0.02em] text-[#8C1515] leading-[1.1]">
           {post.title}
         </h1>
         {post.description && (
-          <p className="text-sm text-[#c79bad] italic leading-relaxed mt-4">
+          <p className="text-sm text-[#4b5563] italic leading-relaxed mt-4">
             {post.description}
           </p>
         )}

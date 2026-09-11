@@ -29,7 +29,7 @@ export function ResearchInterestsSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-sm leading-relaxed text-[#c79bad] mb-12 max-w-2xl italic"
+          className="text-sm leading-relaxed text-[#4b5563] mb-12 max-w-2xl italic"
         >
           My research spans preference optimization and test-time scaling for LLM
           reasoning, agentic system architectures and coding agents, and AI
@@ -45,18 +45,18 @@ export function ResearchInterestsSection() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.07, duration: 0.5 }}
-              className="border-t border-[#b07f95]/20 py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
+              className="border-t border-[#d4d4d8]/20 py-7 grid md:grid-cols-[1fr_2fr] gap-6 md:gap-12"
               data-testid={`row-interest-${i}`}
             >
               <div>
-                <p className="text-sm font-semibold text-[#f7ecf1] leading-snug mb-2">
+                <p className="text-sm font-semibold text-[#8C1515] leading-snug mb-2">
                   {interest.title}
                 </p>
-                <span className="font-mono text-[10px] text-[#8a6a78] tracking-wider">
+                <span className="font-mono text-[10px] text-[#9a9a9a] tracking-wider">
                   {interest.venues}
                 </span>
               </div>
-              <p className="text-sm leading-relaxed text-[#e2cdd6]">
+              <p className="text-sm leading-relaxed text-[#262626]">
                 {interest.desc}
               </p>
             </motion.div>

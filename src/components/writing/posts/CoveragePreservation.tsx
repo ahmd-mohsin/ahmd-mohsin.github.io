@@ -5,27 +5,27 @@ import { Fig, LineFig, BarFig, RankBar, C } from "@/components/writing/charts";
 
 /* Small typographic helpers, themed to pink-on-black. */
 function H2({ children }: { children: ReactNode }) {
-  return <h2 className="text-2xl font-semibold text-[#f7ecf1] mt-14 mb-4 tracking-[-0.01em]">{children}</h2>;
+  return <h2 className="text-2xl font-semibold text-[#8C1515] mt-14 mb-4 tracking-[-0.01em]">{children}</h2>;
 }
 function P({ children }: { children: ReactNode }) {
-  return <p className="text-[15px] leading-[1.75] text-[#e2cdd6] mb-5">{children}</p>;
+  return <p className="text-[15px] leading-[1.75] text-[#262626] mb-5">{children}</p>;
 }
 function S({ children }: { children: ReactNode }) {
-  return <strong className="text-[#f7ecf1] font-semibold">{children}</strong>;
+  return <strong className="text-[#8C1515] font-semibold">{children}</strong>;
 }
 function M({ children }: { children: ReactNode }) {
-  return <span className="font-mono text-[13px] text-[#ffc1d9]">{children}</span>;
+  return <span className="font-mono text-[13px] text-[#6f1010]">{children}</span>;
 }
 function Eq({ children }: { children: ReactNode }) {
   return (
-    <div className="my-7 border-l-2 border-[#f48fb1]/60 pl-5 py-1 font-mono text-[14px] text-[#ffc1d9] leading-relaxed">
+    <div className="my-7 border-l-2 border-[#8C1515]/60 pl-5 py-1 font-mono text-[14px] text-[#6f1010] leading-relaxed">
       {children}
     </div>
   );
 }
 function Pull({ children }: { children: ReactNode }) {
   return (
-    <blockquote className="my-12 border-l-2 border-[#f48fb1] pl-6 text-xl md:text-2xl italic text-[#f7ecf1] leading-snug">
+    <blockquote className="my-12 border-l-2 border-[#8C1515] pl-6 text-xl md:text-2xl italic text-[#8C1515] leading-snug">
       {children}
     </blockquote>
   );
@@ -49,13 +49,13 @@ const meanDelta = [
   { name: "UCPO", value: -3.44, color: C.deep },
   { name: "plain GRPO", value: -1.96, color: C.faint },
   { name: "global KL", value: -0.73, color: C.mauve },
-  { name: "base-anchor", value: -0.28, color: "#b07f95" },
+  { name: "base-anchor", value: -0.28, color: "#d4d4d8" },
   { name: "floor (ours)", value: 1.38, color: C.pink },
 ];
 const collapse = [
   { name: "UCPO", value: 10.0, color: C.deep },
   { name: "plain GRPO", value: 4.1, color: C.faint },
-  { name: "base-anchor", value: 1.2, color: "#b07f95" },
+  { name: "base-anchor", value: 1.2, color: "#d4d4d8" },
   { name: "global KL", value: 0.5, color: C.mauve },
   { name: "floor (ours)", value: 0.0, color: C.pink },
 ];

@@ -21,7 +21,7 @@ export function Navigation() {
           to="about"
           smooth={true}
           duration={500}
-          className="font-mono text-xs text-[#f48fb1] cursor-pointer shrink-0 tracking-wider hover:text-[#ffc1d9] transition-colors"
+          className="font-mono text-xs text-[#8C1515] cursor-pointer shrink-0 tracking-wider hover:text-[#6f1010] transition-colors"
           data-testid="link-home"
         >
           mohsin
@@ -35,7 +35,7 @@ export function Navigation() {
               smooth={true}
               duration={500}
               offset={-48}
-              className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer transition-colors uppercase tracking-widest"
+              className="text-[11px] font-mono text-[#4b5563] hover:text-[#8C1515] cursor-pointer transition-colors uppercase tracking-widest"
               data-testid={`link-nav-${item.to}`}
             >
               {item.name}
@@ -43,7 +43,7 @@ export function Navigation() {
           ))}
           <a
             href="/writing"
-            className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer transition-colors uppercase tracking-widest"
+            className="text-[11px] font-mono text-[#4b5563] hover:text-[#8C1515] cursor-pointer transition-colors uppercase tracking-widest"
             data-testid="link-nav-writing"
           >
             Writing
@@ -51,7 +51,7 @@ export function Navigation() {
         </div>
 
         <button
-          className="md:hidden text-[#c79bad] hover:text-[#f48fb1] transition-colors"
+          className="md:hidden text-[#4b5563] hover:text-[#8C1515] transition-colors"
           onClick={() => setIsOpen(!isOpen)}
           data-testid="button-mobile-menu"
         >
@@ -64,7 +64,7 @@ export function Navigation() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.15 }}
-          className="md:hidden border-t border-[#b07f95]/20 bg-[#070b0a]/95 px-6 py-5"
+          className="md:hidden border-t border-[#d4d4d8]/20 bg-[#ffffff]/95 px-6 py-5"
         >
           <div className="flex flex-col gap-5">
             {navItems.map((item) => (
@@ -75,7 +75,7 @@ export function Navigation() {
                 duration={500}
                 offset={-48}
                 onClick={() => setIsOpen(false)}
-                className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer uppercase tracking-widest"
+                className="text-[11px] font-mono text-[#4b5563] hover:text-[#8C1515] cursor-pointer uppercase tracking-widest"
                 data-testid={`link-mobile-${item.to}`}
               >
                 {item.name}
@@ -84,7 +84,7 @@ export function Navigation() {
             <a
               href="/writing"
               onClick={() => setIsOpen(false)}
-              className="text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] cursor-pointer uppercase tracking-widest"
+              className="text-[11px] font-mono text-[#4b5563] hover:text-[#8C1515] cursor-pointer uppercase tracking-widest"
               data-testid="link-mobile-writing"
             >
               Writing

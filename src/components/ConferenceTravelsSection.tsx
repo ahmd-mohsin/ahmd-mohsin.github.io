@@ -22,7 +22,7 @@ export function ConferenceTravelsSection() {
       <GlassPanel className="p-6 md:p-8">
       <div className="grid md:grid-cols-[1fr_260px] gap-8 items-start">
         {/* Main image */}
-        <div className="relative overflow-hidden bg-[#0b1210] aspect-[4/3] border border-[#b07f95]/20">
+        <div className="relative overflow-hidden bg-[#f7f7f7] aspect-[4/3] border border-[#d4d4d8]/20">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
@@ -37,7 +37,7 @@ export function ConferenceTravelsSection() {
                 style={{ backgroundImage: `url(${travels[current].image})` }}
               />
               <img src={travels[current].image} alt={travels[current].event} className="relative w-full h-full object-contain z-10" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#070b0a]/50 via-transparent to-transparent z-20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#ffffff]/50 via-transparent to-transparent z-20" />
             </motion.div>
           </AnimatePresence>
         </div>
@@ -46,9 +46,9 @@ export function ConferenceTravelsSection() {
         <div className="flex flex-col gap-6">
           <AnimatePresence mode="wait">
             <motion.div key={current} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
-              <p className="text-sm font-semibold text-[#f7ecf1] mb-1">{travels[current].event}</p>
-              <p className="font-mono text-[11px] text-[#c79bad] mb-3">{travels[current].location}</p>
-              <p className="text-xs text-[#e2cdd6] leading-relaxed italic">{travels[current].caption}</p>
+              <p className="text-sm font-semibold text-[#8C1515] mb-1">{travels[current].event}</p>
+              <p className="font-mono text-[11px] text-[#4b5563] mb-3">{travels[current].location}</p>
+              <p className="text-xs text-[#262626] leading-relaxed italic">{travels[current].caption}</p>
             </motion.div>
           </AnimatePresence>
 
@@ -59,7 +59,7 @@ export function ConferenceTravelsSection() {
                 key={i}
                 onClick={() => setCurrent(i)}
                 className={`relative overflow-hidden aspect-square border transition-all duration-200 ${
-                  i === current ? "border-[#f48fb1] opacity-100" : "border-[#b07f95]/20 opacity-40 hover:opacity-70"
+                  i === current ? "border-[#8C1515] opacity-100" : "border-[#d4d4d8]/20 opacity-40 hover:opacity-70"
                 }`}
                 aria-label={`View ${t.event}`}
               >
@@ -70,14 +70,14 @@ export function ConferenceTravelsSection() {
 
           {/* Controls */}
           <div className="flex items-center gap-3">
-            <button onClick={prev} className="font-mono text-[10px] text-[#c79bad] hover:text-[#f48fb1] transition-colors tracking-widest uppercase" aria-label="Previous">
+            <button onClick={prev} className="font-mono text-[10px] text-[#4b5563] hover:text-[#8C1515] transition-colors tracking-widest uppercase" aria-label="Previous">
               ← Prev
             </button>
-            <span className="text-[#8a6a78]">·</span>
-            <button onClick={next} className="font-mono text-[10px] text-[#c79bad] hover:text-[#f48fb1] transition-colors tracking-widest uppercase" aria-label="Next">
+            <span className="text-[#9a9a9a]">·</span>
+            <button onClick={next} className="font-mono text-[10px] text-[#4b5563] hover:text-[#8C1515] transition-colors tracking-widest uppercase" aria-label="Next">
               Next →
             </button>
-            <span className="ml-auto font-mono text-[10px] text-[#8a6a78]">
+            <span className="ml-auto font-mono text-[10px] text-[#9a9a9a]">
               {current + 1} / {travels.length}
             </span>
           </div>

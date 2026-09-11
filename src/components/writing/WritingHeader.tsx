@@ -15,7 +15,7 @@ export function WritingHeader() {
       <div className="max-w-3xl mx-auto px-6 h-12 flex items-center justify-between gap-4">
         <a
           href="/"
-          className="font-mono text-xs text-[#f48fb1] hover:text-[#ffc1d9] transition-colors shrink-0 tracking-wider"
+          className="font-mono text-xs text-[#8C1515] hover:text-[#6f1010] transition-colors shrink-0 tracking-wider"
         >
           mohsin
         </a>
@@ -24,14 +24,14 @@ export function WritingHeader() {
             <a
               key={l.name}
               href={l.href}
-              className="hidden sm:inline text-[11px] font-mono text-[#c79bad] hover:text-[#f48fb1] transition-colors uppercase tracking-widest"
+              className="hidden sm:inline text-[11px] font-mono text-[#4b5563] hover:text-[#8C1515] transition-colors uppercase tracking-widest"
             >
               {l.name}
             </a>
           ))}
           <a
             href="/writing"
-            className="text-[11px] font-mono text-[#f48fb1] uppercase tracking-widest"
+            className="text-[11px] font-mono text-[#8C1515] uppercase tracking-widest"
             aria-current="page"
           >
             Writing
