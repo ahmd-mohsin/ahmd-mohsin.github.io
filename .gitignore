@@ -8,3 +8,6 @@ out
 # local source PDFs (paper + diagram), not published
 7918_Continuous_Utility_Direct.pdf
 umer_diag.pdf
+
+# temp: GPT-6 redesigned README (copy into profile repo, then delete)
+_readme_gpt6.md
