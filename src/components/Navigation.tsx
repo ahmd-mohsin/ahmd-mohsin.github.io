@@ -50,13 +50,24 @@ export function Navigation() {
           </a>
         </div>
 
-        <button
-          className="md:hidden text-[#4b5563] hover:text-[#8C1515] transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          data-testid="button-mobile-menu"
-        >
-          {isOpen ? <X className="w-5 h-5" strokeWidth={2.5} /> : <Menu className="w-5 h-5" strokeWidth={2.5} />}
-        </button>
+        <div className="flex items-center gap-4 shrink-0">
+          <a
+            href="https://www.stanford.edu/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Stanford University"
+            className="shrink-0"
+          >
+            <img src="/stanford.jpeg" alt="Stanford" className="h-8 w-auto" />
+          </a>
+          <button
+            className="md:hidden text-[#4b5563] hover:text-[#8C1515] transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            data-testid="button-mobile-menu"
+          >
+            {isOpen ? <X className="w-5 h-5" strokeWidth={2.5} /> : <Menu className="w-5 h-5" strokeWidth={2.5} />}
+          </button>
+        </div>
       </div>
 
       {isOpen && (

@@ -16,6 +16,9 @@ export function PaperHeader() {
           <a href="/writing" className="text-[11px] font-mono text-neutral-500 hover:text-[#8C1515] transition-colors uppercase tracking-widest">
             Writing
           </a>
+          <a href="https://www.stanford.edu/" target="_blank" rel="noopener noreferrer" aria-label="Stanford University" className="shrink-0">
+            <img src="/stanford.jpeg" alt="Stanford" className="h-7 w-auto" />
+          </a>
         </div>
       </div>
     </nav>
