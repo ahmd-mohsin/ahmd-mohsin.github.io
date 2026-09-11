@@ -5,3 +5,6 @@ dist
 out
 *.zip
 *.tar.gz
+# local source PDFs (paper + diagram), not published
+7918_Continuous_Utility_Direct.pdf
+umer_diag.pdf
