@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getPost, localPosts } from "@/lib/writing";
+import { getPost, blogPosts } from "@/lib/writing";
 import { Prose } from "@/components/writing/Prose";
 import { customBodies } from "@/components/writing/registry";
 
-// Static export: prerender one page per local post.
+// Static export: prerender one page per blog essay (papers live under /papers).
 export function generateStaticParams() {
-  return localPosts.map((p) => ({ slug: p.slug }));
+  return blogPosts.map((p) => ({ slug: p.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {

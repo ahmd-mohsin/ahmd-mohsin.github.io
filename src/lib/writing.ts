@@ -1,14 +1,13 @@
 /**
  * writing.ts — content model for the Writing section.
  *
- * Add posts to the `posts` array below. Two kinds:
- *   - kind: "blog"  → a local article rendered at /writing/<slug> from `content`
- *                     (Markdown; GitHub-flavored). Give it a slug, title, date,
- *                     description, and content.
- *   - kind: "paper" → a short entry that links out (set `external` to the URL,
- *                     e.g. arXiv). No local page is generated.
+ * Two kinds of local article:
+ *   - kind: "blog"  → an essay rendered at /writing/<slug>. Dark pink theme.
+ *   - kind: "paper" → a research-paper writeup rendered at /papers/<slug>.
+ *                     Black-and-white theme with Stanford-red headings and charts.
  *
- * `date` is a display string (e.g. "August 2026"). `readingTime` is optional.
+ * Both render a custom React body registered by slug in writing/registry.tsx,
+ * or Markdown `content` as a fallback. `date` is a display string.
  */
 
 export type PostKind = "blog" | "paper";
@@ -20,12 +19,26 @@ export interface Post {
   date: string;
   description: string;
   readingTime?: string;
-  external?: string; // if set, the entry links out instead of rendering a page
-  content?: string; // Markdown body for local ("blog") posts
-  ogImage?: string; // social-card image path under /public (e.g. "/og/foo.png")
+  authors?: string; // for papers
+  venue?: string; // for papers, e.g. "ICML 2026"
+  external?: string; // optional link out (e.g. arXiv)
+  content?: string; // Markdown body fallback
+  ogImage?: string; // social-card image under /public
 }
 
 export const posts: Post[] = [
+  {
+    slug: "cu-dpo",
+    title: "Continuous-Utility Direct Preference Optimization",
+    kind: "paper",
+    date: "September 2026",
+    readingTime: "9 min read",
+    authors: "Muhammad Ahmed Mohsin, Muhammad Umer, Emily Fox",
+    venue: "Stanford University",
+    description:
+      "Reasoning is not one skill. CU-DPO replaces binary preference labels with continuous utilities over a portfolio of reasoning strategies, recovers the utility-maximizing policy, and lifts strategy-selection accuracy from 35 to 46 percent up to 68 to 78 percent across seven base models.",
+    ogImage: "/og/cu-dpo.png",
+  },
   {
     slug: "agents-that-whisper",
     title: "When Agents Learn to Whisper",
@@ -45,14 +58,12 @@ export const posts: Post[] = [
     description:
       "RLVR raises pass@1 but narrows reasoning coverage. A base-anchored, off-policy support floor preserves the modes GRPO cannot protect, and turns that coverage into a higher continued-RL ceiling.",
     ogImage: "/og/coverage-preservation-rlvr.png",
-    // Rendered by a custom React body (see writing/registry.tsx) so it can
-    // interleave figures. No Markdown content.
   },
 ];
 
-export const localPosts = posts.filter((p) => p.kind === "blog" && !p.external);
+export const blogPosts = posts.filter((p) => p.kind === "blog");
 export const paperPosts = posts.filter((p) => p.kind === "paper");
 
 export function getPost(slug: string): Post | undefined {
-  return localPosts.find((p) => p.slug === slug);
+  return posts.find((p) => p.slug === slug);
 }
