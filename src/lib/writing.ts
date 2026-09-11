@@ -37,7 +37,7 @@ export const posts: Post[] = [
     venue: "Stanford University",
     description:
       "Reasoning is not one skill. CU-DPO replaces binary preference labels with continuous utilities over a portfolio of reasoning strategies, recovers the utility-maximizing policy, and lifts strategy-selection accuracy from 35 to 46 percent up to 68 to 78 percent across seven base models.",
-    ogImage: "/og/cu-dpo.png",
+    ogImage: "/og/cu-dpo.png?v=2",
   },
   {
     slug: "agents-that-whisper",
