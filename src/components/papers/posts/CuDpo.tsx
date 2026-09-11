@@ -100,6 +100,18 @@ function Table({ head, rows, caption }: { head: string[]; rows: string[][]; capt
 export default function CuDpo() {
   return (
     <div>
+      <figure className="mb-12">
+        <div className="border border-black/10 bg-white p-4 md:p-6">
+          <img src="/papers/cu-dpo-overview.png" alt="CU-DPO overview poster" className="w-full" />
+        </div>
+        <figcaption className="mt-3 text-xs text-neutral-500 leading-relaxed">
+          Figure 1. CU-DPO overview. Strategy-conditioned sampling produces K candidate chains. An LLM judge
+          scores each chain with a continuous utility. Progressive refinement lifts low-utility chains into
+          the high-signal band. Two pair sets drive training, strategy selection in Phase 1 and execution
+          refinement in Phase 2.
+        </figcaption>
+      </figure>
+
       <H2>Reasoning is a portfolio, not one skill</H2>
       <P>
         Large language models commit to a single thinking style. They apply the same procedure whether a
@@ -117,19 +129,6 @@ export default function CuDpo() {
         <M> [0, 1] </M> over correctness, coherence, and step efficiency. Preferences follow Bradley-Terry on
         the utility gap, so the model learns fine-grained quality instead of a coin flip.
       </P>
-
-      <Fig
-        caption={
-          <>
-            Figure 1. CU-DPO overview. Strategy-conditioned sampling produces K candidate chains. An LLM judge
-            scores each chain with a continuous utility. Progressive refinement lifts low-utility chains into
-            the high-signal band. Two pair sets drive training, strategy selection in Phase 1 and execution
-            refinement in Phase 2.
-          </>
-        }
-      >
-        <img src="/papers/cu-dpo-overview.png" alt="CU-DPO overview diagram" className="w-full" />
-      </Fig>
 
       <H2>The method</H2>
       <P>
