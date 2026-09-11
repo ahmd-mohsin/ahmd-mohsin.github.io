@@ -627,6 +627,12 @@ export default function RLWorld({ animate = true }: { animate?: boolean }) {
     const s = simulation;
 
     if (clearLearning) {
+      // Fresh seeds each cycle so exploration, and the policy it learns, differ.
+      const jitter =
+        (typeof performance !== "undefined" ? Math.floor(performance.now() * 1000) : 1) >>> 0;
+      s.randomSeed = ((s.randomSeed * 1664525 + 1013904223) ^ jitter) >>> 0 || 0x9e3779b9;
+      s.practiceSeed =
+        ((s.practiceSeed * 22695477 + 1) ^ (jitter + 0x6d2b79f5)) >>> 0 || 0x85ebca6b;
       s.q.fill(0);
       s.updates.fill(0);
       s.practiceEaten.fill(0);
