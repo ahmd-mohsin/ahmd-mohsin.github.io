@@ -13,6 +13,8 @@ import {
   Legend,
   Cell,
   ReferenceLine,
+  ScatterChart,
+  Scatter,
 } from "recharts";
 import { ReactNode } from "react";
 
@@ -133,6 +135,34 @@ export function RankBar({
             {data.map((d, i) => (<Cell key={i} fill={d.color} />))}
           </Bar>
         </BarChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+
+export function ScatterFig({
+  title, data, xLabel, yLabel, xDomain = [0, 1], yDomain = [0, 1], diagonalSegment,
+}: {
+  title?: string;
+  data: { x: number; y: number; name?: string }[];
+  xLabel?: string; yLabel?: string;
+  xDomain?: [number, number]; yDomain?: [number, number];
+  diagonalSegment?: { x: number; y: number }[];
+}) {
+  return (
+    <div>
+      {title && <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8C1515] mb-3">{title}</p>}
+      <ResponsiveContainer width="100%" height={300}>
+        <ScatterChart margin={{ top: 16, right: 18, bottom: 24, left: 2 }}>
+          <CartesianGrid stroke={R.grid} />
+          <XAxis type="number" dataKey="x" domain={xDomain} stroke={R.axis} tick={{ fill: R.axis, fontSize: 11 }} tickLine={{ stroke: R.axis }}
+            label={xLabel ? { value: xLabel, position: "insideBottom", offset: -10, fill: R.axis, fontSize: 11 } : undefined} />
+          <YAxis type="number" dataKey="y" domain={yDomain} stroke={R.axis} tick={{ fill: R.axis, fontSize: 11 }} tickLine={{ stroke: R.axis }} width={44}
+            label={yLabel ? { value: yLabel, angle: -90, position: "insideLeft", fill: R.axis, fontSize: 11 } : undefined} />
+          <Tooltip contentStyle={tooltipStyle} labelStyle={{ color: "#8C1515" }} cursor={{ stroke: R.gray, strokeDasharray: "3 3" }} />
+          {diagonalSegment && <ReferenceLine segment={diagonalSegment} stroke={R.gray} strokeDasharray="5 4" ifOverflow="extendDomain" />}
+          <Scatter data={data} fill={R.red} />
+        </ScatterChart>
       </ResponsiveContainer>
     </div>
   );

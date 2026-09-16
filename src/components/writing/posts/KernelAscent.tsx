@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import { BarFig, RankBar, ScatterFig, R } from "@/components/papers/charts";
 
 /* Light typography helpers, Stanford-red headings on white. */
 function H2({ children }: { children: ReactNode }) {
@@ -28,6 +29,14 @@ function Fig({ src, caption }: { src: string; caption: ReactNode }) {
       <div className="border border-black/10 bg-white p-4 md:p-5">
         <img src={src} alt="" className="w-full" />
       </div>
+      <figcaption className="mt-3 text-xs text-neutral-500 leading-relaxed">{caption}</figcaption>
+    </figure>
+  );
+}
+function ChartFig({ caption, children }: { caption: ReactNode; children: ReactNode }) {
+  return (
+    <figure className="my-9">
+      <div className="border border-black/10 bg-white p-4 pt-5">{children}</div>
       <figcaption className="mt-3 text-xs text-neutral-500 leading-relaxed">{caption}</figcaption>
     </figure>
   );
@@ -60,7 +69,51 @@ function Table({ head, rows, caption }: { head: string[]; rows: string[][]; capt
   );
 }
 
-const F = "/writing/kernelascent";
+const HERO = "/writing/kernelascent/cz_internal_dag.png";
+
+/* ---- chart data drawn from the benchmark boards ---- */
+
+// Attrition: 50 runs -> 35 emit a correct kernel -> 10 compound.
+const funnel = [
+  { name: "Attempted", value: 50, color: R.gray },
+  { name: "Correct kernel", value: 35, color: R.red2 },
+  { name: "Compounds", value: 10, color: R.red },
+];
+
+// Scale gates: probability of crossing the wall and of compounding, by size band.
+const gatesByBand = [
+  { band: "< 2B", cross: 0.54, rsi: 0.04 },
+  { band: "2 to 8B", cross: 0.94, rsi: 0.41 },
+  { band: "≥ 9B", cross: 0.71, rsi: 0.29 },
+];
+
+// Knows vs generates: internal probe AUC (x) against generation success (y).
+const knowsVsGen = [
+  { name: "Qwen 0.5B", x: 0.878, y: 0.247 },
+  { name: "Qwen 1.5B", x: 0.973, y: 0.04 },
+  { name: "Qwen 1.5B-Inst", x: 0.961, y: 0.337 },
+  { name: "SmolLM2 1.7B", x: 1.0, y: 0.083 },
+  { name: "Qwen 3B", x: 0.958, y: 0.266 },
+  { name: "DeepSeek 6.7B", x: 0.986, y: 0.121 },
+  { name: "Qwen 7B", x: 0.877, y: 0.652 },
+  { name: "Qwen 7B (b)", x: 0.824, y: 0.531 },
+  { name: "Qwen 14B", x: 0.872, y: 0.698 },
+];
+
+// Self-verification: random draw vs probe-selected vs oracle best-of-K.
+const selfVerify = [
+  { name: "Qwen 0.5B", random: 0.247, probe: 0.667, oracle: 0.917 },
+  { name: "Qwen 1.5B", random: 0.04, probe: 0.333, oracle: 0.5 },
+  { name: "Qwen 3B", random: 0.266, probe: 0.667, oracle: 0.917 },
+  { name: "Qwen 7B", random: 0.652, probe: 0.75, oracle: 1.0 },
+  { name: "Qwen 14B", random: 0.698, probe: 0.75, oracle: 1.0 },
+];
+
+// Is it recursion: weight-RSI vs the best non-recursive control (Qwen2.5-Coder-1.5B).
+const recursion = [
+  { name: "weight-RSI", value: 0.237, color: R.red },
+  { name: "best-of-20", value: 0.182, color: R.gray },
+];
 
 const scaleGates = [
   ["< 2B", "26", "0.54", "0.04", "0.024"],
@@ -77,15 +130,19 @@ const procedureRsi = [
   ["DeepSeek V3.2", "0.847", "0.614", "−0.234"],
 ];
 
+const loopSteps = ["propose", "verify", "select", "update", "transfer"];
+
 export default function KernelAscent() {
   return (
     <div>
       <Fig
-        src={`${F}/gz_poster.png`}
+        src={HERO}
         caption={
           <>
-            The whole story in one poster. Two scale gates, the drift-by-retention second gate, where correctness
-            is encoded by depth, and scale against held-out gain. KernelAscent figure atlas.
+            Every open-weight run traced through the causal chain from scale to RSI outcome. Marker area and edge
+            width scale with sustained LoRA drift, and color marks the outcome. Compounders form a bright
+            high-drift, high-retention bundle. Models stuck at the correctness wall die early with near-zero
+            drift downstream.
           </>
         }
       />
@@ -121,8 +178,7 @@ export default function KernelAscent() {
         update, and transfer to the next round. Across 50 probes from 0.5B to 15B the data kept pointing at two
         gates that decide whether the loop compounds or dies.
       </P>
-      <Fig
-        src={`${F}/flow_rsi_loop.png`}
+      <ChartFig
         caption={
           <>
             The recursive loop and the two gates the data identifies. Gate 1 is the correctness wall, where no
@@ -130,7 +186,27 @@ export default function KernelAscent() {
             forgetting collapses compounding.
           </>
         }
-      />
+      >
+        <div className="py-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 font-mono text-[13px]">
+            {loopSteps.map((s, i) => (
+              <span key={s} className="inline-flex items-center gap-2">
+                <span className="border border-[#8C1515]/45 text-[#8C1515] bg-white px-3 py-1.5">{s}</span>
+                {i < loopSteps.length - 1 && <span className="text-[#9a9a9a]">→</span>}
+              </span>
+            ))}
+            <span className="text-[#9a9a9a]">↺</span>
+          </div>
+          <div className="mt-5 grid sm:grid-cols-2 gap-3 text-[13px]">
+            <div className="border-l-2 border-[#8C1515] pl-3 text-[#262626]">
+              <S>Gate 1 · correctness wall.</S> No verified kernel means no gradient.
+            </div>
+            <div className="border-l-2 border-[#8C1515] pl-3 text-[#262626]">
+              <S>Gate 2 · plasticity and retention.</S> Drift saturation or forgetting collapses compounding.
+            </div>
+          </div>
+        </div>
+      </ChartFig>
 
       <Pull>A model cannot learn from kernels it never manages to write correctly even once.</Pull>
 
@@ -138,17 +214,18 @@ export default function KernelAscent() {
       <P>
         The first gate is brutal and it catches most models. If a model never emits a correct kernel, its
         supervised set is empty and its weight drift goes to zero. Nothing to train on, nothing to compound.
-        Across the runs 35 of 50 emitted at least one correct kernel, and the failures cluster below 2B.
+        Across the runs 35 of 50 emitted at least one correct kernel, and only 10 went on to compound.
       </P>
-      <Fig
-        src={`${F}/cz_failure_funnel.png`}
+      <ChartFig
         caption={
           <>
-            Attrition from attempt to compounding. The dominant drop happens at emitting any verified-correct
-            kernel. A second drop separates one-shot correctness from sustained held-out compounding.
+            Attrition from attempt to compounding across 50 open-weight runs. The dominant drop is at emitting any
+            verified-correct kernel. A second drop separates one-shot correctness from sustained compounding.
           </>
         }
-      />
+      >
+        <RankBar data={funnel} yLabel="number of runs" yDomain={[0, 50]} />
+      </ChartFig>
 
       <H2>Learning two. Compounding lives in the middle</H2>
       <P>
@@ -157,24 +234,29 @@ export default function KernelAscent() {
         the task roofline and stop gaining, because there is little headroom left. Compounding tracks the health
         of the self-training signal, not raw parameter count.
       </P>
+      <ChartFig
+        caption={
+          <>
+            Probability of crossing the correctness wall and of compounding, by size band. Wall-crossing rises at
+            2B and above, but compounding peaks in the 2 to 8B band and does not rise further at 9B and above.
+          </>
+        }
+      >
+        <BarFig
+          data={gatesByBand}
+          xKey="band"
+          yLabel="probability"
+          yDomain={[0, 1]}
+          series={[
+            { key: "cross", label: "crosses wall", color: R.gray },
+            { key: "rsi", label: "compounds", color: R.red },
+          ]}
+        />
+      </ChartFig>
       <Table
         head={["Size band", "n", "P(cross wall)", "P(RSI)", "mean drift"]}
         rows={scaleGates}
-        caption={
-          <>
-            Scale to RSI gates. Wall-crossing rises sharply at 2B and above, but the probability of compounding
-            peaks in the 2 to 8B band and does not rise further at 9B and above.
-          </>
-        }
-      />
-      <Fig
-        src={`${F}/mech_scale_gates.png`}
-        caption={
-          <>
-            Below about 2B the correctness wall is rarely crossed, so weight-RSI is impossible. Crossing rises at
-            2B and above, but compounding peaks at mid-scale and hits a headroom ceiling on the largest models.
-          </>
-        }
+        caption={<>The same gates as counts, with mean LoRA drift per band.</>}
       />
 
       <H2>Learning three. The bottleneck is generation, not knowledge</H2>
@@ -184,35 +266,55 @@ export default function KernelAscent() {
         correct kernel only a small fraction of the time. The model knows more than it can write. The wall is a
         generation and decoding problem, not a gap in what the model understands.
       </P>
-      <Fig
-        src={`${F}/cz_knows_vs_gen.png`}
+      <ChartFig
         caption={
           <>
-            Internal correctness knowledge, the best-layer probe AUC, against actual generation success. Points
-            far above the diagonal represent correctness internally yet decode it into a correct kernel only
-            rarely. The bottleneck is generation.
+            Internal correctness knowledge, the best-layer probe AUC on the x axis, against actual generation
+            success on the y axis. The dashed line is where knowing equals generating. Every point sits well
+            below it, so the models know far more than they write.
           </>
         }
-      />
+      >
+        <ScatterFig
+          data={knowsVsGen}
+          xLabel="internal probe AUC"
+          yLabel="generation success"
+          xDomain={[0.8, 1.0]}
+          yDomain={[0, 1.0]}
+          diagonalSegment={[{ x: 0.8, y: 0.8 }, { x: 1.0, y: 1.0 }]}
+        />
+      </ChartFig>
 
       <H2>Learning four. A probe can pick the winner, within limits</H2>
       <P>
         If the model knows internally which kernel is correct, that knowledge should be usable at decode time.
-        Reranking K candidates by the correctness probe recovers much of the oracle best-of-K gap at equal
-        budget, which turns a correlational signal into a decode-time intervention. I keep this honest. The
-        within-task ranking signal is modest, and probe selection does not beat plain verification under matched
-        budget. It reads correctness better than it harvests it.
+        Reranking K candidates by the correctness probe recovers much of the gap toward the oracle best-of-K
+        ceiling at equal budget. I keep this honest. The within-task ranking signal is modest, and probe
+        selection does not beat plain verification under matched budget. It reads correctness better than it
+        harvests it.
       </P>
-      <Fig
-        src={`${F}/iv_bars.png`}
+      <ChartFig
         caption={
           <>
-            Self-verification by probe-guided selection against natural single-draw success and the oracle
+            Correct rate under a natural single draw, under probe-guided selection, and under the oracle
             best-of-K ceiling, at equal budget. The probe recovers part of the oracle gap, though the effect is
-            uneven and the threshold is exploratory.
+            uneven across models.
           </>
         }
-      />
+      >
+        <BarFig
+          data={selfVerify}
+          xKey="name"
+          yLabel="correct rate"
+          yDomain={[0, 1]}
+          angledX
+          series={[
+            { key: "random", label: "random", color: R.gray },
+            { key: "probe", label: "probe", color: R.red },
+            { key: "oracle", label: "oracle", color: R.redSoft },
+          ]}
+        />
+      </ChartFig>
 
       <H2>Learning five. It is recursion, not just more sampling</H2>
       <P>
@@ -220,18 +322,18 @@ export default function KernelAscent() {
         the per-scale speed board, Qwen2.5-Coder-1.5B reaches <M>0.237</M> through weight-RSI against
         <M> 0.182 </M> with best-of-20 sampling, a real gain from training rather than extra draws. DeepSeek-1.3B
         compounds near <M>+0.26</M> against a fresh frozen baseline at matched budget. Interrupting the recursion
-        with a checkpoint-frozen producer erases the gain, which means the compounding is genuine and not a
-        one-time upgrade.
+        with a checkpoint-frozen producer erases the gain, so the compounding is genuine.
       </P>
-      <Fig
-        src={`${F}/cmp_recursion_gain.png`}
+      <ChartFig
         caption={
           <>
-            Is it really recursion. Weight-RSI against non-recursive controls, best-of-k, self-refine, and
-            retrieval, at matched generation budget. The gain over the best comparator is the recursion signal.
+            Weight-RSI against the best non-recursive control at matched generation budget, on
+            Qwen2.5-Coder-1.5B. Training on its own kernels beats spending the same budget on extra sampling.
           </>
         }
-      />
+      >
+        <RankBar data={recursion} yLabel="held-out score" yDomain={[0, 0.3]} />
+      </ChartFig>
 
       <H2>Learning six. Closed models improve their own procedure</H2>
       <P>
