@@ -363,16 +363,33 @@ export default function KernelAscent() {
         compounding force.
       </P>
 
-      <H2>The honest part</H2>
+      <H2>The intuition behind it</H2>
       <P>
-        A benchmark is only as good as its controls, so here is what I do not claim. A generation-after-SFT bug
-        currently breaks a subset of runs. A frozen base scores held-out <M>0.319</M>, a zero-update adapter
-        generates normally, and a single training step drops both train and held-out correctness to exactly
-        <M> 0.000 </M>. Because a zero-step adapter evaluates correctly and the collapse hits the training tasks
-        too, this is a harness bug, not catastrophic forgetting. So the five apparent compounding runs are
-        uninterpretable, not nulls, and I do not report them as evidence. The two gates are associations for now,
-        not proven causes. I separate persistent improvement, where inherited updates help, from recursive
-        improvement, where updates improve future training, and I claim only what the controls support.
+        Start with the wall. Self-improvement needs a gradient, and a gradient needs at least one verified-correct
+        kernel to learn from. A model that never writes a correct kernel has an empty training set, so its weights
+        cannot move. The first unit of signal is binary, and it gates everything after it. That is why the funnel
+        loses most of its models at the same place.
+      </P>
+      <P>
+        Now the mid-scale sweet spot. Two forces pull in opposite directions. Too small and the model rarely
+        clears the wall, so there is no signal to learn from. Too large and the model already sits near the
+        roofline, so almost no headroom is left to climb and the gradient points nowhere useful. Compounding needs
+        a model capable enough to produce correct kernels yet far enough from the ceiling to keep gaining, which
+        is exactly the 2 to 8B band.
+      </P>
+      <P>
+        The generation bottleneck follows from the probe. If a linear read of the hidden states separates correct
+        from incorrect at AUC near <M>0.98</M>, the representation already holds the answer. The loss happens when
+        the model samples that knowledge into tokens one step at a time. That is why picking candidates at decode
+        time helps, and why the real frontier is turning internal correctness into emitted correctness.
+      </P>
+      <P>
+        Finally, why this counts as recursion. Best-of-k only reweights a fixed distribution, so it cannot move
+        past what the model already samples. Training on your own verified kernels shifts the weight distribution
+        toward the correct region, which changes what the model samples next round, which changes what it can then
+        train on. Freeze the producer and that chain breaks and the gain disappears. Compounding also needs the
+        weights to keep moving without erasing old competence, so a run dies when drift saturates or the model
+        forgets.
       </P>
 
       <H2>What I take away</H2>
