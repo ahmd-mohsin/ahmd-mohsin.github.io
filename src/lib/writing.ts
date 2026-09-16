@@ -40,6 +40,16 @@ export const posts: Post[] = [
     ogImage: "/og/cu-dpo.png?v=2",
   },
   {
+    slug: "kernelascent-rsi",
+    title: "What I Learned Building a Recursive Self-Improvement Benchmark",
+    kind: "blog",
+    date: "September 2026",
+    readingTime: "11 min read",
+    description:
+      "KernelAscent asks whether verified self-improvement compounds, using GPU kernels where reward is objectively checkable and the roofline sets a real ceiling. Here is what the runs taught me about correctness walls, generation bottlenecks, and when recursion is real.",
+    ogImage: "/writing/kernelascent/gz_poster.png",
+  },
+  {
     slug: "agents-that-whisper",
     title: "When Agents Learn to Whisper",
     kind: "blog",

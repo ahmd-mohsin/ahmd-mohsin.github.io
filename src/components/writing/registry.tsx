@@ -1,6 +1,7 @@
 import { ComponentType } from "react";
 import CoveragePreservation from "@/components/writing/posts/CoveragePreservation";
 import AgentsThatWhisper from "@/components/writing/posts/AgentsThatWhisper";
+import KernelAscent from "@/components/writing/posts/KernelAscent";
 import CuDpo from "@/components/papers/posts/CuDpo";
 
 /**
@@ -11,5 +12,6 @@ import CuDpo from "@/components/papers/posts/CuDpo";
 export const customBodies: Record<string, ComponentType> = {
   "coverage-preservation-rlvr": CoveragePreservation,
   "agents-that-whisper": AgentsThatWhisper,
+  "kernelascent-rsi": KernelAscent,
   "cu-dpo": CuDpo,
 };
