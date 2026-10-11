@@ -107,7 +107,7 @@ export const m9 = () => ({
         s.mutants.forEach((m, i) => { v.fade(m, 1); m.position.set(Math.cos(m.userData.a) * 3.6, 0.4, Math.sin(m.userData.a) * 3.6);
           moveTo(v, m, [Math.cos(m.userData.a) * 1.9, 0.3, Math.sin(m.userData.a) * 1.9], 0.8); v.later(() => v.fade(m, 0), 950 + i * 40); });
       } },
-      { say: 'Crucible attacks the isolation and the checks in sandboxes. An adaptive attacker also tries to cheat.', go(v) { const s = v.s; hide(v, s); show(v, s.attackL, true); light(s, 3); } },
+      { say: 'Crucible attacks the isolation and the verifiers in sandboxes. An adaptive red team also attempts to exploit the verifier.', go(v) { const s = v.s; hide(v, s); show(v, s.attackL, true); light(s, 3); } },
       { say: 'Frontier models try the task. Their pass rate must be in the target range.', go(v) { const s = v.s; hide(v, s); show(v, s.band, true); light(s, 4); } },
       { say: 'All rings are green, so the task goes into the pool. Each new error type becomes a new check.', go(v) {
         const s = v.s; hide(v, s); s.spinTask = false; moveTo(v, s.task, [3.6, 0.12, -2.4], 1.1); show(v, s.ok, true);
@@ -152,7 +152,7 @@ export const m10 = () => ({
       { say: 'A run uses each task, each agent and each harness many times.', go(v) { const s = v.s; reset(v, s); s.coins.forEach((c, i) => v.tw.to(c.position, 'y', 0.1 + i * 0.06)); } },
       { say: 'Crucible reserves the budget before each attempt and settles it after. A crash does not lose the count.', go(v) { const s = v.s; s.coins.slice(5).forEach(c => v.tw.to(c.position, 'y', c.position.y + 0.5, 0.6)); } },
       { say: 'The harness runs the agent in a new world.', go(v) { const s = v.s; s.pods.slice(0, 3).forEach((p, i) => moveTo(v, p, [-0.5 + i * 0.2, 0.32 + i * 0.12, -0.2], 0.8)); } },
-      { say: 'A fixed checker scores the final state. The agent never scores its own work.', go(v) { const s = v.s; s.pods.slice(0, 3).forEach((p, i) => moveTo(v, p, [0.8 + i * 0.15, 0.7 + i * 0.12, -0.2], 0.8)); } },
+      { say: 'A pinned verifier grades the final state. The agent never grades its own work.', go(v) { const s = v.s; s.pods.slice(0, 3).forEach((p, i) => moveTo(v, p, [0.8 + i * 0.15, 0.7 + i * 0.12, -0.2], 0.8)); } },
       { say: 'Crucible scores agent faults. It removes system faults from all averages.', go(v) {
         const s = v.s; const [a, b, c] = s.pods;
         moveTo(v, a, [2.4, 0.16, -1.1], 0.9); own(a).color.set(PAL.cardinal);

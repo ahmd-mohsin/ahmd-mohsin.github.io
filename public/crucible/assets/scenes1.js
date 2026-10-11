@@ -683,11 +683,11 @@ export const m6 = () => ({
     { say: 'Each step earns its change in progress. The sum of the step scores equals the final progress.', go(v) {
       const s = v.s; show(v, s.phiL, false); s.climbing = true; s.dbars.forEach(b => v.tw.to(b.scale, 'y', Math.max(0.001, Math.abs(b.userData.d) * s.H * 1.4), 0.7));
     } },
-    { say: 'If the agent breaks a thing and fixes it again, the two scores cancel. Loops earn nothing.', go(v) { show(v, v.s.loop, true); } },
-    { say: 'If the agent breaks a hard rule, the full episode scores zero.', go(v) {
+    { say: 'An action that is undone and then repeated produces two scores that cancel. Cycles yield zero net reward.', go(v) { show(v, v.s.loop, true); } },
+    { say: 'A violation of a hard constraint sets the episode reward to zero.', go(v) {
       const s = v.s; show(v, s.loop, false); v.fade(s.bar, 1); s.cols.forEach(c => v.tw.to(c.scale, 'y', 0.02, 0.8)); s.dbars.forEach(b => v.tw.to(b.scale, 'y', 0.001)); show(v, s.zero, true); s.climbing = false;
     } },
-    { say: 'Partial work stays below success. Only a finished task gets the full reward.', go(v) {
+    { say: 'Partial completion remains below success. Only a completed task receives the full reward.', go(v) {
       const s = v.s; show(v, s.zero, false); v.fade(s.bar, 0); s.cols.forEach((c, i) => v.tw.to(c.scale, 'y', Math.max(0.02, s.phi[i] * s.H), 0.8));
       v.fade(s.cap, 1); show(v, s.capL, true); v.fade(s.ingot, 1); s.ingot.position.y = 3.2; v.tw.to(s.ingot.position, 'y', 0.02, 1.0, 'out'); show(v, s.full, true); s.climbing = true;
     } },
@@ -717,7 +717,7 @@ export const m7 = () => ({
       return d;
     });
     s.cheats = [0, 1].map(i => { const c = block(0.36, 0.02, 0.26, { color: PAL.cardinal, kind: 'gloss', edge: null }); c.position.set(-1.2, 1.0 + i * 0.3, 0.6 - i * 0.8); c.rotation.x = 0.4; v.add(c); v.setAlpha(c, 0); return c; });
-    s.cheatL = v.label('fake reward file, fake pass', V(-0.9, 1.9, 0.2), { cls: 'red' }); s.cheatL.opacity = 0;
+    s.cheatL = v.label('fabricated reward file, forged pass', V(-0.9, 1.9, 0.2), { cls: 'red' }); s.cheatL.opacity = 0;
     s.verdict = v.label('reward and check results', V(2.0, 1.6, 0.95), { cls: 'tag' }); s.verdict.opacity = 0;
     s.beams = s.boxes.map((b, i) => { const l = line([V(0.6, 0.2, -0.5 + i * 0.5), V(1.5 + i * 0.3, 0.75, -0.35)], PAL.cardinal, 'lineT'); v.add(l); v.setAlpha(l, 0); return l; });
   },
@@ -738,7 +738,7 @@ export const m7 = () => ({
     { say: 'Crucible compares the results with hidden references and new random inputs.', go(v) {
       const s = v.s; s.busy = false; s.beams.forEach(l => v.fade(l, 1)); stamp(s, 3, true); stamp(s, 4, false); stamp(s, 5, true);
     } },
-    { say: 'Fake results and fake reward files do not count. All 11 known cheats score zero.', go(v) {
+    { say: 'Forged results and fabricated reward files have no effect. All 11 known attacks score zero.', go(v) {
       const s = v.s; s.beams.forEach(l => v.fade(l, 0)); show(v, s.cheatL, true);
       s.cheats.forEach((c, i) => { v.fade(c, 1); c.position.x = -1.2; v.tw.to(c.position, 'x', -0.12, 0.5); v.later(() => { v.tw.to(c.position, 'x', -1.4, 0.7); v.fade(c, 0); }, 600 + i * 120); });
     } },

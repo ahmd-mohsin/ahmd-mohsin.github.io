@@ -20,7 +20,7 @@ const KEYS = {
   m4: [['Blocks', 'the steps of one piece of work'], ['Green ball', 'approval or passed check'], ['Red ball', 'correction'], ['Amber ball', 'rejection, low trust'], ['Thread', 'link to the step that changed the item']],
   m5: [['Dotted lines', 'recorded attempts'], ['Red line', 'one attempt'], ['Posts with red caps', 'milestones'], ['Glass bands', 'stages'], ['Red ball', 'an agent on the way']],
   m6: [['Columns', 'progress after each step'], ['Pink column', 'a step back'], ['Red ball', 'the agent'], ['Red gate', 'a hard rule']],
-  m7: [['Glass box', 'the sandbox of the attempt'], ['Dark cube', 'the result of the attempt'], ['Red sheets', 'fake results'], ['Gems on the table', 'hidden references'], ['Row of dots', 'checks, green pass, red fail']],
+  m7: [['Glass box', 'the sandbox of the attempt'], ['Dark cube', 'the result of the attempt'], ['Red sheets', 'forged results'], ['Gems on the table', 'hidden references'], ['Row of dots', 'checks, green pass, red fail']],
   m8: [['Booths', 'AI roles'], ['Red figure', 'the solution builder'], ['Pink walls', 'walls between roles'], ['Red bead', 'the hidden marker'], ['Red ring', 'the quality gate']],
   m9: [['Centre cube', 'the task'], ['Rings', 'groups of checks, low cost first'], ['Green tiles', 'passed checks'], ['Dark cubes', 'planted errors'], ['Round pool', 'accepted tasks']],
   m10: [['Capsules', 'attempts'], ['Glass box', 'the world'], ['White box', 'the checker'], ['Red stack', 'the budget'], ['Glass bin', 'system faults, not counted']],
