@@ -234,7 +234,7 @@ export class Stage {
     let r;
     try {
       r = new THREE.WebGLRenderer({ canvas: this.canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-    } catch (e) { this.failed = true; document.documentElement.classList.add('no-webgl'); return; }
+    } catch (e) { this.failed = true; document.documentElement.classList.add('no-3d'); return; }
     this.r = r;
     r.setPixelRatio(Math.min(devicePixelRatio || 1, MOBILE ? 1.6 : 2));
     r.outputColorSpace = THREE.SRGBColorSpace;

@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crucible workflow</title>
+<meta name="description" content="The complete Crucible workflow in one live 3D model. A request becomes measured long tasks, trainable environments and a measured improvement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<style>
+:root {
+  --paper: #ffffff; --ground: #fbfaf9; --ink: #1f1e1c; --ink-2: #3b3a37; --muted: #5d6066; --rule: #e7e2df;
+  --hair: #efebe9; --cardinal: #8c1515; --cardinal-deep: #6c1010; --blush: #f8eeee; --pass: #3f7d5c; --warn: #9a6a1f;
+  --serif: "Lora", Georgia, serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body { background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--serif); -webkit-font-smoothing: antialiased; }
+a { color: var(--cardinal); }
+header.top { position: fixed; inset: 0 0 auto 0; z-index: 20; display: flex; align-items: center; gap: 18px; padding: 12px 20px;
+  background: rgba(255,255,255,.86); backdrop-filter: blur(8px); border-bottom: 1px solid var(--hair); }
+.brand { display: flex; align-items: center; gap: 8px; font: 600 15px var(--mono); color: var(--ink); text-decoration: none; letter-spacing: .02em; }
+.brand svg { width: 22px; height: 22px; }
+header h1 { margin: 0; font: 600 15px var(--mono); color: var(--cardinal); letter-spacing: .04em; text-transform: uppercase; }
+header .sp { flex: 1; }
+header .btn { font: 500 12px var(--mono); padding: 6px 11px; border: 1px solid var(--rule); background: #fff; color: var(--ink-2); cursor: pointer; }
+header .btn:hover, header .btn.on { border-color: var(--cardinal); color: var(--cardinal); }
+#stage { position: fixed; inset: 0; }
+#stage canvas { display: block; }
+.lab { font: 500 10.5px/1.2 var(--mono); color: var(--ink-2); background: rgba(255,255,255,.9); border: 1px solid var(--hair);
+  padding: 2px 6px; white-space: nowrap; pointer-events: auto; cursor: pointer; transition: opacity .25s, color .2s, border-color .2s; }
+.lab:hover, .lab.sel { color: var(--cardinal); border-color: var(--cardinal); }
+.lab.dim { opacity: .18; }
+.zlab { font: 600 13px/1.2 var(--mono); color: var(--cardinal); letter-spacing: .05em; text-transform: uppercase; background: rgba(255,255,255,.92);
+  border-bottom: 2px solid var(--cardinal); padding: 3px 8px; white-space: nowrap; pointer-events: none; transition: opacity .25s; }
+.zlab.dim { opacity: .25; }
+.alab { font: italic 500 11px var(--serif); color: var(--cardinal-deep); background: var(--blush); padding: 2px 7px; white-space: nowrap; pointer-events: none; transition: opacity .25s; }
+.alab.dim { opacity: .12; }
+.clab { font: 600 12px/1.3 var(--mono); color: #fff; background: var(--ink); padding: 4px 9px; text-align: center; pointer-events: none; }
+aside#panel { position: fixed; z-index: 15; top: 64px; right: 16px; width: min(380px, calc(100vw - 32px)); max-height: calc(100vh - 170px); overflow: auto;
+  background: rgba(255,255,255,.96); border: 1px solid var(--rule); box-shadow: 0 26px 48px -26px rgba(140,21,21,.3); padding: 18px 20px 16px; }
+#panel .k { font: 600 11px var(--mono); color: var(--cardinal); letter-spacing: .06em; text-transform: uppercase; }
+#panel h2 { font: 600 22px/1.25 var(--serif); margin: 4px 0 4px; }
+#panel .short { color: var(--ink-2); font-style: italic; margin: 0 0 10px; }
+#panel ul { margin: 0; padding-left: 18px; }
+#panel li { margin: 5px 0; }
+#panel .links { margin-top: 12px; font: 500 11.5px/1.7 var(--mono); color: var(--muted); }
+#panel .links b { color: var(--ink-2); font-weight: 600; }
+#panel .links span { cursor: pointer; color: var(--cardinal); }
+#panel .x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font: 18px var(--mono); color: var(--muted); cursor: pointer; }
+#tour { position: fixed; z-index: 15; left: 16px; bottom: 16px; width: min(560px, calc(100vw - 32px)); background: rgba(255,255,255,.95);
+  border: 1px solid var(--rule); padding: 12px 14px; }
+#tour .row { display: flex; align-items: center; gap: 8px; }
+#tour button { font: 500 12px var(--mono); padding: 5px 10px; border: 1px solid var(--rule); background: #fff; cursor: pointer; color: var(--ink-2); }
+#tour button:hover { border-color: var(--cardinal); color: var(--cardinal); }
+#tour .count { font: 500 12px var(--mono); color: var(--muted); margin-left: auto; }
+#tour p { margin: 8px 0 0; font-size: 15px; color: var(--ink); }
+#tour .dots { display: flex; gap: 4px; margin-top: 8px; }
+#tour .dots i { width: 22px; height: 3px; background: var(--rule); cursor: pointer; }
+#tour .dots i.on { background: var(--cardinal); }
+#legend { position: fixed; z-index: 14; left: 16px; top: 64px; background: rgba(255,255,255,.92); border: 1px solid var(--hair); padding: 10px 12px;
+  font: 500 11px/1.7 var(--mono); color: var(--ink-2); }
+#legend b { display: inline-block; width: 12px; height: 12px; vertical-align: -2px; margin-right: 6px; border: 1px solid rgba(0,0,0,.15); }
+#legend .t { font-weight: 600; color: var(--cardinal); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 2px; }
+#text { position: fixed; z-index: 30; inset: 56px 0 0 0; overflow: auto; background: var(--paper); display: none; padding: 28px clamp(16px, 5vw, 64px) 60px; }
+#text.open { display: block; }
+#text h2 { font: 600 26px var(--serif); margin: 0 0 6px; color: var(--cardinal); }
+#text h3 { font: 600 13px var(--mono); color: var(--cardinal); text-transform: uppercase; letter-spacing: .05em; margin: 26px 0 6px; border-bottom: 1px solid var(--rule); padding-bottom: 4px; }
+#text h4 { font: 600 17px var(--serif); margin: 14px 0 2px; }
+#text p, #text li { max-width: 860px; }
+#text .short { font-style: italic; color: var(--ink-2); margin: 0 0 4px; }
+.fallback { position: fixed; inset: 56px 0 0 0; display: none; padding: 40px; text-align: center; color: var(--muted); }
+@media (max-width: 760px) { #legend { display: none; } aside#panel { top: auto; bottom: 150px; max-height: 40vh; } .lab { font-size: 9.5px; } }
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"}}</script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html" aria-label="Crucible home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-2.4 11.2A5 5 0 0 1 13.7 20h-3.4a5 5 0 0 1-4.9-3.8z" fill="none" stroke="#8c1515" stroke-width="1.6"/><path d="M6.2 11h11.6l-.9 4.3a3 3 0 0 1-2.9 2.4h-4a3 3 0 0 1-2.9-2.4z" fill="#8c1515"/></svg>
+    crucible
+  </a>
+  <h1>The complete workflow</h1>
+  <span class="sp"></span>
+  <button class="btn" id="b-labels">Hide labels</button>
+  <button class="btn" id="b-spin">Rotate</button>
+  <button class="btn" id="b-text">Text version</button>
+</header>
+
+<div id="stage" aria-label="Live 3D model of the Crucible workflow"></div>
+<div class="fallback" id="fallback">This browser cannot draw the 3D model. The text version shows the complete workflow.</div>
+
+<div id="legend" aria-label="What the shapes show">
+  <div class="t">Key</div>
+  <div><b style="background:#2e2d29"></b>request and outcome</div>
+  <div><b style="background:#fff"></b>agent role in the swarm</div>
+  <div><b style="background:#3f7d5c"></b>executed gate</div>
+  <div><b style="background:#8a8380"></b>store or record</div>
+  <div><b style="background:#53565a"></b>compute</div>
+  <div><b style="background:#8c1515"></b>feedback loop</div>
+  <div style="margin-top:4px;color:#5d6066">Drag to turn. Scroll to zoom.<br>Select a station for detail.</div>
+</div>
+
+<aside id="panel" hidden>
+  <button class="x" aria-label="Close">×</button>
+  <div class="k" id="p-zone"></div>
+  <h2 id="p-title"></h2>
+  <p class="short" id="p-short"></p>
+  <ul id="p-list"></ul>
+  <div class="links" id="p-links"></div>
+</aside>
+
+<div id="tour" aria-live="polite">
+  <div class="row">
+    <button id="t-prev" aria-label="Previous step">←</button>
+    <button id="t-next" aria-label="Next step">→</button>
+    <button id="t-all">Whole model</button>
+    <span class="count" id="t-count"></span>
+  </div>
+  <p id="t-say"></p>
+  <div class="dots" id="t-dots"></div>
+</div>
+
+<section id="text" aria-label="Text version of the workflow"></section>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+// ------------------------------------------------------------------------------------------------ content
+// Seven tiers. Every station has a short role and the rules it enforces. Copy follows the site rules.
+const ZONES = [
+  { id: 'z1', name: 'Request and intent', say: 'The customer states the goal. The goal becomes one named behaviour, and the test set is sealed before any training task exists.' },
+  { id: 'z2', name: 'Ground truth', say: 'Scouts find real code and real history. Real history becomes the answer key, so no check is invented.' },
+  { id: 'z3', name: 'The swarm', say: 'Separate agents plan, build the world, build the reference solution and write the hidden checks. No agent grades its own work.' },
+  { id: 'z4', name: 'Verifier gates', say: 'Executed gates run from the cheapest to the most costly. A task passes only with evidence that its grader can fail and that it is fair.' },
+  { id: 'z5', name: 'Targeting', say: 'The target model attempts the task. A counterfactual run proves that the model fails on the intended skill and not on something else.' },
+  { id: 'z6', name: 'Environment and training', say: 'Each accepted task becomes an environment. Long attempts stay coherent, each step gets its credit, and many worlds train the model at once.' },
+  { id: 'z7', name: 'Measurement and improvement', say: 'The sealed set measures the improvement. Audits of every trace repair the checks, find new intents and improve the factory itself.' },
+];
+const K = { input: 'input', role: 'role', gate: 'gate', store: 'store', compute: 'compute', out: 'out' };
+const NODES = [
+  ['z1', 'request', 'Request', K.input, 'The customer states the goal.', [
+    'The customer writes a prompt with instructions.', 'The prompt says where the model fails today.',
+    'The prompt says which environments the customer needs.', 'An enterprise also gives access to its records and its experts.',
+    'The first version needs only the prompt.']],
+  ['z1', 'intent', 'Intent card', K.store, 'One named behaviour to improve.', [
+    'The card names the behaviour in one sentence.', 'The card cites real failure traces as evidence.',
+    'The card lists the real axes of difficulty.', 'A person approves the card before any build starts.']],
+  ['z1', 'bench', 'Sealed benchmark', K.store, 'The test set comes first.', [
+    'Held-out sources share no repository and no owner with training sources.', 'Held-out work ends after a fixed cutoff date.',
+    'A hashed manifest seals the set.', 'No agent that builds training tasks can read it.']],
+  ['z2', 'scouts', 'Scouts', K.role, 'Many small agents search public code.', [
+    'They search repositories, commits, issues and pull requests.', 'They expand their queries from the intent card.',
+    'They keep typed records of real changes, fixes, requests and users of a library.',
+    'Licence, size and a test run filter each source before any model call.']],
+  ['z2', 'lanes', 'Ground truth lanes', K.store, 'Real history becomes the answer key.', [
+    'A release window turns real commits into milestones.', 'A stitched window joins a library and the projects that use it.',
+    'The swarm builds new history where none exists.', 'Reverted real fixes bring real bugs back.',
+    'An open task rewards measured speed with no upper limit.']],
+  ['z3', 'curator', 'Root curator', K.role, 'Directs the work and writes no tasks.', [
+    'It leases empty cells of the coverage matrix.', 'It stops a cell when new tasks stop arriving.',
+    'No single idea may fill more than 40 percent of a family.', 'It merges only tasks that pass every gate.']],
+  ['z3', 'planner', 'Planner', K.role, 'Designs the milestone graph.', [
+    'It reads the real request and the code at the start state.', 'Each milestone states why it depends on an earlier one.',
+    'It writes the requirements and the plan for the checks.']],
+  ['z3', 'worldx', 'World expert', K.role, 'Builds the sandbox.', [
+    'The sandbox is offline, and its history ends at the start state.', 'Leak probes prove that the answer is out of reach.',
+    'The existing tests must pass 60 times in a row.']],
+  ['z3', 'oracle', 'Oracle builder', K.role, 'Writes the reference solution.', [
+    'It works in a private copy of the code.', 'It makes one commit for each milestone.',
+    'Its commits never reach the verifier writer.']],
+  ['z3', 'vwriter', 'Verifier writer', K.role, 'Writes the hidden checks.', [
+    'It never sees a solution.', 'It writes one group of checks for each requirement.',
+    'Each check tests behaviour and never the text of the code.']],
+  ['z3', 'author', 'Prompt author', K.role, 'Writes the request in a real voice.', [
+    'Every request maps to a check, and every check maps to a request.', 'The prompt asks for nothing that the grader cannot check.',
+    'A reviewer from another model family removes unrealistic hints.']],
+  ['z3', 'taskrepo', 'Task repository', K.store, 'The shared memory of the swarm.', [
+    'Each contribution is an immutable commit with links to its sources.', 'Agents announce their scope before work, so duplicates stop early.',
+    'A hand-off carries the full specification and never only a summary.']],
+  ['z4', 'deps', 'Dependency check', K.gate, 'Proves that the task is long and not only large.', [
+    'A milestone depends on another only if the code shows it.', 'Text overlap is never enough.',
+    'A window with no real dependency leaves the long track.']],
+  ['z4', 'floors', 'Floors and mutants', K.gate, 'Proves that the grader can fail.', [
+    'An agent that does nothing scores zero.', 'Undoing one real change fails exactly its milestone.',
+    'The reference solution scores one.']],
+  ['z4', 'v2', 'Second verifier', K.gate, 'An independent check of the checks.', [
+    'Another model family writes new tests from the prompt alone.', 'Both graders judge every end state.',
+    'Each disagreement becomes a defect with an owner.']],
+  ['z4', 'alts', 'Valid alternatives', K.gate, 'A fair grader accepts every correct solution.', [
+    'Rewrites from three model families must pass.', 'A check that fails a correct alternative is removed.',
+    'This is the test of ten competent people.']],
+  ['z4', 'flake', 'Flake gate', K.gate, 'The grader gives the same answer each time.', [
+    'The reference solution runs 60 times at two load levels.', 'The upper bound on flakes stays under 5 percent.',
+    'Timing tests never become milestones.']],
+  ['z4', 'hackers', 'Hackers', K.role, 'Agents try to win without the work.', [
+    'They see the prompt, the checks and the intent.', 'Any reward without the work fails the task.',
+    'Each confirmed exploit joins a replay set for every task.']],
+  ['z4', 'gold', 'Gold set', K.store, 'Measures the error of the grader.', [
+    'Real end states, mutants and alternatives form two classes.', 'Each class gives an upper bound on its error rate.',
+    'A person reviews a sample of the labels.']],
+  ['z5', 'solvers', 'Solvers', K.compute, 'The target model attempts the task.', [
+    'The target is the model to improve.', 'Weaker and stronger models run as rungs.',
+    'Every attempt records its full trace.']],
+  ['z5', 'counter', 'Counterfactual control', K.gate, 'Proves that the failure is the intended one.', [
+    'The same model runs the task with the hard part removed.', 'Success there puts the failure on the intended skill.',
+    'Failure there sends the task back to the planner.',
+    'Four measured tasks failed a frontier model on every full attempt and passed on every simplified attempt.']],
+  ['z5', 'band', 'Band and causes', K.gate, 'The task must teach.', [
+    'Rewards must spread across attempts of the same task.', 'At least 70 percent of failures must be skill gaps.',
+    'A task that fails for the wrong reason returns to its owner.']],
+  ['z5', 'accepted', 'Accepted task', K.out, 'A task that passed every gate.', [
+    'It has a reference solution, measured checks and a proven failure.', 'It carries a card with its evidence and its version.',
+    'It becomes a trainable environment.']],
+  ['z6', 'env', 'Environment', K.store, 'One task becomes one environment.', [
+    'A task is a portable row of data.', 'The grader runs as a separate task that the agent never touches.',
+    'A lost container is a system fault and never a zero score.', 'A group with a system fault is dropped as a whole.']],
+  ['z6', 'harness', 'Recursive harness', K.compute, 'Keeps the agent coherent over very long work.', [
+    'The full history lives in a ledger outside the context window.', 'The agent reads its history back through code.',
+    'Compaction is a trained action.', 'Helper agents and snapshots carry work across sessions.']],
+  ['z6', 'checkpt', 'Checkpoint grading', K.gate, 'Measures progress during the attempt.', [
+    'Hidden checks run on snapshots at commits and at each compaction.', 'The agent never sees the results.',
+    'A failed measurement counts as unmeasured and never as zero.']],
+  ['z6', 'credit', 'Credit assignment', K.compute, 'Each step gets the credit it earned.', [
+    'Progress is a score over verified milestones.', 'Each step receives the change in that score.',
+    'Breaking a finished milestone gives negative credit.', 'A milestone keeps its weight only if it predicts the final outcome.']],
+  ['z6', 'honesty', 'Honesty', K.gate, 'The agent states what it finished.', [
+    'The agent rates each requirement it believes it met.', 'A proper score rewards a true belief.',
+    'The agent can stop and say that it cannot finish.', 'This term never turns a failure into a reward.']],
+  ['z6', 'async', 'Asynchronous rollouts', K.compute, 'Many worlds run at once.', [
+    'Inference engines serve many attempts in parallel.', 'Each token keeps its exact identity and probability.',
+    'A bound on staleness limits off-policy data.', 'Corrections handle data from older weights.']],
+  ['z6', 'trainer', 'Trainer', K.compute, 'Updates the weights on many GPUs.', [
+    'Advantages compare attempts of the same task.', 'Turn credit flows to each token of that turn.',
+    'Each checkpoint records the grader version that scored it.']],
+  ['z7', 'measure', 'Benchmark run', K.out, 'Shows if the model improved.', [
+    'The sealed set runs before and after training.', 'Reports show success at least once and success every time.',
+    'The comparison pairs each task with itself.', 'Reports state the smallest effect that the test can detect.']],
+  ['z7', 'audit', 'Trace audit', K.role, 'Reads every attempt, the passes too.', [
+    'Facts come first, with no judge.', 'The audit finds the first wrong step from the progress record.',
+    'Each label quotes the trace.', 'Planted controls test the auditor itself.']],
+  ['z7', 'accept', 'Executed acceptance', K.gate, 'A fix needs evidence and not opinion.', [
+    'A new check must fail the end state that exposed the gap.', 'It must still pass the reference and every alternative.',
+    'Each accepted fix is a new version with its lineage.']],
+  ['z7', 'newintent', 'Intent update', K.role, 'New failures become new intents.', [
+    'Failure clusters from two or more model families become candidates.', 'A person approves each new intent.',
+    'Solved intents retire or grow harder along real axes.']],
+  ['z7', 'recipe', 'Recipe improvement', K.role, 'The factory improves itself.', [
+    'Every decision is stored with its reason.', 'Repeated reasons become rules and then cheaper checks.',
+    'A recipe change wins only on measured yield with zero exploits.']],
+  ['z7', 'receipts', 'Receipts', K.store, 'The factory proves that it works.', [
+    'Planted defects must be caught at the correct gate.', 'Each run writes a receipt with what it did not verify.']],
+].map(([zone, id, title, kind, short, list]) => ({ zone, id, title, kind, short, list }));
+
+const LOOPS = [
+  ['accept', 'vwriter', 'Verified fixes'],
+  ['newintent', 'intent', 'New intents'],
+  ['recipe', 'curator', 'Better recipe'],
+  ['trainer', 'solvers', 'New weights'],
+  ['floors', 'vwriter', 'Failed gate returns'],
+  ['counter', 'planner', 'Wrong difficulty returns'],
+];
+
+// ------------------------------------------------------------------------------------------------ scene
+const host = document.getElementById('stage');
+const PAL = { cardinal: 0x8c1515, ember: 0xc8473f, blush: 0xf2dcdc, ink: 0x2e2d29, grey: 0x53565a, stone: 0x8a8380,
+  rule: 0xd6d1cf, mist: 0xebe7e5, white: 0xffffff, pass: 0x3f7d5c, glass: 0xf6f4f3 };
+const REDUCED = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ antialias: true }); }
+catch (e) { document.getElementById('fallback').style.display = 'block'; }
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
+scene.fog = new THREE.Fog(0xffffff, 40, 85);
+const camera = new THREE.PerspectiveCamera(36, 1, 0.1, 200);
+const labelRenderer = new CSS2DRenderer();
+labelRenderer.domElement.style.position = 'absolute';
+labelRenderer.domElement.style.inset = '0';
+labelRenderer.domElement.style.pointerEvents = 'none';
+
+if (renderer) {
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.0;
+  host.appendChild(renderer.domElement); host.appendChild(labelRenderer.domElement);
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromScene(new RoomEnvironment(), 0.04).texture;
+}
+scene.add(new THREE.HemisphereLight(0xffffff, 0xefe9e6, 0.9));
+const sun = new THREE.DirectionalLight(0xffffff, 1.3);
+sun.position.set(10, 22, 8); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+Object.assign(sun.shadow.camera, { left: -18, right: 18, top: 18, bottom: -18, near: 1, far: 60 });
+sun.shadow.bias = -0.0005; sun.shadow.radius = 6;
+scene.add(sun);
+
+const ground = new THREE.Mesh(new THREE.CircleGeometry(40, 64), new THREE.ShadowMaterial({ opacity: 0.12 }));
+ground.rotation.x = -Math.PI / 2; ground.receiveShadow = true; scene.add(ground);
+{ // dotted floor
+  const pts = []; for (let x = -16; x <= 16; x += 0.8) for (let z = -16; z <= 16; z += 0.8) if (x * x + z * z < 256) pts.push(x, 0.002, z);
+  const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pts, 3));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: PAL.rule, size: 2, sizeAttenuation: false })));
+}
+
+const M = {
+  clay: c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.62, metalness: 0.0 }),
+  gloss: c => new THREE.MeshStandardMaterial({ color: c, roughness: 0.25, metalness: 0.1 }),
+  glass: () => new THREE.MeshPhysicalMaterial({ color: PAL.glass, roughness: 0.15, transmission: 0.55, thickness: 0.4, transparent: true, opacity: 0.55 }),
+};
+const edge = (mesh, color = PAL.rule) => { const e = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry, 20), new THREE.LineBasicMaterial({ color, transparent: true })); mesh.add(e); return mesh; };
+const roundBox = (w, h, d, r) => {
+  const s = new THREE.Shape(); const x = -w / 2, z = -d / 2;
+  s.moveTo(x + r, z); s.lineTo(x + w - r, z); s.quadraticCurveTo(x + w, z, x + w, z + r); s.lineTo(x + w, z + d - r);
+  s.quadraticCurveTo(x + w, z + d, x + w - r, z + d); s.lineTo(x + r, z + d); s.quadraticCurveTo(x, z + d, x, z + d - r);
+  s.lineTo(x, z + r); s.quadraticCurveTo(x, z, x + r, z);
+  const g = new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: false }); g.rotateX(-Math.PI / 2); return g;
+};
+const label = (text, cls, pos, parent = scene) => {
+  const el = document.createElement('div'); el.className = cls; el.textContent = text;
+  const o = new CSS2DObject(el); o.position.copy(pos); parent.add(o); return o;
+};
+
+// Layout: a rising spiral of seven tiers around a central record store.
+const R = 11.2, STEP = (2 * Math.PI) / 7.4, RISE = 0.62, A0 = Math.PI * 0.12, GAP = 1.9;
+const zoneGeo = {};
+const nodeObj = {};
+ZONES.forEach((z, i) => {
+  const th = A0 + i * STEP, y = 0.25 + i * RISE;
+  const c = new THREE.Vector3(R * Math.cos(th), y, R * Math.sin(th));
+  const t = new THREE.Vector3(-Math.sin(th), 0, Math.cos(th));
+  const r = new THREE.Vector3(Math.cos(th), 0, Math.sin(th));
+  const nodes = NODES.filter(n => n.zone === z.id);
+  const cols = Math.min(nodes.length, 4), rows = Math.ceil(nodes.length / 4);
+  const W = cols * GAP + 0.7, D = rows * GAP + 0.6;
+  // pedestal column under the tier
+  const col = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.09, y, 12), M.clay(PAL.rule));
+  col.position.set(c.x, y / 2, c.z); col.castShadow = true; scene.add(col);
+  const plate = new THREE.Mesh(roundBox(W, 0.16, D, 0.25), M.glass());
+  plate.position.copy(c); plate.position.y = y - 0.16;
+  plate.rotation.y = -th - Math.PI / 2; // local x along the tangent, local z along the radius
+  plate.receiveShadow = true; scene.add(plate);
+  edge(plate, 0xe2dcd9);
+  // a red rim on the outer edge of the plate
+  const rim = new THREE.Mesh(new THREE.BoxGeometry(W - 0.5, 0.05, 0.05), M.gloss(PAL.cardinal));
+  rim.position.copy(c).addScaledVector(r, D / 2 - 0.02); rim.position.y = y + 0.01;
+  rim.rotation.y = -th - Math.PI / 2; scene.add(rim);
+  const zl = label(`${i + 1}  ${z.name}`, 'zlab', c.clone().addScaledVector(r, D / 2 + 0.75).add(new THREE.Vector3(0, 0.25, 0)));
+  zoneGeo[z.id] = { c, t, r, y, i, plate, zl, W, D };
+  nodes.forEach((n, j) => {
+    const row = Math.floor(j / 4), colI = j % 4, inRow = Math.min(4, nodes.length - row * 4);
+    const p = c.clone().addScaledVector(t, (colI - (inRow - 1) / 2) * GAP).addScaledVector(r, (row - (rows - 1) / 2) * -GAP);
+    p.y = y;
+    nodeObj[n.id] = { ...makeNode(n, p), n, p };
+  });
+});
+
+function makeNode(n, p) {
+  const g = new THREE.Group(); g.position.copy(p); scene.add(g);
+  let body, h = 0.6;
+  if (n.kind === K.role) { // a figure on a disc: an agent role
+    const base = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.46, 0.08, 32), M.clay(PAL.mist)); base.position.y = 0.04; g.add(base);
+    body = new THREE.Mesh(new THREE.CapsuleGeometry(0.17, 0.42, 6, 16), M.clay(PAL.white)); body.position.y = 0.42; g.add(body);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 20, 14), M.gloss(PAL.cardinal)); head.position.y = 0.86; g.add(head);
+    h = 1.05;
+  } else if (n.kind === K.gate) { // a ring gate with a green light
+    body = new THREE.Mesh(new THREE.TorusGeometry(0.36, 0.07, 14, 40), M.gloss(PAL.pass)); body.position.y = 0.46; g.add(body);
+    const post = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 0.1, 10), M.clay(PAL.grey)); post.position.y = 0.05; g.add(post);
+    const lamp = new THREE.Mesh(new THREE.SphereGeometry(0.08, 16, 12), new THREE.MeshStandardMaterial({ color: 0x6fbf8e, emissive: 0x2f7d50, emissiveIntensity: 0.9 }));
+    lamp.position.y = 0.46; g.add(lamp); g.userData.lamp = lamp; h = 0.95;
+  } else if (n.kind === K.store) { // a cabinet of drawers
+    body = new THREE.Mesh(roundBox(0.72, 0.62, 0.52, 0.05), M.clay(PAL.stone)); g.add(body); edge(body, 0x6e6865);
+    for (let k = 1; k < 3; k++) { const d = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.012, 0.02), M.clay(PAL.mist)); d.position.set(0, k * 0.2, 0.27); g.add(d); }
+    h = 0.75;
+  } else if (n.kind === K.compute) { // a stack of units with lights
+    for (let k = 0; k < 3; k++) {
+      const u = new THREE.Mesh(roundBox(0.66, 0.17, 0.5, 0.04), M.clay(PAL.grey)); u.position.y = k * 0.2; g.add(u); edge(u, 0x3c3e42);
+      const led = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.03, 0.01), new THREE.MeshStandardMaterial({ color: 0xff6b5e, emissive: 0xc8473f, emissiveIntensity: 1 }));
+      led.position.set(0.2, k * 0.2 + 0.09, 0.255); g.add(led); (g.userData.leds ??= []).push(led);
+    }
+    body = g.children[0]; h = 0.8;
+  } else { // input and outcome: a dark block with a red top
+    body = new THREE.Mesh(roundBox(0.7, 0.5, 0.7, 0.08), M.clay(PAL.ink)); g.add(body);
+    const top = new THREE.Mesh(roundBox(0.7, 0.06, 0.7, 0.08), M.gloss(PAL.cardinal)); top.position.y = 0.5; g.add(top);
+    h = 0.7;
+  }
+  g.traverse(o => { if (o.isMesh) { o.castShadow = true; o.receiveShadow = true; o.userData.nodeId = n.id; } });
+  const lab = label(n.title, 'lab', new THREE.Vector3(0, h + 0.28, 0), g);
+  lab.element.addEventListener('click', ev => { ev.stopPropagation(); select(n.id); });
+  return { g, lab, h };
+}
+
+// central record store: a glass column with rings
+{
+  const top = 0.25 + 6 * RISE + 1.2;
+  const core = new THREE.Mesh(new THREE.CylinderGeometry(1.25, 1.45, top, 48, 1, true), M.glass()); core.position.y = top / 2; scene.add(core);
+  const cap = new THREE.Mesh(new THREE.CylinderGeometry(1.3, 1.3, 0.12, 48), M.gloss(PAL.cardinal)); cap.position.y = top; scene.add(cap);
+  for (let k = 0; k < 9; k++) {
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(1.32, 0.018, 8, 64), M.clay(PAL.stone)); ring.rotation.x = Math.PI / 2; ring.position.y = 0.4 + k * (top - 0.6) / 8; scene.add(ring);
+  }
+  const disks = new THREE.InstancedMesh(new THREE.CylinderGeometry(0.8, 0.8, 0.05, 32), M.clay(PAL.mist), 14);
+  const m = new THREE.Matrix4(); for (let k = 0; k < 14; k++) { m.makeTranslation(0, 0.2 + k * (top - 0.4) / 13, 0); disks.setMatrixAt(k, m); }
+  scene.add(disks);
+  label('Records, versions, decisions', 'clab', new THREE.Vector3(0, top * 0.45, 1.6));
+  scene.userData.coreTop = top;
+}
+
+// ------------------------------------------------------------------------------------------------ flows
+const flows = [];
+function flow(curve, { count = 14, speed = 0.05, r = 0.075, color = PAL.cardinal, emissive = 0 } = {}) {
+  const mesh = new THREE.InstancedMesh(new THREE.SphereGeometry(r, 14, 10), new THREE.MeshStandardMaterial({ color, roughness: 0.3, emissive, emissiveIntensity: emissive ? 0.6 : 0 }), count);
+  mesh.frustumCulled = false; scene.add(mesh);
+  const f = { curve, count, speed, mesh, m: new THREE.Matrix4(), p: new THREE.Vector3(), s: new THREE.Vector3(), q: new THREE.Quaternion() };
+  flows.push(f); return f;
+}
+function tickFlows(t) {
+  for (const f of flows) for (let i = 0; i < f.count; i++) {
+    const u = (((t * f.speed + i / f.count) % 1) + 1) % 1;
+    f.curve.getPointAt(u, f.p); const s = Math.max(1e-4, Math.min(1, Math.sin(Math.PI * u) * 3));
+    f.s.set(s, s, s); f.m.compose(f.p, f.q, f.s); f.mesh.setMatrixAt(i, f.m);
+  }
+  for (const f of flows) f.mesh.instanceMatrix.needsUpdate = true;
+}
+// the main path through every station in order
+const mainPts = NODES.map(n => nodeObj[n.id].p.clone().add(new THREE.Vector3(0, 0.12, 0)));
+const mainCurve = new THREE.CatmullRomCurve3(mainPts, false, 'catmullrom', 0.3);
+const mainTube = new THREE.Mesh(new THREE.TubeGeometry(mainCurve, 600, 0.022, 8, false), M.clay(PAL.ink));
+mainTube.material.transparent = true; mainTube.material.opacity = 0.55; scene.add(mainTube);
+flow(mainCurve, { count: 46, speed: 0.012, r: 0.07, color: PAL.ink });
+// feedback loops: red arcs over the record store
+const loopObjs = LOOPS.map(([a, b, text], k) => {
+  const A = nodeObj[a].p.clone().add(new THREE.Vector3(0, nodeObj[a].h, 0)), B = nodeObj[b].p.clone().add(new THREE.Vector3(0, nodeObj[b].h, 0));
+  const top = scene.userData.coreTop + 1.4 + k * 0.45;
+  const mid = new THREE.Vector3((A.x + B.x) * 0.18, top, (A.z + B.z) * 0.18);
+  const curve = new THREE.CubicBezierCurve3(A, new THREE.Vector3(A.x * 0.55, top, A.z * 0.55), new THREE.Vector3(B.x * 0.55, top, B.z * 0.55), B);
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 120, 0.028, 8, false), new THREE.MeshStandardMaterial({ color: PAL.cardinal, transparent: true, opacity: 0.6, roughness: 0.4 }));
+  scene.add(tube);
+  const f = flow(curve, { count: 7, speed: 0.07 + k * 0.006, r: 0.085, color: PAL.ember, emissive: 0x8c1515 });
+  const lab = label(text, 'alab', curve.getPointAt(0.24 + 0.1 * (k % 2)).add(new THREE.Vector3(0, 0.25, 0)));
+  return { a, b, tube, f, lab, mid };
+});
+
+// ------------------------------------------------------------------------------------------------ camera, input
+const controls = renderer ? new OrbitControls(camera, renderer.domElement) : null;
+const HOME = { pos: new THREE.Vector3(25, 23, 27), target: new THREE.Vector3(0, 2.4, 0) };
+camera.position.copy(HOME.pos);
+if (controls) { controls.target.copy(HOME.target); controls.enableDamping = true; controls.dampingFactor = 0.07; controls.maxDistance = 60; controls.minDistance = 4; controls.maxPolarAngle = Math.PI * 0.49; }
+let camTween = null;
+function flyTo(pos, target, dur = 1.4) {
+  if (!controls) return;
+  camTween = { t: 0, dur: REDUCED ? 0.01 : dur, p0: camera.position.clone(), t0: controls.target.clone(), p1: pos.clone(), t1: target.clone() };
+}
+const ease = x => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+function resize() {
+  const w = innerWidth, h = innerHeight;
+  if (renderer) renderer.setSize(w, h); labelRenderer.setSize(w, h);
+  camera.aspect = w / h; camera.updateProjectionMatrix();
+}
+addEventListener('resize', resize); resize();
+
+const ray = new THREE.Raycaster(), mouse = new THREE.Vector2();
+let downAt = null;
+renderer?.domElement.addEventListener('pointerdown', e => { downAt = [e.clientX, e.clientY]; });
+renderer?.domElement.addEventListener('pointerup', e => {
+  if (!downAt || Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) > 5) return;
+  mouse.set((e.clientX / innerWidth) * 2 - 1, -(e.clientY / innerHeight) * 2 + 1);
+  ray.setFromCamera(mouse, camera);
+  const hit = ray.intersectObjects(scene.children, true).find(h => h.object.userData.nodeId);
+  if (hit) select(hit.object.userData.nodeId); else closePanel();
+});
+
+// ------------------------------------------------------------------------------------------------ panel, focus
+const $ = id => document.getElementById(id);
+const panel = $('panel');
+let selected = null;
+function select(id, fly = true) {
+  const o = nodeObj[id]; if (!o) return;
+  selected = id;
+  for (const k in nodeObj) nodeObj[k].lab.element.classList.toggle('sel', k === id);
+  const zi = ZONES.findIndex(z => z.id === o.n.zone);
+  $('p-zone').textContent = `Tier ${zi + 1}  ${ZONES[zi].name}`;
+  $('p-title').textContent = o.n.title; $('p-short').textContent = o.n.short;
+  $('p-list').innerHTML = o.n.list.map(s => `<li>${s}</li>`).join('');
+  const idx = NODES.findIndex(n => n.id === id);
+  const prev = NODES[idx - 1], next = NODES[idx + 1];
+  const loopsOut = LOOPS.filter(l => l[0] === id).map(l => `<span data-go="${l[1]}">${nodeObj[l[1]].n.title}</span> (${l[2].toLowerCase()})`);
+  const loopsIn = LOOPS.filter(l => l[1] === id).map(l => `<span data-go="${l[0]}">${nodeObj[l[0]].n.title}</span> (${l[2].toLowerCase()})`);
+  $('p-links').innerHTML = [
+    prev ? `<div><b>From</b> <span data-go="${prev.id}">${prev.title}</span></div>` : '',
+    next ? `<div><b>To</b> <span data-go="${next.id}">${next.title}</span></div>` : '',
+    loopsOut.length ? `<div><b>Returns to</b> ${loopsOut.join(', ')}</div>` : '',
+    loopsIn.length ? `<div><b>Receives from</b> ${loopsIn.join(', ')}</div>` : '',
+  ].join('');
+  $('p-links').querySelectorAll('[data-go]').forEach(s => s.addEventListener('click', () => select(s.dataset.go)));
+  panel.hidden = false;
+  focusZone(o.n.zone, false);
+  if (fly) { const p = o.p.clone(); const out = zoneGeo[o.n.zone].r; flyTo(p.clone().addScaledVector(out, 6.5).add(new THREE.Vector3(0, 4.2, 0)), p.clone().add(new THREE.Vector3(0, 0.6, 0))); }
+}
+function closePanel() { panel.hidden = true; selected = null; for (const k in nodeObj) nodeObj[k].lab.element.classList.remove('sel'); }
+panel.querySelector('.x').addEventListener('click', closePanel);
+
+function focusZone(zid, loops) {
+  for (const k in nodeObj) nodeObj[k].lab.element.classList.toggle('dim', !!zid && nodeObj[k].n.zone !== zid);
+  for (const z of ZONES) zoneGeo[z.id].zl.element.classList.toggle('dim', !!zid && z.id !== zid);
+  for (const l of loopObjs) {
+    const on = loops || !zid || nodeObj[l.a].n.zone === zid || nodeObj[l.b].n.zone === zid;
+    l.lab.element.classList.toggle('dim', !on); l.tube.material.opacity = on ? 0.6 : 0.12; l.f.mesh.visible = on;
+  }
+}
+
+// ------------------------------------------------------------------------------------------------ guided tour
+const STEPS = [
+  { say: 'The complete workflow. Work moves from a request to a measured improvement. Black flows carry the main path. Red arcs return work to an earlier stage.', zone: null },
+  ...ZONES.map(z => ({ say: z.say, zone: z.id })),
+  { say: 'The loops make the factory learn. Verified fixes repair the checks. New failures become new intents. Decisions improve the recipe. New weights return to the solvers.', zone: null, loops: true },
+];
+let step = 0, playing = !REDUCED, stepT = 0;
+const dots = $('t-dots');
+STEPS.forEach((_, i) => { const d = document.createElement('i'); d.addEventListener('click', () => { playing = false; go(i); }); dots.appendChild(d); });
+function go(i) {
+  step = (i + STEPS.length) % STEPS.length; stepT = 0;
+  const s = STEPS[step];
+  $('t-say').textContent = s.say;
+  $('t-count').textContent = `${step + 1} of ${STEPS.length}`;
+  [...dots.children].forEach((d, k) => d.classList.toggle('on', k === step));
+  closePanel(); focusZone(s.zone, s.loops);
+  if (s.zone) {
+    const g = zoneGeo[s.zone];
+    flyTo(g.c.clone().addScaledVector(g.r, 9.5).add(new THREE.Vector3(0, 6.5, 0)), g.c.clone().add(new THREE.Vector3(0, 0.5, 0)));
+  } else if (s.loops) flyTo(new THREE.Vector3(14, 26, 16), new THREE.Vector3(0, 4.5, 0));
+  else flyTo(HOME.pos, HOME.target);
+}
+$('t-prev').addEventListener('click', () => { playing = false; go(step - 1); });
+$('t-next').addEventListener('click', () => { playing = false; go(step + 1); });
+$('t-all').addEventListener('click', () => { playing = false; go(0); });
+go(0);
+
+// header buttons
+let labelsOn = true, spin = false;
+$('b-labels').addEventListener('click', e => {
+  labelsOn = !labelsOn; e.target.textContent = labelsOn ? 'Hide labels' : 'Show labels';
+  labelRenderer.domElement.style.display = labelsOn ? '' : 'none';
+});
+$('b-spin').addEventListener('click', e => { spin = !spin; e.target.classList.toggle('on', spin); if (controls) { controls.autoRotate = spin; controls.autoRotateSpeed = 0.6; } });
+
+// text version, built from the same data
+{
+  const t = $('text');
+  t.innerHTML = `<h2>The complete workflow</h2><p>A request becomes measured long tasks, trainable environments and a measured improvement. Seven tiers hold ${NODES.length} stations. Feedback loops return work to earlier stations.</p>` +
+    ZONES.map((z, i) => `<h3>${i + 1}  ${z.name}</h3><p>${z.say}</p>` + NODES.filter(n => n.zone === z.id).map(n => `<h4>${n.title}</h4><p class="short">${n.short}</p><ul>${n.list.map(s => `<li>${s}</li>`).join('')}</ul>`).join('')).join('') +
+    `<h3>Feedback loops</h3><ul>${LOOPS.map(([a, b, x]) => `<li>${x}. ${nodeObj[a].n.title} returns work to ${nodeObj[b].n.title}.</li>`).join('')}</ul>`;
+  $('b-text').addEventListener('click', e => { const open = t.classList.toggle('open'); e.target.textContent = open ? 'Live model' : 'Text version'; e.target.classList.toggle('on', open); });
+}
+if (!renderer) { $('text').classList.add('open'); $('b-text').textContent = 'Live model'; }
+
+// ------------------------------------------------------------------------------------------------ loop
+const clock = new THREE.Clock();
+function frame() {
+  const dt = Math.min(0.05, clock.getDelta()), t = clock.elapsedTime;
+  if (camTween && controls) {
+    camTween.t += dt / camTween.dur; const k = ease(Math.min(1, camTween.t));
+    camera.position.lerpVectors(camTween.p0, camTween.p1, k); controls.target.lerpVectors(camTween.t0, camTween.t1, k);
+    if (camTween.t >= 1) camTween = null;
+  }
+  if (!REDUCED) {
+    tickFlows(t);
+    for (const k in nodeObj) {
+      const u = nodeObj[k].g.userData;
+      if (u.lamp) u.lamp.material.emissiveIntensity = 0.6 + 0.4 * Math.sin(t * 2.4 + k.length);
+      if (u.leds) u.leds.forEach((l, i) => { l.material.emissiveIntensity = (Math.sin(t * 6 + i * 1.7 + k.length) > 0.2) ? 1.2 : 0.2; });
+    }
+    if (playing && !selected) { stepT += dt; if (stepT > 9) go(step + 1); }
+  } else tickFlows(0);
+  controls?.update();
+  if (renderer) { renderer.render(scene, camera); labelRenderer.render(scene, camera); }
+  requestAnimationFrame(frame);
+}
+renderer?.domElement.addEventListener('pointerdown', () => { playing = false; });
+frame();
+</script>
+</body>
+</html>

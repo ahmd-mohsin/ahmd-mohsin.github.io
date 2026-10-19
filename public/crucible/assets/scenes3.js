@@ -99,7 +99,7 @@ export const world = () => ({
       { say: 'The agent acts only through one gate. The gate checks the name, the permission, the inputs, the time limit and the output size.', go(v) {
         const s = v.s; s.talk = false; s.fast = false; show(v, s.event, false); s.calls.forEach(f => f.target = 1); show(v, s.gateL, true); show(v, s.checksL, true);
       } },
-      { say: 'A sandbox surrounds the world. The agent gets a new account with few permissions, and the network is closed.', go(v) {
+      { say: 'A sandbox surrounds the world. The agent gets a new account with few permissions, and the sandbox closes the network.', go(v) {
         const s = v.s; s.calls.forEach(f => f.target = 0.4); v.fade(s.box, 1); v.fade(s.net, 1); show(v, s.boxL, true); show(v, s.netL, true); show(v, s.checksL, false);
       } },
       { say: 'A snapshot saves each app. A restore puts all apps back exactly, and fingerprints prove it.', go(v) {
@@ -140,7 +140,7 @@ export const infra = () => ({
     // data: the record pool and the scheduler
     s.pool = new THREE.Group(); s.pool.position.set(-0.9, 2.75, 0); v.add(s.pool);
     s.cards = Array.from({ length: 12 }, (_, i) => { const c = block(0.46, 0.03, 0.32, { color: i % 4 === 0 ? PAL.blush : undefined }); c.position.set((i % 6) * 0.52 - 1.3, Math.floor(i / 6) * 0.06, (Math.floor(i / 6)) * 0.42 - 0.2); s.pool.add(c); return c; });
-    s.poolL = v.label('records: exact tokens, versions, step scores', V(-0.9, 3.1, 0.9), { cls: '' });
+    s.poolL = v.label('records with exact tokens, versions and step scores', V(-0.9, 3.1, 0.9), { cls: '' });
     s.sched = new THREE.Group(); s.sched.position.set(2.5, 2.75, 0.2); v.add(s.sched);
     s.sched.add(block(0.8, 0.36, 0.6)); const dial = cyl(0.14, 0.04, { color: PAL.cardinal, kind: 'gloss', edge: null }); dial.rotation.x = Math.PI / 2; dial.position.set(0, 0.2, 0.31); s.sched.add(dial);
     s.schedL = v.label('scheduler', anchor(s.sched, 0, 0.6, 0), { cls: '' });

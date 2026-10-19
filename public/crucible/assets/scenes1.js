@@ -1,4 +1,4 @@
-// Scenes, part 1: hero, pipeline, M0–M7.
+// Scenes, part 1: hero, pipeline and the first eight parts.
 import { THREE, PAL, mat, block, cyl, sphere, line, tube, arc, points, dotGrid, Flow, pickable, ENV, V } from './kit.js';
 import { anchor, group, plate, pawn, sheetStack, terminal, flagPole, arch, ring, bars, gitGraph, bubble, dbStack, testStack, octa, cube, dottedSphere, station, cart } from './parts.js';
 
@@ -92,20 +92,20 @@ export const hero = () => ({
 // ============================================================================================================ pipeline
 // Each station says what happens there in plain words, and its model shows it.
 const STATIONS = [
-  { id: 'm3', name: 'Capture work', desc: 'logs, tickets, reviews', at: [-6.30, -1.3], row: 'top' },
-  { id: 'm4', name: 'Find feedback', desc: 'approvals and fixes', at: [-4.20, -1.3], row: 'top' },
-  { id: 'm5', name: 'Map workflow', desc: 'stages and milestones', at: [-2.10, -1.3], row: 'top' },
-  { id: 'm6', name: 'Score steps', desc: 'progress at each step', at: [0.00, -1.3], row: 'top' },
-  { id: 'm7', name: 'Check results', desc: 'hidden checks', at: [2.10, -1.3], row: 'top' },
-  { id: 'm8', name: 'Build tasks', desc: 'solution first', at: [4.20, -1.3], row: 'top' },
-  { id: 'm9', name: 'Approve tasks', desc: '18 quality checks', at: [6.30, -1.3], row: 'top' },
-  { id: 'm1', name: 'Simulate work', desc: 'apps, data, clock', at: [8.00, -0.55], row: 'side' },
-  { id: 'm2', name: 'Simulate people', desc: 'replies from records', at: [8.00, 0.85], row: 'side' },
-  { id: 'm10', name: 'Run agents', desc: 'many tries, fair counts', at: [6.30, 1.5], row: 'bottom' },
-  { id: 'm12', name: 'Train model', desc: 'learn from scores', at: [4.20, 1.5], row: 'bottom' },
-  { id: 'm13', name: 'Measure', desc: 'where agents fail', at: [2.10, 1.5], row: 'bottom' },
-  { id: 'm11', name: 'Export', desc: 'reward and step files', at: [-0.00, 1.5], row: 'bottom' },
-  { id: 'm14', name: 'Add domains', desc: 'one pack per domain', at: [-2.10, 1.5], row: 'bottom' },
+  { id: 'capture', name: 'Capture work', desc: 'logs, tickets, reviews', at: [-6.30, -1.3], row: 'top' },
+  { id: 'feedback', name: 'Find feedback', desc: 'approvals and fixes', at: [-4.20, -1.3], row: 'top' },
+  { id: 'workflow', name: 'Map workflow', desc: 'stages and milestones', at: [-2.10, -1.3], row: 'top' },
+  { id: 'scores', name: 'Score steps', desc: 'progress at each step', at: [0.00, -1.3], row: 'top' },
+  { id: 'checks', name: 'Check results', desc: 'hidden checks', at: [2.10, -1.3], row: 'top' },
+  { id: 'builder', name: 'Build tasks', desc: 'solution first', at: [4.20, -1.3], row: 'top' },
+  { id: 'gate', name: 'Approve tasks', desc: '18 quality checks', at: [6.30, -1.3], row: 'top' },
+  { id: 'workplace', name: 'Simulate work', desc: 'apps, data, clock', at: [8.00, -0.55], row: 'side' },
+  { id: 'people', name: 'Simulate people', desc: 'replies from records', at: [8.00, 0.85], row: 'side' },
+  { id: 'runs', name: 'Run agents', desc: 'many tries, fair counts', at: [6.30, 1.5], row: 'bottom' },
+  { id: 'training', name: 'Train model', desc: 'learn from scores', at: [4.20, 1.5], row: 'bottom' },
+  { id: 'benchmarks', name: 'Measure', desc: 'where agents fail', at: [2.10, 1.5], row: 'bottom' },
+  { id: 'replay', name: 'Export', desc: 'reward and step files', at: [-0.00, 1.5], row: 'bottom' },
+  { id: 'packs', name: 'Add domains', desc: 'one pack per domain', at: [-2.10, 1.5], row: 'bottom' },
   { id: 'use', name: 'Two commands', desc: 'label and build', at: [-4.20, 1.5], row: 'bottom' },
 ];
 
@@ -120,50 +120,50 @@ const check = (color = PAL.pass, s = 1) => {
 function stationIcon(id) {
   const g = new THREE.Group();
   switch (id) {
-    case 'm3': { // a funnel that takes in work documents
+    case 'capture': { // a funnel that takes in work documents
       const f = new THREE.Mesh(new THREE.CylinderGeometry(0.32, 0.08, 0.4, 32, 1, true), mat('clay')); f.material = f.material.clone(); f.material.side = THREE.DoubleSide; f.position.y = 0.34; f.castShadow = true; g.add(f);
       g.add(cyl(0.08, 0.14, {}));
       [[-0.12, 0.72, 0.02, 0.4], [0.1, 0.84, -0.05, -0.3], [0, 0.98, 0.06, 0.15]].forEach(([x, y, z, r], i) => { const d = block(0.2, 0.012, 0.26, { color: i === 1 ? PAL.blush : undefined }); d.position.set(x, y, z); d.rotation.set(0.5, r, 0.2); g.add(d); });
       return g;
     }
-    case 'm4': { // a comment bubble with a green check: feedback
+    case 'feedback': { // a comment bubble with a green check: feedback
       const bb = bubble(0.56, 0.32); g.add(bb);
       const c = check(PAL.pass, 1.2); c.position.set(0.12, 0.62, 0.13); c.rotation.x = Math.PI / 2; g.add(c);
       return g;
     }
-    case 'm5': { // a small flowchart: three steps joined, a flag at the milestone
+    case 'workflow': { // a small flowchart: three steps joined, a flag at the milestone
       const pts = [V(-0.3, 0.06, 0.12), V(0, 0.06, -0.1), V(0.3, 0.06, 0.12)];
       pts.forEach((p, i) => { const t = block(0.18, 0.1, 0.18, { color: i === 2 ? PAL.cardinal : undefined, kind: i === 2 ? 'gloss' : 'clay' }); t.position.copy(p); g.add(t); });
       g.add(tube(new THREE.CatmullRomCurve3(pts.map(p => p.clone().setY(0.12))), 0.014, PAL.ink, 'clay', 24));
       const fl = flagPole(PAL.cardinal, 0.42); fl.position.set(0.3, 0.16, 0.12); g.add(fl);
       return g;
     }
-    case 'm6': { // a staircase of scores, rising step by step
+    case 'scores': { // a staircase of scores, rising step by step
       [0.1, 0.2, 0.3, 0.42].forEach((h, i) => { const b = block(0.15, h, 0.36, { color: i === 3 ? PAL.cardinal : undefined, kind: i === 3 ? 'gloss' : 'clay' }); b.position.x = (i - 1.5) * 0.16; g.add(b); });
       return g;
     }
-    case 'm7': { // a page under a glass dome, checked
+    case 'checks': { // a page under a glass dome, checked
       const page = block(0.36, 0.02, 0.44); page.position.y = 0.02; g.add(page);
       for (let i = 0; i < 3; i++) { const ln = block(0.22 - i * 0.04, 0.005, 0.03, { color: PAL.stone, edge: null }); ln.position.set(-0.03, 0.045, -0.12 + i * 0.09); g.add(ln); }
       const c = check(PAL.pass, 1.1); c.position.set(0.1, 0.06, 0.12); g.add(c);
       const dome = new THREE.Mesh(new THREE.SphereGeometry(0.34, 32, 16, 0, Math.PI * 2, 0, Math.PI / 2), mat('glass')); g.add(dome);
       return g;
     }
-    case 'm8': { // a workbench where a new task block is made
+    case 'builder': { // a workbench where a new task block is made
       const b = block(0.5, 0.18, 0.3); g.add(b); const t = block(0.68, 0.06, 0.36); t.position.y = 0.18; g.add(t);
       const w = cube(0.15, { color: PAL.cardinal, kind: 'gloss' }); w.position.set(0.1, 0.24, 0); g.add(w);
       const h = block(0.04, 0.04, 0.3, { color: PAL.grey, edge: null }); h.position.set(-0.16, 0.3, 0.02); h.rotation.y = 0.5; g.add(h);
       const hd = block(0.14, 0.08, 0.08, { color: PAL.ink, kind: 'gloss', edge: null }); hd.position.set(-0.08, 0.3, -0.1); g.add(hd);
       return g;
     }
-    case 'm9': { // a gate with a green light, a task waiting to pass
+    case 'gate': { // a gate with a green light, a task waiting to pass
       const l = block(0.06, 0.5, 0.06); l.position.x = -0.24; g.add(l); const r = block(0.06, 0.5, 0.06); r.position.x = 0.24; g.add(r);
       const top = block(0.56, 0.06, 0.08); top.position.y = 0.5; g.add(top);
       const lamp = sphere(0.06, { color: PAL.pass }); lamp.position.y = 0.62; g.add(lamp);
       const c = cube(0.14, {}); c.position.set(0, 0, 0.26); g.add(c);
       return g;
     }
-    case 'm1': { // an office desk with a screen and a wall clock
+    case 'workplace': { // an office desk with a screen and a wall clock
       const desk = block(0.6, 0.04, 0.34); desk.position.y = 0.2; g.add(desk);
       [[-0.26, -0.13], [0.26, -0.13], [-0.26, 0.13], [0.26, 0.13]].forEach(([x, z]) => { const lg = block(0.03, 0.2, 0.03, { edge: null }); lg.position.set(x, 0, z); g.add(lg); });
       const scr = terminal(0.32, 0.22, 0.04); scr.position.set(0, 0.24, -0.08); g.add(scr);
@@ -171,37 +171,37 @@ function stationIcon(id) {
       const hand = block(0.008, 0.06, 0.006, { color: PAL.cardinal, edge: null }); hand.position.set(0.22, 0.55, -0.145); g.add(hand);
       return g;
     }
-    case 'm2': { // three people, one speaking
+    case 'people': { // three people, one speaking
       [-0.24, 0, 0.24].forEach((x, i) => { const p = pawn(i === 1 ? PAL.cardinal : 0xffffff, i === 1 ? 'gloss' : 'clay', 0.72); p.position.x = x; g.add(p); });
       const bb = bubble(0.3, 0.16); bb.scale.setScalar(0.8); bb.position.set(0.12, 0.5, 0); g.add(bb);
       return g;
     }
-    case 'm10': { // three agents on three lanes: many tries
+    case 'runs': { // three agents on three lanes: many tries
       [-0.14, 0, 0.14].forEach((z, i) => {
         const r = block(0.8, 0.02, 0.05); r.position.z = z; g.add(r);
         const p = new THREE.Mesh(new THREE.CapsuleGeometry(0.045, 0.14, 6, 12), mat('gloss', i === 1 ? PAL.cardinal : 0xffffff)); p.rotation.z = Math.PI / 2; p.position.set(-0.2 + i * 0.18, 0.07, z); p.castShadow = true; g.add(p);
       });
       return g;
     }
-    case 'm12': { // a learning curve that rises to an arrow
+    case 'training': { // a learning curve that rises to an arrow
       const board = block(0.62, 0.03, 0.36); g.add(board);
       const pts = [V(-0.26, 0.06, 0.1), V(-0.12, 0.12, 0.05), V(0.02, 0.28, 0), V(0.16, 0.42, -0.05), V(0.26, 0.5, -0.08)];
       g.add(tube(new THREE.CatmullRomCurve3(pts), 0.02, PAL.cardinal, 'gloss', 30));
       const tip = new THREE.Mesh(new THREE.ConeGeometry(0.05, 0.12, 12), mat('gloss', PAL.cardinal)); tip.position.set(0.28, 0.55, -0.09); tip.rotation.z = -0.6; g.add(tip);
       return g;
     }
-    case 'm13': { // a podium chart: who got how far
+    case 'benchmarks': { // a podium chart: who got how far
       const b = bars([0.45, 0.7, 0.32], { w: 0.16, gap: 0.04, hmax: 0.8 }); g.add(b);
       const base = block(0.6, 0.03, 0.26); g.add(base);
       return g;
     }
-    case 'm11': { // a sealed package with two files going out
+    case 'replay': { // a sealed package with two files going out
       const box = block(0.34, 0.26, 0.34); g.add(box);
       const band = block(0.36, 0.05, 0.08, { color: PAL.cardinal, kind: 'gloss', edge: null }); band.position.y = 0.26; g.add(band);
       [0, 1].forEach(i => { const f = block(0.16, 0.012, 0.2, { color: i ? PAL.blush : undefined }); f.position.set(0.3 + i * 0.05, 0.08 + i * 0.12, 0.08 - i * 0.04); f.rotation.set(0, 0.3, 0.3); g.add(f); });
       return g;
     }
-    case 'm14': { // three domain cartridges in a row
+    case 'packs': { // three domain cartridges in a row
       [0, 1, 2].forEach(i => { const c = cart(0.18, 0.1, 0.26, i === 2 ? PAL.cardinal : undefined); c.position.set((i - 1) * 0.22, 0.02, 0); c.rotation.x = -0.15; g.add(c); });
       return g;
     }
@@ -266,8 +266,8 @@ export const pipeline = () => ({
   })(),
 });
 
-// ================================================================================================================== M0
-export const m0 = () => ({
+// ================================================================================================================== shared records
+export const records = () => ({
   size: 4.6, target: [0.2, 0.75, 0], az: 0.72, elev: 0.5,
   setup(v) {
     const s = v.s = {};
@@ -297,7 +297,7 @@ export const m0 = () => ({
     }
     s.vaultSlots = Array.from({ length: 8 }, (_, i) => V(2.3 - 0.24 + (i % 2) * 0.48, 0.24 + Math.floor(i / 2) * 0.34, 0.55));
     v.label('record store', anchor(vault, 0, 1.75, 0), { cls: '' });
-    s.carts = ['coding', 'accounts payable', 'your domain'].map((n, i) => {
+    s.carts = ['coding', 'accounts payable', 'a new domain'].map((n, i) => {
       const c = cart(0.5, 0.12, 0.62, i === 2 ? PAL.cardinal : undefined); c.position.set(-1.6 + i * 0.9, 0.12, 2.3); v.add(c);
       const lb = v.label(n, anchor(c, 0, 0.3, 0), { cls: 'code' }); lb.opacity = 0;
       return { c, lb };
@@ -328,8 +328,8 @@ export const m0 = () => ({
   ],
 });
 
-// ================================================================================================================== M1
-export const m1 = () => ({
+// ================================================================================================================== simulated workplace
+export const workplace = () => ({
   size: 5.0, target: [0, 0.8, 0], az: 0.78, elev: 0.52,
   setup(v) {
     const s = v.s = {};
@@ -405,8 +405,8 @@ export const m1 = () => ({
   ],
 });
 
-// ================================================================================================================== M2
-export const m2 = () => ({
+// ================================================================================================================== simulated people
+export const people = () => ({
   size: 4.7, target: [0, 0.7, 0], az: 0.7, elev: 0.5,
   setup(v) {
     const s = v.s = {};
@@ -460,8 +460,8 @@ export const m2 = () => ({
   ],
 });
 
-// ================================================================================================================== M3
-export const m3 = () => ({
+// ================================================================================================================== work capture
+export const capture = () => ({
   size: 4.8, target: [0, 0.7, 0], az: 0.62, elev: 0.48,
   setup(v) {
     const s = v.s = {};
@@ -514,8 +514,8 @@ export const m3 = () => ({
   ],
 });
 
-// ================================================================================================================== M4
-export const m4 = () => ({
+// ================================================================================================================== expert feedback
+export const feedback = () => ({
   size: 4.6, target: [0, 0.8, 0], az: 0.55, elev: 0.5,
   setup(v) {
     const s = v.s = {};
@@ -564,8 +564,8 @@ export const m4 = () => ({
   ],
 });
 
-// ================================================================================================================== M5
-export const m5 = () => ({
+// ================================================================================================================== workflow map
+export const workflow = () => ({
   size: 4.6, target: [0, 0.8, 0], az: 0.62, elev: 0.55,
   setup(v) {
     const s = v.s = {};
@@ -600,7 +600,7 @@ export const m5 = () => ({
       return { m, lab };
     });
     s.token = sphere(0.12, { color: PAL.cardinal }); s.token.position.set(-3, 0.3, 1.75); v.add(s.token); s.token.visible = false;
-    s.tokX = -3; s.here = v.label('you are here', anchor(s.token, 0, 0.4, 0), { cls: 'tag' }); s.here.opacity = 0;
+    s.tokX = -3; s.here = v.label('current position', anchor(s.token, 0, 0.4, 0), { cls: 'tag' }); s.here.opacity = 0;
     s.rep = v.label('rebuilt state matches the record', V(0, 1.4, -0.2), { cls: 'pass' }); s.rep.opacity = 0;
     s.drop = v.label('dropped, true at the start', V(1.5, 1.7, 1.75), { cls: 'code' }); s.drop.opacity = 0;
   },
@@ -637,8 +637,8 @@ export const m5 = () => ({
   ],
 });
 
-// ================================================================================================================== M6
-export const m6 = () => ({
+// ================================================================================================================== step scores
+export const scores = () => ({
   size: 4.6, target: [0, 1.0, 0], az: 0.5, elev: 0.38,
   setup(v) {
     const s = v.s = {};
@@ -683,7 +683,7 @@ export const m6 = () => ({
     { say: 'Each step earns its change in progress. The sum of the step scores equals the final progress.', go(v) {
       const s = v.s; show(v, s.phiL, false); s.climbing = true; s.dbars.forEach(b => v.tw.to(b.scale, 'y', Math.max(0.001, Math.abs(b.userData.d) * s.H * 1.4), 0.7));
     } },
-    { say: 'An action that is undone and then repeated produces two scores that cancel. Cycles yield zero net reward.', go(v) { show(v, v.s.loop, true); } },
+    { say: 'An action that the agent undoes and then repeats produces two scores that cancel. Cycles yield zero net reward.', go(v) { show(v, v.s.loop, true); } },
     { say: 'A violation of a hard constraint sets the episode reward to zero.', go(v) {
       const s = v.s; show(v, s.loop, false); v.fade(s.bar, 1); s.cols.forEach(c => v.tw.to(c.scale, 'y', 0.02, 0.8)); s.dbars.forEach(b => v.tw.to(b.scale, 'y', 0.001)); show(v, s.zero, true); s.climbing = false;
     } },
@@ -694,8 +694,8 @@ export const m6 = () => ({
   ],
 });
 
-// ================================================================================================================== M7
-export const m7 = () => ({
+// ================================================================================================================== result checks
+export const checks = () => ({
   size: 4.6, target: [0, 0.8, 0], az: 0.68, elev: 0.48,
   setup(v) {
     const s = v.s = {};
@@ -738,7 +738,7 @@ export const m7 = () => ({
     { say: 'Crucible compares the results with hidden references and new random inputs.', go(v) {
       const s = v.s; s.busy = false; s.beams.forEach(l => v.fade(l, 1)); stamp(s, 3, true); stamp(s, 4, false); stamp(s, 5, true);
     } },
-    { say: 'Forged results and fabricated reward files have no effect. All 11 known attacks score zero.', go(v) {
+    { say: 'Forged results and fabricated reward files have no effect. All known attacks score zero.', go(v) {
       const s = v.s; s.beams.forEach(l => v.fade(l, 0)); show(v, s.cheatL, true);
       s.cheats.forEach((c, i) => { v.fade(c, 1); c.position.x = -1.2; v.tw.to(c.position, 'x', -0.12, 0.5); v.later(() => { v.tw.to(c.position, 'x', -1.4, 0.7); v.fade(c, 0); }, 600 + i * 120); });
     } },

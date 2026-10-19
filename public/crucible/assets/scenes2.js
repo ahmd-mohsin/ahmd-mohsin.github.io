@@ -1,4 +1,4 @@
-// Scenes, part 2: M8, M9, M10, M12, long horizons, RLM, task manager, M13, M11, M14, studio, results.
+// Scenes, part 2: task builder, quality gate, agent runs, training, long episodes, memory agent, task repair, benchmarks, replay, packs, studio, results.
 import { THREE, PAL, mat, block, cyl, sphere, line, tube, arc, points, dotGrid, fibSphere, ENV, V } from './kit.js';
 import { anchor, pawn, sheetStack, terminal, flagPole, arch, ring, bars, testStack, octa, cube, dottedSphere, cart } from './parts.js';
 
@@ -7,8 +7,8 @@ const scaleTo = (v, o, s, d = 0.6) => v.tw.to(o, 'scale', V(s, s, s), d);
 const show = (v, item, on = true, d = 0.45) => v.tw.to(item, 'opacity', on ? 1 : 0, d);
 const own = m => { if (!m.userData._own) { m.material = m.material.clone(); m.userData._own = true; } return m.material; };
 
-// ================================================================================================================== M8
-export const m8 = () => ({
+// ================================================================================================================== task builder
+export const builder = () => ({
   size: 4.6, minWidth: 7.6, target: [0.2, 0.7, 0], az: 0.5, elev: 0.55,
   setup(v) {
     const s = v.s = {};
@@ -59,14 +59,14 @@ export const m8 = () => ({
   })(),
 });
 
-// ================================================================================================================== M9
+// ================================================================================================================== quality gate
 const TIERS = [
-  { r: 1.2, name: 'read only', ids: ['A5', 'A7', 'A8'] },
-  { r: 1.75, name: 'replay', ids: ['A1', 'A2', 'A3', 'A4', 'A9', 'A14', 'A18'] },
-  { r: 2.3, name: 'sandbox', ids: ['A6', 'A11', 'A13', 'A16', 'A17'] },
-  { r: 2.85, name: 'frontier test', ids: ['A10', 'A12', 'A15'] },
+  { r: 1.2, name: 'read only', ids: [5, 7, 8] },
+  { r: 1.75, name: 'replay', ids: [1, 2, 3, 4, 9, 14, 18] },
+  { r: 2.3, name: 'sandbox', ids: [6, 11, 13, 16, 17] },
+  { r: 2.85, name: 'frontier test', ids: [10, 12, 15] },
 ];
-export const m9 = () => ({
+export const gate = () => ({
   size: 5.0, target: [0, 0.6, 0], az: 0.7, elev: 0.72,
   setup(v) {
     const s = v.s = { tiles: {}, tier: [] };
@@ -78,7 +78,7 @@ export const m9 = () => ({
       t.ids.forEach((id, k) => {
         const a = (k / t.ids.length) * Math.PI * 2 + ti * 0.35;
         const tile = block(0.24, 0.12, 0.24, { color: 0xffffff }); tile.position.set(Math.cos(a) * t.r, 0, Math.sin(a) * t.r); v.add(tile);
-        v.label(id.slice(1), anchor(tile, 0, 0.32, 0), { cls: 'mcode' });
+        v.label(String(id), anchor(tile, 0, 0.32, 0), { cls: 'mcode' });
         s.tiles[id] = tile; tg.tiles.push(tile);
       });
       s.tier.push(tg);
@@ -90,7 +90,7 @@ export const m9 = () => ({
     s.score = v.label('catch 90% of planted errors', V(0, 1.6, 0), { cls: 'red' }); s.score.opacity = 0;
     s.band = v.label('pass rate from 0.1 to 0.7', V(0, 1.6, 0), { cls: 'red' }); s.band.opacity = 0;
     s.ok = v.label('accepted', V(3.6, 1.2, -2.4), { cls: 'pass' }); s.ok.opacity = 0;
-    s.attackL = v.label('32 attack attempts', V(0, 1.6, 0), { cls: 'red' }); s.attackL.opacity = 0;
+    s.attackL = v.label('attack attempts', V(0, 1.6, 0), { cls: 'red' }); s.attackL.opacity = 0;
   },
   update(v, t) { if (v.s.spinTask) v.s.task.rotation.y = t * 0.6; },
   steps: (() => {
@@ -107,7 +107,7 @@ export const m9 = () => ({
         s.mutants.forEach((m, i) => { v.fade(m, 1); m.position.set(Math.cos(m.userData.a) * 3.6, 0.4, Math.sin(m.userData.a) * 3.6);
           moveTo(v, m, [Math.cos(m.userData.a) * 1.9, 0.3, Math.sin(m.userData.a) * 1.9], 0.8); v.later(() => v.fade(m, 0), 950 + i * 40); });
       } },
-      { say: 'Crucible attacks the isolation and the verifiers in sandboxes. An adaptive red team also attempts to exploit the verifier.', go(v) { const s = v.s; hide(v, s); show(v, s.attackL, true); light(s, 3); } },
+      { say: 'Crucible attacks the isolation and the checks in sandboxes. An adaptive red team also attempts to exploit the verifier.', go(v) { const s = v.s; hide(v, s); show(v, s.attackL, true); light(s, 3); } },
       { say: 'Frontier models try the task. Their pass rate must be in the target range.', go(v) { const s = v.s; hide(v, s); show(v, s.band, true); light(s, 4); } },
       { say: 'All rings are green, so the task goes into the pool. Each new error type becomes a new check.', go(v) {
         const s = v.s; hide(v, s); s.spinTask = false; moveTo(v, s.task, [3.6, 0.12, -2.4], 1.1); show(v, s.ok, true);
@@ -116,8 +116,8 @@ export const m9 = () => ({
   })(),
 });
 
-// ================================================================================================================= M10
-export const m10 = () => ({
+// ================================================================================================================= agent runs
+export const runs = () => ({
   size: 4.8, target: [0.2, 0.6, 0], az: 0.66, elev: 0.6,
   setup(v) {
     const s = v.s = {};
@@ -170,8 +170,8 @@ export const m10 = () => ({
   })(),
 });
 
-// ================================================================================================================= M12
-export const m12 = () => ({
+// ================================================================================================================= model training
+export const training = () => ({
   size: 4.8, minWidth: 7.2, target: [0, 0.8, 0], az: 0.6, elev: 0.5,
   setup(v) {
     const s = v.s = {};
@@ -231,7 +231,7 @@ export const m12 = () => ({
 });
 
 // ========================================================================================================= long horizon
-export const lh = () => ({
+export const episodes = () => ({
   size: 4.8, target: [0, 1.4, 0], az: 0.6, elev: 0.38,
   setup(v) {
     const s = v.s = {};
@@ -287,9 +287,9 @@ export const lh = () => ({
   ],
 });
 
-// ================================================================================================================= RLM
+// ================================================================================================================= memory agent
 const DRAWER_Y = i => 0.78 + (4 - i) * 0.25;
-export const rlm = () => ({
+export const memory = () => ({
   size: 4.8, minWidth: 7.0, target: [0.3, 1.1, 0], az: 0.55, elev: 0.36,
   setup(v) {
     const s = v.s = {};
@@ -353,7 +353,7 @@ export const rlm = () => ({
 });
 
 // ======================================================================================================= task manager
-export const fsm = () => ({
+export const repair = () => ({
   size: 4.4, target: [0, 0.6, 0], az: 0.7, elev: 0.62,
   setup(v) {
     const s = v.s = {};
@@ -399,10 +399,10 @@ export const fsm = () => ({
   })(),
 });
 
-// ================================================================================================================= M13
+// ================================================================================================================= benchmarks
 const SCORES = { 'agent A': [0, 1, 0, 1, 1, 1, 1], 'agent B': [0, 0.67, 1, 0.5, 1, 0.5, 1], 'agent C': [0, 0.67, 1, 0, 1, 0, 1] };
 const TASKS = ['task 1', 'task 2', 'task 3', 'task 4', 'task 5', 'task 6', 'task 7'];
-export const m13 = () => ({
+export const benchmarks = () => ({
   size: 4.8, minWidth: 6.8, target: [0, 0.7, 0], az: 0.62, elev: 0.55,
   setup(v) {
     const s = v.s = { bars: [] };
@@ -441,13 +441,13 @@ export const m13 = () => ({
       { say: 'The solution must solve each new item. An empty attempt must fail it.', go(v) { show(v, v.s.valid, true); } },
       { say: 'The agents run and Crucible measures each step. Removed runs do not count.', go(v) { const s = v.s; show(v, s.valid, false); heights(v, s, 'scores'); } },
       { say: 'A statistical model puts the models and the items on one scale.', go(v) { const s = v.s; v.fade(s.ruler, 1); show(v, s.rulerL, true); s.marks.forEach((k, i) => v.later(() => { v.fade(k.m, 1); show(v, k.l, true); }, i * 200)); } },
-      { say: 'Crucible writes one report. The report is identical each time you run it.', go(v) { const s = v.s; show(v, s.rulerL, false); show(v, s.digest, true); } },
+      { say: 'Crucible writes one report. The report is identical on every run.', go(v) { const s = v.s; show(v, s.rulerL, false); show(v, s.digest, true); } },
     ];
   })(),
 });
 
-// ================================================================================================================= M11
-export const m11 = () => ({
+// ================================================================================================================= replay and export
+export const replay = () => ({
   size: 4.8, minWidth: 7.0, target: [0.4, 0.9, 0], az: 0.55, elev: 0.48,
   setup(v) {
     const s = v.s = {};
@@ -495,14 +495,14 @@ export const m11 = () => ({
   })(),
 });
 
-// ================================================================================================================= M14
-export const m14 = () => ({
+// ================================================================================================================= domain packs
+export const packs = () => ({
   size: 4.8, minWidth: 6.8, target: [0, 0.6, 0], az: 0.62, elev: 0.6,
   setup(v) {
     const s = v.s = {};
     const con = block(4.6, 0.3, 1.5); con.position.set(-0.4, 0, -0.9); v.add(con);
     v.label('shared base', anchor(con, -1.9, 0.45, 0.8), { cls: 'ghost', align: 'left' });
-    const names = ['template', 'coding', 'accounts payable', 'your domain'];
+    const names = ['template', 'coding', 'accounts payable', 'a new domain'];
     s.carts = names.map((n, i) => {
       const c = cart(0.62, 0.16, 0.8, i === 3 ? PAL.cardinal : undefined); c.position.set(-2.0 + i * 1.07, 1.6, 0.6); v.add(c);
       const l = v.label(n, anchor(c, 0, 0.32, 0), { cls: 'code' }); c.userData.slot = V(-2.0 + i * 1.07, 0.3, -0.9);
@@ -553,7 +553,7 @@ export const studio = () => ({
     s.A = [
       mk(flagPole(PAL.cardinal, 0.55), -1.1, -0.95, 'feedback'),
       mk((() => { const g = new THREE.Group(); [0.1, 0.2, 0.32, 0.46].forEach((h, i) => { const b = block(0.12, h, 0.3); b.position.x = (i - 1.5) * 0.13; g.add(b); }); return g; })(), 0.2, -0.95, 'step scores'),
-      mk((() => { const g = new THREE.Group(); ['SFT', 'DPO', 'KTO'].forEach((n, i) => { const j = cyl(0.13, 0.42, { kind: 'glass', edge: PAL.cardinal }); j.position.x = (i - 1) * 0.32; g.add(j); const f = cyl(0.11, 0.28 - i * 0.06, { color: PAL.cardinal, kind: 'gloss', edge: null }); f.position.x = (i - 1) * 0.32; g.add(f); }); return g; })(), 1.9, -0.95, 'training data'),
+      mk((() => { const g = new THREE.Group(); [0, 1, 2].forEach((n, i) => { const j = cyl(0.13, 0.42, { kind: 'glass', edge: PAL.cardinal }); j.position.x = (i - 1) * 0.32; g.add(j); const f = cyl(0.11, 0.28 - i * 0.06, { color: PAL.cardinal, kind: 'gloss', edge: null }); f.position.x = (i - 1) * 0.32; g.add(f); }); return g; })(), 1.9, -0.95, 'training data'),
     ];
     s.B = [
       mk((() => { const g = new THREE.Group(); g.add(block(0.4, 0.16, 0.26)); const t = block(0.56, 0.08, 0.3); t.position.y = 0.16; g.add(t); return g; })(), -1.25, 0.95, 'build tasks'),
@@ -568,7 +568,7 @@ export const studio = () => ({
   steps: (() => {
     const hi = (v, s, list) => { [...s.A, ...s.B].forEach(x => { const on = list.includes(x); x.l.el.classList.toggle('tag', on); v.tw.to(x.o.position, 'y', on ? 0.22 : 0.05, 0.5); }); };
     return [
-      { say: 'Start with the workflow logs of your domain. Crucible checks the pack at all levels.', go(v) { const s = v.s; s.fa.target = 0; s.fb.target = 0; hi(v, s, []); } },
+      { say: 'The input is the workflow logs of a domain. Crucible checks the pack at all levels.', go(v) { const s = v.s; s.fa.target = 0; s.fb.target = 0; hi(v, s, []); } },
       { say: 'The label command reads the logs, removes secrets and finds the expert feedback.', go(v) { const s = v.s; s.fa.target = 1; s.fb.target = 0; hi(v, s, [s.A[0]]); } },
       { say: 'Milestones and progress give each agent turn its step score.', go(v) { const s = v.s; hi(v, s, [s.A[1]]); } },
       { say: 'It writes training rows with their scores, preference pairs and good or bad examples.', go(v) { const s = v.s; hi(v, s, [s.A[2]]); } },
