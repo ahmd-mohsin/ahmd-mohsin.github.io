@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crucible task synthesis</title>
+<meta name="description" content="The complete task synthesis pipeline in one diagram. A request becomes certified RL tasks with a measured defect bound, and a regularised loop improves the pipeline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+<style>
+/* One diagram on white paper. Square plates, cardinal accents, mono labels, as on the main site. */
+:root {
+  --paper: #ffffff; --ground: #fbfaf9; --ink: #1f1e1c; --ink-2: #3b3a37; --muted: #5d6066; --rule: #e7e2df;
+  --hair: #efebe9; --cardinal: #8c1515; --cardinal-deep: #6c1010; --blush: #f8eeee;
+  --serif: "Lora", Georgia, serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 120px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--serif); -webkit-font-smoothing: antialiased; }
+a { color: var(--cardinal); }
+header.top { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; padding: 11px 20px;
+  background: rgba(255,255,255,.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--hair); }
+.brand { display: flex; align-items: center; gap: 8px; font: 600 15px var(--mono); color: var(--ink); text-decoration: none; letter-spacing: .02em; }
+.brand svg { width: 22px; height: 22px; }
+header h1 { margin: 0; font: 600 13px var(--mono); color: var(--cardinal); letter-spacing: .06em; text-transform: uppercase; }
+header nav { display: flex; gap: 14px; margin-left: 8px; }
+header nav a { font: 500 12px var(--mono); color: var(--ink-2); text-decoration: none; }
+header nav a:hover { color: var(--cardinal); }
+header .sp { flex: 1; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+.kicker { font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cardinal); }
+.intro { padding: 56px 0 26px; }
+.intro h2 { font: 600 clamp(32px, 4.6vw, 50px)/1.06 var(--serif); letter-spacing: -.012em; margin: 10px 0 0; max-width: 20ch; text-wrap: balance; }
+.lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--ink-2); max-width: 66ch; margin: 16px 0 0; }
+.props { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 34px 0 0; border: 1px solid var(--rule); }
+.props div { padding: 16px 18px 18px; border-right: 1px solid var(--rule); }
+.props div:last-child { border-right: 0; }
+.props b { display: block; font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); }
+.props h3 { font: 600 20px/1.2 var(--serif); margin: 6px 0 4px; }
+.props p { margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 26px 0 0; font: 500 11.5px var(--mono); color: var(--ink-2); }
+.key { display: inline-flex; align-items: center; gap: 7px; }
+.key i { display: inline-block; width: 12px; height: 12px; }
+.key.line i { width: 26px; height: 0; background: none !important; border-top: 2px solid #3b3a37; }
+.key.line.cond i { border-top: 2px dashed #8a8d93; }
+.key.line.loop i { border-top: 2px dashed var(--cardinal); }
+.bar { position: sticky; top: 49px; z-index: 25; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-top: 26px; }
+.bar .wrap { display: flex; align-items: center; gap: 10px; padding-top: 9px; padding-bottom: 9px; max-width: 1480px; }
+.btn { font: 500 12px var(--mono); padding: 6px 11px; border: 1px solid var(--rule); background: #fff; color: var(--ink-2); cursor: pointer; }
+.btn:hover, .btn.on { border-color: var(--cardinal); color: var(--cardinal); }
+.btn.solid { background: var(--cardinal); border-color: var(--cardinal); color: #fff; }
+.btn.solid:hover { background: var(--cardinal-deep); color: #fff; }
+#tour-count { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); margin-left: 6px; }
+#tour-title { font: italic 500 15px var(--serif); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar .hint { margin-left: auto; font: 500 11px var(--mono); color: var(--muted); white-space: nowrap; }
+.stage { max-width: 1480px; margin: 0 auto; padding: 18px 20px 30px; transition: padding-right .25s; }
+#diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+#diagram svg { display: block; min-width: 1100px; height: auto; }
+#diagram .node { cursor: pointer; outline: none; transition: opacity .25s; }
+#diagram .node:hover .plate, #diagram .node:focus-visible .plate { stroke: var(--cardinal); }
+#diagram .node.sel .plate { stroke: var(--cardinal); stroke-width: 2; }
+#diagram .edge, #diagram .elabel, #diagram .frame { transition: opacity .25s; }
+#diagram svg.focus .node:not(.sel):not(.near) { opacity: .22; }
+#diagram svg.focus .edge:not(.lit), #diagram svg.focus .elabel:not(.lit) { opacity: .12; }
+#diagram svg.focus .frame { opacity: .4; }
+#diagram svg.focus .edge.lit .wire { stroke-width: 2.4; }
+#diagram svg.loops .edge:not(.k-loop), #diagram svg.loops .elabel:not(.k-loop) { opacity: .1; }
+#diagram svg.loops .node { opacity: .55; }
+#diagram svg.loops .edge.k-loop .wire { stroke-width: 2.6; }
+#diagram .k-loop .wire { animation: flow 1.4s linear infinite; }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+@media (prefers-reduced-motion: reduce) { #diagram .k-loop .wire { animation: none; } }
+aside#drawer { position: fixed; z-index: 28; top: 112px; right: 16px; width: min(400px, calc(100vw - 32px)); max-height: calc(100vh - 128px); overflow: auto;
+  background: rgba(255,255,255,.98); border: 1px solid var(--rule); border-top: 3px solid var(--cardinal); box-shadow: 0 28px 52px -28px rgba(140,21,21,.35); padding: 18px 20px 16px; }
+#drawer .k { font: 600 11px var(--mono); letter-spacing: .07em; text-transform: uppercase; }
+#drawer .bandname { font: 500 11px var(--mono); color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
+#drawer h3 { font: 600 24px/1.2 var(--serif); margin: 8px 0 4px; }
+#drawer .short { color: var(--ink-2); font-style: italic; margin: 0 0 10px; }
+#drawer h5 { font: 600 10.5px var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--cardinal); margin: 14px 0 4px; }
+#drawer ul { margin: 0; padding-left: 18px; }
+#drawer li { margin: 5px 0; font-size: 15px; line-height: 1.45; }
+#drawer p { margin: 0; font-size: 15px; line-height: 1.45; }
+#drawer .ex { background: var(--blush); padding: 9px 12px; border-left: 3px solid var(--cardinal); }
+#drawer .nav { display: flex; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--hair); }
+#drawer .x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font: 20px var(--mono); color: var(--muted); cursor: pointer; }
+@media (min-width: 1500px) { body.drawer-open .stage { padding-right: 430px; } }
+section.more { padding: 40px 0 10px; border-top: 1px solid var(--hair); }
+section.more h2 { font: 600 clamp(26px, 3.4vw, 36px)/1.1 var(--serif); margin: 8px 0 0; }
+.defects { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0; margin-top: 22px; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.defect { padding: 14px 16px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.defect .dn { font: 600 11px var(--mono); color: var(--cardinal); }
+.defect h4 { font: 600 18px/1.2 var(--serif); margin: 4px 0 4px; }
+.defect p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
+.defect .dex { font-style: italic; margin-top: 6px; color: var(--ink); }
+.defect .dby { font: 500 11px/1.5 var(--mono); color: var(--muted); margin-top: 8px; }
+.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 22px; border: 1px solid var(--rule); }
+.roles div { padding: 16px 18px; border-right: 1px solid var(--rule); }
+.roles div:last-child { border-right: 0; }
+.roles b { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); }
+.roles ul { margin: 8px 0 0; padding-left: 18px; font-size: 15px; color: var(--ink-2); }
+.roles li { margin: 4px 0; }
+.tv-band { margin-top: 28px; }
+.tv-band h3 { font: 600 13px var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--cardinal); margin: 0; }
+.tv-say { font-style: italic; color: var(--muted); margin: 4px 0 6px; }
+.tv-band > ol { padding-left: 26px; margin: 0; }
+.tv-band > ol > li { margin: 14px 0; }
+.tv-band > ol > li > b { font: 600 18px var(--serif); }
+.tv-k { font: 600 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; margin-left: 10px; }
+.tv-band > ol > li > p { margin: 3px 0 0; color: var(--ink-2); }
+.tv-band ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; }
+.tv-band .tv-why { font-style: italic; color: var(--ink); margin-top: 6px; }
+footer { border-top: 1px solid var(--hair); margin-top: 40px; padding: 22px 0 40px; font: 500 12px var(--mono); color: var(--muted); }
+footer a { margin-right: 16px; }
+@media (max-width: 860px) {
+  .props, .roles { grid-template-columns: 1fr 1fr; }
+  .props div:nth-child(2) { border-right: 0; }
+  .props div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
+  .roles { grid-template-columns: 1fr; }
+  .roles div { border-right: 0; border-bottom: 1px solid var(--rule); }
+  header nav, .bar .hint { display: none; }
+  .wrap { padding: 0 16px; }
+  .stage { padding: 14px 16px 24px; }
+  aside#drawer { top: auto; bottom: 12px; right: 12px; left: 12px; width: auto; max-height: 56vh; }
+}
+@media (max-width: 520px) { .props { grid-template-columns: 1fr; } .props div { border-right: 0; border-bottom: 1px solid var(--rule); } #tour-title { display: none; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="index.html" aria-label="Crucible home">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-2.4 11.2A5 5 0 0 1 13.7 20h-3.4a5 5 0 0 1-4.9-3.8z" fill="none" stroke="#8c1515" stroke-width="1.6"/><path d="M6.2 11h11.6l-.9 4.3a3 3 0 0 1-2.9 2.4h-4a3 3 0 0 1-2.9-2.4z" fill="#8c1515"/></svg>
+    crucible
+  </a>
+  <h1>Task synthesis</h1>
+  <nav aria-label="Pages"><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="#defects-h">Defects</a><a href="#steps-h">Text version</a></nav>
+  <span class="sp"></span>
+</header>
+
+<main>
+  <div class="wrap intro">
+    <div class="kicker">Task and environment synthesis</div>
+    <h2>From a request to a perfect RL task</h2>
+    <p class="lede">The diagram follows one task from a domain request to a certified, trainable task. Planted defects then measure the pipeline, and a regularised loop improves it. One accounts payable example runs through every step.</p>
+    <div class="props" aria-label="The four properties of a perfect task">
+      <div><b>Property 1</b><h3>Valid</h3><p>None of eleven defect classes is present. A certificate bounds the rate.</p></div>
+      <div><b>Property 2</b><h3>Learnable</h3><p>The student succeeds between 10 and 60 percent of the time.</p></div>
+      <div><b>Property 3</b><h3>On intent</h3><p>Success needs the target skill. Removing its evidence breaks success.</p></div>
+      <div><b>Property 4</b><h3>Novel</h3><p>The task adds a behaviour that the pool lacks.</p></div>
+    </div>
+    <div class="legend" id="legend" aria-label="Key"></div>
+  </div>
+
+  <div class="bar">
+    <div class="wrap">
+      <button class="btn" id="b-prev" aria-label="Previous step">◀</button>
+      <button class="btn solid" id="b-next" aria-label="Next step">Next ▶</button>
+      <span id="tour-count">Step through</span>
+      <span id="tour-title">Forty steps, one task</span>
+      <button class="btn" id="b-loops">Show loops</button>
+      <span class="hint">Select any step. Arrow keys move through the steps.</span>
+    </div>
+  </div>
+
+  <div class="stage"><div id="diagram"></div></div>
+
+  <aside id="drawer" hidden aria-live="polite">
+    <button class="x" id="dr-x" aria-label="Close">×</button>
+    <div class="k" id="dr-k"></div>
+    <div class="bandname" id="dr-band"></div>
+    <h3 id="dr-h"></h3>
+    <p class="short" id="dr-short"></p>
+    <h5>What happens</h5>
+    <ul id="dr-does"></ul>
+    <div id="dr-in"><h5>Input</h5><p></p></div>
+    <div id="dr-out"><h5>Output</h5><p></p></div>
+    <div id="dr-ex"><h5>In the example</h5><p class="ex"></p></div>
+    <div id="dr-why"><h5>Why it matters</h5><p></p></div>
+    <div class="nav"><button class="btn" id="dr-prev">◀ Previous</button><button class="btn solid" id="dr-next">Next ▶</button></div>
+  </aside>
+
+  <div class="wrap">
+    <section class="more">
+      <div class="kicker">Role separation</div>
+      <h2>No model family checks its own work</h2>
+      <div class="roles">
+        <div><b>Writer roles</b><ul><li>Task proposer</li><li>Oracle programmer</li><li>Contract writer, always a different family from the oracle</li><li>Repairer, never the contract family</li></ul></div>
+        <div><b>Checker roles</b><ul><li>Independent solvers from families that built nothing in the task</li><li>Attackers from checker families</li><li>A panel of two other families, calibrated on anchors</li></ul></div>
+        <div><b>Trusted base</b><ul><li>One small grader module that fails closed</li><li>Executed falsifiers that need no model</li><li>The student's family takes no role at all</li></ul></div>
+      </div>
+    </section>
+
+    <section class="more">
+      <div class="kicker" id="defects-h">Failure taxonomy</div>
+      <h2>The eleven defects a task can carry</h2>
+      <p class="lede">Each defect is one way in which the claim that a task rewards exactly the intended skill is false. Every falsifier targets named defects, and every planted defect carries exactly one.</p>
+      <div class="defects" id="defects"></div>
+    </section>
+
+    <section class="more">
+      <div class="kicker" id="steps-h">Text version</div>
+      <h2>Every step in order</h2>
+      <div id="steps"></div>
+    </section>
+
+    <footer><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="#">Top</a></footer>
+  </div>
+</main>
+<script src="assets/synthesis.js"></script>
+</body>
+</html>
