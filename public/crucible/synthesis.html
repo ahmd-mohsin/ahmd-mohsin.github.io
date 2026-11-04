@@ -4,209 +4,398 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Crucible task synthesis</title>
-<meta name="description" content="The complete task synthesis pipeline in one diagram. A request becomes certified RL tasks with a measured defect bound, and a regularised loop improves the pipeline.">
+<meta name="description" content="Crucible task synthesis in ten modules. The World, the task builder, falsification, judgement, the certificate and the student probe make and prove each task. Two regularised loops improve single tasks and the whole data set. Measurement and versioned rules govern every module.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
 <style>
-/* One diagram on white paper. Square plates, cardinal accents, mono labels, as on the main site. */
+/* Layout: the site's white paper and cardinal plates. One module map, then one card per module in map order.
+   Deliberately single theme, as on the live site. */
 :root {
-  --paper: #ffffff; --ground: #fbfaf9; --ink: #1f1e1c; --ink-2: #3b3a37; --muted: #5d6066; --rule: #e7e2df;
-  --hair: #efebe9; --cardinal: #8c1515; --cardinal-deep: #6c1010; --blush: #f8eeee;
-  --serif: "Lora", Georgia, serif; --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --paper: #ffffff; --ground: #fbfaf9; --ink: #1f1e1c; --ink-2: #3b3a37; --muted: #5d6066;
+  --rule: #e7e2df; --hair: #efebe9; --cardinal: #8c1515; --blush: #f8eeee; --seal: #f1efec;
+  --serif: "Lora", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-padding-top: 120px; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--serif); -webkit-font-smoothing: antialiased; }
 a { color: var(--cardinal); }
-header.top { position: sticky; top: 0; z-index: 30; display: flex; align-items: center; gap: 16px; padding: 11px 20px;
-  background: rgba(255,255,255,.9); backdrop-filter: blur(8px); border-bottom: 1px solid var(--hair); }
-.brand { display: flex; align-items: center; gap: 8px; font: 600 15px var(--mono); color: var(--ink); text-decoration: none; letter-spacing: .02em; }
+a:focus-visible { outline: 2px solid var(--cardinal); outline-offset: 2px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-block: 0; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { border-bottom: 1px solid var(--hair); }
+header.top .wrap { display: flex; align-items: center; gap: 14px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 8px; font: 600 15px var(--mono); color: var(--ink); letter-spacing: .02em; }
 .brand svg { width: 22px; height: 22px; }
-header h1 { margin: 0; font: 600 13px var(--mono); color: var(--cardinal); letter-spacing: .06em; text-transform: uppercase; }
-header nav { display: flex; gap: 14px; margin-left: 8px; }
+header h1 { margin: 0; font: 600 12px var(--mono); color: var(--cardinal); letter-spacing: .08em; text-transform: uppercase; }
+.kicker { font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cardinal); }
+.intro { padding-block: 52px 8px; }
+.intro h2 { font: 600 clamp(30px, 4.4vw, 46px)/1.08 var(--serif); letter-spacing: -.01em; margin: 10px 0 0; max-width: 22ch; text-wrap: balance; }
+.lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--ink-2); max-width: 68ch; margin: 16px 0 0; }
+section { padding-block: 36px 8px; }
+h3.sec { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--serif); margin: 8px 0 0; text-wrap: balance; }
+p.sub { color: var(--ink-2); max-width: 68ch; margin: 8px 0 0; }
+
+/* the map */
+.mapbox { margin-top: 22px; border: 1px solid var(--rule); background: var(--ground); overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.mapbox svg { display: block; width: 100%; min-width: 920px; height: auto; }
+.maphint { font: 500 11.5px var(--mono); color: var(--muted); margin-top: 8px; }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 10px; font: 500 11.5px var(--mono); color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 8px; }
+.legend i { display: inline-block; width: 28px; height: 0; border-top: 2px solid var(--ink-2); }
+.legend i.l1 { border-top: 2px dashed var(--cardinal); }
+.legend i.l2 { border-top: 2px dashed var(--ink); }
+.legend i.ls { border-top: 2px dotted var(--cardinal); }
+svg .mod rect.body { fill: var(--paper); stroke: var(--ink-2); stroke-width: 1.2; }
+svg .mod rect.head { fill: var(--ink); }
+svg .mod.l1 rect.head { fill: var(--cardinal); }
+svg .mod.l2 rect.body { fill: var(--seal); stroke-dasharray: 3 3; stroke: var(--ink); }
+svg .mod.base rect.body { fill: var(--blush); stroke: var(--cardinal); }
+svg .mod.base rect.head { fill: var(--cardinal); }
+svg .mod text.t { font: 600 13.5px var(--serif); fill: var(--paper); }
+svg .mod text.n { font: 600 11px var(--mono); fill: var(--paper); opacity: .85; }
+svg .mod text.i { font: 400 13px var(--serif); fill: var(--ink-2); }
+svg a.mod:hover rect.body, svg a.mod:focus rect.body { stroke: var(--cardinal); stroke-width: 2; }
+svg a.mod:focus { outline: none; }
+svg .wire { fill: none; stroke: var(--ink-2); stroke-width: 1.5; }
+svg .wire.l1 { stroke: var(--cardinal); stroke-width: 1.8; stroke-dasharray: 7 5; }
+svg .wire.l2 { stroke: var(--ink); stroke-width: 1.8; stroke-dasharray: 7 5; }
+svg .wire.ls { stroke: var(--cardinal); stroke-width: 1.5; stroke-dasharray: 2 4; }
+svg .ah { fill: var(--ink-2); }
+svg .ah.c { fill: var(--cardinal); }
+svg .ah.k { fill: var(--ink); }
+svg .tag { font: 600 10.5px var(--mono); letter-spacing: .06em; fill: var(--muted); }
+svg .tag.c { fill: var(--cardinal); }
+svg .tag.k { fill: var(--ink); }
+@media (prefers-reduced-motion: no-preference) { svg .wire.l1, svg .wire.l2 { animation: flow 1.6s linear infinite; } }
+@keyframes flow { to { stroke-dashoffset: -24; } }
+
+/* module cards */
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; margin-top: 24px; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
+.card { padding: 20px 22px 22px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); min-width: 0; scroll-margin-top: 16px; }
+.card:target { background: var(--blush); }
+.card .hd { display: flex; align-items: baseline; gap: 12px; }
+.card .num { font: 600 12px var(--mono); color: var(--paper); background: var(--ink); padding: 3px 7px; }
+.card.l1 .num, .card.base .num { background: var(--cardinal); }
+.card h4 { font: 600 21px/1.25 var(--serif); margin: 0; }
+.card .tagline { font-style: italic; color: var(--ink-2); margin: 6px 0 0; }
+.card h5 { font: 600 10.5px var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--cardinal); margin: 14px 0 4px; }
+.card p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--ink-2); }
+.card ul { margin: 0; padding-left: 18px; }
+.card li { margin: 4px 0; font-size: 15px; line-height: 1.45; color: var(--ink-2); }
+.card li b { color: var(--ink); font-weight: 600; }
+.io { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 18px; }
+.status { display: inline-block; font: 600 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--ink); border: 1px solid var(--ink); padding: 1px 6px; margin-left: auto; white-space: nowrap; }
+.card.wide { grid-column: 1 / -1; }
+.why { margin-top: 26px; padding: 14px 16px; background: var(--blush); border-left: 3px solid var(--cardinal); color: var(--ink); max-width: 72ch; }
+footer { border-top: 1px solid var(--hair); margin-top: 44px; }
+footer .wrap { padding-block: 22px 40px; font: 500 12px var(--mono); color: var(--muted); }
+@media (max-width: 860px) {
+  .cards { grid-template-columns: 1fr; }
+  .io { grid-template-columns: 1fr; }
+}
+
+header nav { display: flex; gap: 14px; margin-left: auto; }
 header nav a { font: 500 12px var(--mono); color: var(--ink-2); text-decoration: none; }
 header nav a:hover { color: var(--cardinal); }
-header .sp { flex: 1; }
-.wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
-.kicker { font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cardinal); }
-.intro { padding: 56px 0 26px; }
-.intro h2 { font: 600 clamp(32px, 4.6vw, 50px)/1.06 var(--serif); letter-spacing: -.012em; margin: 10px 0 0; max-width: 20ch; text-wrap: balance; }
-.lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--ink-2); max-width: 66ch; margin: 16px 0 0; }
-.props { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin: 34px 0 0; border: 1px solid var(--rule); }
-.props div { padding: 16px 18px 18px; border-right: 1px solid var(--rule); }
-.props div:last-child { border-right: 0; }
-.props b { display: block; font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); }
-.props h3 { font: 600 20px/1.2 var(--serif); margin: 6px 0 4px; }
-.props p { margin: 0; color: var(--ink-2); font-size: 14.5px; line-height: 1.45; }
-.legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 26px 0 0; font: 500 11.5px var(--mono); color: var(--ink-2); }
-.key { display: inline-flex; align-items: center; gap: 7px; }
-.key i { display: inline-block; width: 12px; height: 12px; }
-.key.line i { width: 26px; height: 0; background: none !important; border-top: 2px solid #3b3a37; }
-.key.line.cond i { border-top: 2px dashed #8a8d93; }
-.key.line.loop i { border-top: 2px dashed var(--cardinal); }
-.bar { position: sticky; top: 49px; z-index: 25; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); border-top: 1px solid var(--hair); border-bottom: 1px solid var(--hair); margin-top: 26px; }
-.bar .wrap { display: flex; align-items: center; gap: 10px; padding-top: 9px; padding-bottom: 9px; max-width: 1480px; }
-.btn { font: 500 12px var(--mono); padding: 6px 11px; border: 1px solid var(--rule); background: #fff; color: var(--ink-2); cursor: pointer; }
-.btn:hover, .btn.on { border-color: var(--cardinal); color: var(--cardinal); }
-.btn.solid { background: var(--cardinal); border-color: var(--cardinal); color: #fff; }
-.btn.solid:hover { background: var(--cardinal-deep); color: #fff; }
-#tour-count { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); margin-left: 6px; }
-#tour-title { font: italic 500 15px var(--serif); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.bar .hint { margin-left: auto; font: 500 11px var(--mono); color: var(--muted); white-space: nowrap; }
-.stage { max-width: 1480px; margin: 0 auto; padding: 18px 20px 30px; transition: padding-right .25s; }
-#diagram { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-#diagram svg { display: block; min-width: 1100px; height: auto; }
-#diagram .node { cursor: pointer; outline: none; transition: opacity .25s; }
-#diagram .node:hover .plate, #diagram .node:focus-visible .plate { stroke: var(--cardinal); }
-#diagram .node.sel .plate { stroke: var(--cardinal); stroke-width: 2; }
-#diagram .edge, #diagram .elabel, #diagram .frame { transition: opacity .25s; }
-#diagram svg.focus .node:not(.sel):not(.near) { opacity: .22; }
-#diagram svg.focus .edge:not(.lit), #diagram svg.focus .elabel:not(.lit) { opacity: .12; }
-#diagram svg.focus .frame { opacity: .4; }
-#diagram svg.focus .edge.lit .wire { stroke-width: 2.4; }
-#diagram svg.loops .edge:not(.k-loop), #diagram svg.loops .elabel:not(.k-loop) { opacity: .1; }
-#diagram svg.loops .node { opacity: .55; }
-#diagram svg.loops .edge.k-loop .wire { stroke-width: 2.6; }
-#diagram .k-loop .wire { animation: flow 1.4s linear infinite; }
-@keyframes flow { to { stroke-dashoffset: -24; } }
-@media (prefers-reduced-motion: reduce) { #diagram .k-loop .wire { animation: none; } }
-aside#drawer { position: fixed; z-index: 28; top: 112px; right: 16px; width: min(400px, calc(100vw - 32px)); max-height: calc(100vh - 128px); overflow: auto;
-  background: rgba(255,255,255,.98); border: 1px solid var(--rule); border-top: 3px solid var(--cardinal); box-shadow: 0 28px 52px -28px rgba(140,21,21,.35); padding: 18px 20px 16px; }
-#drawer .k { font: 600 11px var(--mono); letter-spacing: .07em; text-transform: uppercase; }
-#drawer .bandname { font: 500 11px var(--mono); color: var(--muted); letter-spacing: .05em; text-transform: uppercase; margin-top: 2px; }
-#drawer h3 { font: 600 24px/1.2 var(--serif); margin: 8px 0 4px; }
-#drawer .short { color: var(--ink-2); font-style: italic; margin: 0 0 10px; }
-#drawer h5 { font: 600 10.5px var(--mono); letter-spacing: .09em; text-transform: uppercase; color: var(--cardinal); margin: 14px 0 4px; }
-#drawer ul { margin: 0; padding-left: 18px; }
-#drawer li { margin: 5px 0; font-size: 15px; line-height: 1.45; }
-#drawer p { margin: 0; font-size: 15px; line-height: 1.45; }
-#drawer .ex { background: var(--blush); padding: 9px 12px; border-left: 3px solid var(--cardinal); }
-#drawer .nav { display: flex; gap: 8px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--hair); }
-#drawer .x { position: absolute; top: 10px; right: 12px; border: 0; background: none; font: 20px var(--mono); color: var(--muted); cursor: pointer; }
-@media (min-width: 1500px) { body.drawer-open .stage { padding-right: 430px; } }
-section.more { padding: 40px 0 10px; border-top: 1px solid var(--hair); }
-section.more h2 { font: 600 clamp(26px, 3.4vw, 36px)/1.1 var(--serif); margin: 8px 0 0; }
-.defects { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 0; margin-top: 22px; border-top: 1px solid var(--rule); border-left: 1px solid var(--rule); }
-.defect { padding: 14px 16px 16px; border-right: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
-.defect .dn { font: 600 11px var(--mono); color: var(--cardinal); }
-.defect h4 { font: 600 18px/1.2 var(--serif); margin: 4px 0 4px; }
-.defect p { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.45; }
-.defect .dex { font-style: italic; margin-top: 6px; color: var(--ink); }
-.defect .dby { font: 500 11px/1.5 var(--mono); color: var(--muted); margin-top: 8px; }
-.roles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 22px; border: 1px solid var(--rule); }
-.roles div { padding: 16px 18px; border-right: 1px solid var(--rule); }
-.roles div:last-child { border-right: 0; }
-.roles b { font: 600 11px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--cardinal); }
-.roles ul { margin: 8px 0 0; padding-left: 18px; font-size: 15px; color: var(--ink-2); }
-.roles li { margin: 4px 0; }
-.tv-band { margin-top: 28px; }
-.tv-band h3 { font: 600 13px var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--cardinal); margin: 0; }
-.tv-say { font-style: italic; color: var(--muted); margin: 4px 0 6px; }
-.tv-band > ol { padding-left: 26px; margin: 0; }
-.tv-band > ol > li { margin: 14px 0; }
-.tv-band > ol > li > b { font: 600 18px var(--serif); }
-.tv-k { font: 600 10px var(--mono); letter-spacing: .08em; text-transform: uppercase; margin-left: 10px; }
-.tv-band > ol > li > p { margin: 3px 0 0; color: var(--ink-2); }
-.tv-band ul { margin: 6px 0 0; padding-left: 18px; color: var(--ink-2); font-size: 15px; }
-.tv-band .tv-why { font-style: italic; color: var(--ink); margin-top: 6px; }
-footer { border-top: 1px solid var(--hair); margin-top: 40px; padding: 22px 0 40px; font: 500 12px var(--mono); color: var(--muted); }
-footer a { margin-right: 16px; }
-@media (max-width: 860px) {
-  .props, .roles { grid-template-columns: 1fr 1fr; }
-  .props div:nth-child(2) { border-right: 0; }
-  .props div:nth-child(-n+2) { border-bottom: 1px solid var(--rule); }
-  .roles { grid-template-columns: 1fr; }
-  .roles div { border-right: 0; border-bottom: 1px solid var(--rule); }
-  header nav, .bar .hint { display: none; }
-  .wrap { padding: 0 16px; }
-  .stage { padding: 14px 16px 24px; }
-  aside#drawer { top: auto; bottom: 12px; right: 12px; left: 12px; width: auto; max-height: 56vh; }
-}
-@media (max-width: 520px) { .props { grid-template-columns: 1fr; } .props div { border-right: 0; border-bottom: 1px solid var(--rule); } #tour-title { display: none; } }
+.brand { text-decoration: none; }
+@media (max-width: 560px) { header nav { gap: 10px; } header nav a:nth-child(2) { display: none; } }
 </style>
 </head>
 <body>
 <header class="top">
-  <a class="brand" href="index.html" aria-label="Crucible home">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-2.4 11.2A5 5 0 0 1 13.7 20h-3.4a5 5 0 0 1-4.9-3.8z" fill="none" stroke="#8c1515" stroke-width="1.6"/><path d="M6.2 11h11.6l-.9 4.3a3 3 0 0 1-2.9 2.4h-4a3 3 0 0 1-2.9-2.4z" fill="#8c1515"/></svg>
-    crucible
-  </a>
-  <h1>Task synthesis</h1>
-  <nav aria-label="Pages"><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="#defects-h">Defects</a><a href="#steps-h">Text version</a></nav>
-  <span class="sp"></span>
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Crucible home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18l-2.4 11.2A5 5 0 0 1 13.7 20h-3.4a5 5 0 0 1-4.9-3.8z" fill="none" stroke="#8c1515" stroke-width="1.6"/><path d="M6.2 11h11.6l-.9 4.3a3 3 0 0 1-2.9 2.4h-4a3 3 0 0 1-2.9-2.4z" fill="#8c1515"/></svg>
+      crucible
+    </a>
+    <h1>Task synthesis</h1>
+    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="synthesis-steps.html">Step by step</a></nav>
+  </div>
 </header>
 
 <main>
   <div class="wrap intro">
     <div class="kicker">Task and environment synthesis</div>
-    <h2>From a request to a perfect RL task</h2>
-    <p class="lede">The diagram follows one task from a domain request to a certified, trainable task. Planted defects then measure the pipeline, and a regularised loop improves it. One accounts payable example runs through every step.</p>
-    <div class="props" aria-label="The four properties of a perfect task">
-      <div><b>Property 1</b><h3>Valid</h3><p>None of eleven defect classes is present. A certificate bounds the rate.</p></div>
-      <div><b>Property 2</b><h3>Learnable</h3><p>The student succeeds between 10 and 60 percent of the time.</p></div>
-      <div><b>Property 3</b><h3>On intent</h3><p>Success needs the target skill. Removing its evidence breaks success.</p></div>
-      <div><b>Property 4</b><h3>Novel</h3><p>The task adds a behaviour that the pool lacks.</p></div>
+    <h2>Task synthesis in ten modules</h2>
+    <p class="lede">Crucible turns enterprise systems and code repositories into training tasks that carry proof of what they test. Ten modules do the work. Six of them make, break, judge, certify and place each task. Two of them run the regularised improvement loops. Two of them measure the pipeline and hold its rules. Select a module on the map to read what it does.</p>
+  </div>
+
+  <section class="wrap" aria-labelledby="map-h">
+    <div class="kicker">Module map</div>
+    <h3 class="sec" id="map-h">How the modules connect</h3>
+    <div class="mapbox">
+      <svg viewBox="0 0 1100 640" role="img" aria-labelledby="map-t map-d">
+        <title id="map-t">The ten modules of task synthesis</title>
+        <desc id="map-d">The World feeds the task builder. The builder's task goes to falsification, which the judgement module supports. Surviving tasks reach the certificate and repair module, and certified tasks reach the student probe. Unintended outcomes go to the Loop 1 controller, which sends typed repairs back to the certificate module and lessons to the builder. Kept tasks train the student. Loop 2 evaluates the trained student on sealed benchmarks and sends coarse scores to the builder. Measurement and rules span every module.</desc>
+        <defs>
+          <marker id="m-ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0L10 5L0 10z"/></marker>
+          <marker id="m-ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah c" d="M0 0L10 5L0 10z"/></marker>
+          <marker id="m-ahk" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah k" d="M0 0L10 5L0 10z"/></marker>
+        </defs>
+
+        <!-- main flow -->
+        <path class="wire" d="M190 145H228" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M420 145H458" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M660 145H698" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M880 145H918" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M545 250V288" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M575 288V252" marker-end="url(#m-ah)"/>
+        <path class="wire" d="M1000 250V288" marker-end="url(#m-ah)"/>
+        <text class="tag" x="1008" y="276">KEPT TASKS</text>
+        <text class="tag" x="436" y="136">TASK</text>
+        <text class="tag" x="890" y="136">PROVEN</text>
+
+        <!-- Loop 1 -->
+        <path class="wire l1" d="M940 250V270H860V288" marker-end="url(#m-ahc)"/>
+        <text class="tag c" x="866" y="282">UNINTENDED</text>
+        <path class="wire l1" d="M760 288V252" marker-end="url(#m-ahc)"/>
+        <text class="tag c" x="712" y="276">REPAIR</text>
+        <path class="wire l1" d="M790 40V24H560V38" marker-end="url(#m-ahc)"/>
+        <text class="tag c" x="612" y="18">PROVE THE WHOLE TASK AGAIN</text>
+        <path class="wire ls" d="M700 360H680V418H325V252" marker-end="url(#m-ahc)"/>
+        <text class="tag c" x="420" y="412">LESSONS, ONLY THROUGH A GATE</text>
+
+        <!-- Loop 2 -->
+        <path class="wire l2" d="M1000 400V440H295V252" marker-end="url(#m-ahk)"/>
+        <text class="tag k" x="560" y="456">COARSE SCORES ONLY. NO BENCHMARK ITEM CROSSES</text>
+
+        <!-- modules -->
+        <a class="mod" href="#m1"><rect class="body" x="20" y="40" width="170" height="210"/><rect class="head" x="20" y="40" width="170" height="34"/>
+          <text class="n" x="30" y="62">01</text><text class="t" x="56" y="62">The World</text>
+          <text class="i" x="32" y="98">Enterprise systems</text><text class="i" x="32" y="122">Code repositories</text><text class="i" x="32" y="146">Tools and state</text><text class="i" x="32" y="170">Executed truth</text><text class="i" x="32" y="194">Read sets</text><text class="i" x="32" y="218">World repairs</text></a>
+
+        <a class="mod" href="#m2"><rect class="body" x="230" y="40" width="190" height="210"/><rect class="head" x="230" y="40" width="190" height="34"/>
+          <text class="n" x="240" y="62">02</text><text class="t" x="266" y="62">Task builder</text>
+          <text class="i" x="242" y="98">Find a decision</text><text class="i" x="242" y="122">Reference program</text><text class="i" x="242" y="146">Checks</text><text class="i" x="242" y="170">Instruction written last</text><text class="i" x="242" y="194">Difficulty targeting</text><text class="i" x="242" y="218">Birth gates</text></a>
+
+        <a class="mod" href="#m3"><rect class="body" x="460" y="40" width="200" height="210"/><rect class="head" x="460" y="40" width="200" height="34"/>
+          <text class="n" x="470" y="62">03</text><text class="t" x="496" y="62">Falsification</text>
+          <text class="i" x="472" y="98">Program mutants</text><text class="i" x="472" y="122">Guess and skip programs</text><text class="i" x="472" y="146">Value tracing, leaks</text><text class="i" x="472" y="170">Twins, perturbation</text><text class="i" x="472" y="194">Independent solvers</text><text class="i" x="472" y="218">Attackers</text></a>
+
+        <a class="mod" href="#m4"><rect class="body" x="460" y="290" width="200" height="110"/><rect class="head" x="460" y="290" width="200" height="34"/>
+          <text class="n" x="470" y="312">04</text><text class="t" x="496" y="312">Judgement</text>
+          <text class="i" x="472" y="346">Executed truth first</text><text class="i" x="472" y="368">Calibrated judges</text><text class="i" x="472" y="390">Outside families only</text></a>
+
+        <a class="mod" href="#m5"><rect class="body" x="700" y="40" width="180" height="210"/><rect class="head" x="700" y="40" width="180" height="34"/>
+          <text class="n" x="710" y="62">05</text><text class="t" x="736" y="62">Certificate</text>
+          <text class="i" x="712" y="98">Counterexample archive</text><text class="i" x="712" y="122">Typed repairs</text><text class="i" x="712" y="146">Defect rate bound</text><text class="i" x="712" y="170">Admission</text><text class="i" x="712" y="194">Hint tier</text></a>
+
+        <a class="mod" href="#m6"><rect class="body" x="920" y="40" width="160" height="210"/><rect class="head" x="920" y="40" width="160" height="34"/>
+          <text class="n" x="930" y="62">06</text><text class="t" x="956" y="62">Student probe</text>
+          <text class="i" x="932" y="98">Probe rollouts</text><text class="i" x="932" y="122">Intended or not</text><text class="i" x="932" y="146">Learning band</text><text class="i" x="932" y="170">Keep, reserve,</text><text class="i" x="932" y="194">hold or drop</text><text class="i" x="932" y="218">Task pool</text></a>
+
+        <a class="mod l1" href="#m7"><rect class="body" x="700" y="290" width="180" height="110"/><rect class="head" x="700" y="290" width="180" height="34"/>
+          <text class="n" x="710" y="312">07</text><text class="t" x="736" y="312">Loop 1 control</text>
+          <text class="i" x="712" y="346">Find step and cause</text><text class="i" x="712" y="368">Choose a typed move</text><text class="i" x="712" y="390">Seven guards</text></a>
+
+        <a class="mod l2" href="#m8"><rect class="body" x="920" y="290" width="160" height="110"/><rect class="head" x="920" y="290" width="160" height="34"/>
+          <text class="n" x="930" y="312">08</text><text class="t" x="956" y="312">Loop 2</text>
+          <text class="i" x="932" y="346">Post-train</text><text class="i" x="932" y="368">Sealed benchmarks</text><text class="i" x="932" y="390">Coarse scores</text></a>
+
+        <a class="mod base" href="#m9"><rect class="body" x="20" y="490" width="520" height="130"/><rect class="head" x="20" y="490" width="520" height="34"/>
+          <text class="n" x="30" y="512">09</text><text class="t" x="56" y="512">Measurement, which measures every module</text>
+          <text class="i" x="32" y="548">Planted defects with recall and false alarms</text><text class="i" x="32" y="572">Residual defect estimate per task pool</text><text class="i" x="32" y="596">Paired live rounds and trace error analysis</text></a>
+
+        <a class="mod base" href="#m10"><rect class="body" x="560" y="490" width="520" height="130"/><rect class="head" x="560" y="490" width="520" height="34"/>
+          <text class="n" x="570" y="512">10</text><text class="t" x="596" y="512">Rules and records, which govern every module</text>
+          <text class="i" x="572" y="548">Every decision as a versioned rule in a ledger</text><text class="i" x="572" y="572">Stale results checked again when a rule changes</text><text class="i" x="572" y="596">Role separation and spend records</text></a>
+      </svg>
     </div>
-    <div class="legend" id="legend" aria-label="Key"></div>
-  </div>
-
-  <div class="bar">
-    <div class="wrap">
-      <button class="btn" id="b-prev" aria-label="Previous step">◀</button>
-      <button class="btn solid" id="b-next" aria-label="Next step">Next ▶</button>
-      <span id="tour-count">Step through</span>
-      <span id="tour-title">Forty steps, one task</span>
-      <button class="btn" id="b-loops">Show loops</button>
-      <span class="hint">Select any step. Arrow keys move through the steps.</span>
+    <div class="legend">
+      <span><i></i>A task moves forward</span>
+      <span><i class="l1"></i>Loop 1, task improvement</span>
+      <span><i class="ls"></i>A lesson for the builder</span>
+      <span><i class="l2"></i>Loop 2, data improvement</span>
     </div>
-  </div>
+    <div class="maphint">On a narrow screen, scroll the map sideways. Select a module to jump to its card.</div>
+  </section>
 
-  <div class="stage"><div id="diagram"></div></div>
+  <section class="wrap" aria-labelledby="mods-h">
+    <div class="kicker">The modules</div>
+    <h3 class="sec" id="mods-h">What each module does</h3>
+    <div class="cards">
 
-  <aside id="drawer" hidden aria-live="polite">
-    <button class="x" id="dr-x" aria-label="Close">×</button>
-    <div class="k" id="dr-k"></div>
-    <div class="bandname" id="dr-band"></div>
-    <h3 id="dr-h"></h3>
-    <p class="short" id="dr-short"></p>
-    <h5>What happens</h5>
-    <ul id="dr-does"></ul>
-    <div id="dr-in"><h5>Input</h5><p></p></div>
-    <div id="dr-out"><h5>Output</h5><p></p></div>
-    <div id="dr-ex"><h5>In the example</h5><p class="ex"></p></div>
-    <div id="dr-why"><h5>Why it matters</h5><p></p></div>
-    <div class="nav"><button class="btn" id="dr-prev">◀ Previous</button><button class="btn solid" id="dr-next">Next ▶</button></div>
-  </aside>
+      <article class="card" id="m1">
+        <div class="hd"><span class="num">01</span><h4>The World</h4></div>
+        <p class="tagline">The environment the agent works in, and the source of truth about it.</p>
+        <h5>Does</h5>
+        <p>Runs a realistic system with its own tools, records and documents, and decides by execution what the correct outcome is.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>World families.</b> Enterprise systems such as accounts payable, receivables, insurance intake, leave and purchasing. Code repositories in several languages.</li>
+          <li><b>Tool interface.</b> The same calls for every World, so the rest of the pipeline never depends on the domain.</li>
+          <li><b>Canonical state and diff.</b> Every run ends in a state that can be compared exactly with another.</li>
+          <li><b>Executed truth.</b> The World's rules, written as data, compute the correct decision for any state. For code, the reference version and its tests play this role.</li>
+          <li><b>Read sets.</b> The records a decision depends on, found by changing one record at a time.</li>
+          <li><b>World repairs.</b> A World that lacks a tool or a record view is repaired in its data, never in the pipeline's code.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>A system's rules, records and documents, or a repository.</p></div><div><h5>Gives</h5><p>Tools, states and the correct outcome for any state.</p></div></div>
+      </article>
 
-  <div class="wrap">
-    <section class="more">
-      <div class="kicker">Role separation</div>
-      <h2>No model family checks its own work</h2>
-      <div class="roles">
-        <div><b>Writer roles</b><ul><li>Task proposer</li><li>Oracle programmer</li><li>Contract writer, always a different family from the oracle</li><li>Repairer, never the contract family</li></ul></div>
-        <div><b>Checker roles</b><ul><li>Independent solvers from families that built nothing in the task</li><li>Attackers from checker families</li><li>A panel of two other families, calibrated on anchors</li></ul></div>
-        <div><b>Trusted base</b><ul><li>One small grader module that fails closed</li><li>Executed falsifiers that need no model</li><li>The student's family takes no role at all</li></ul></div>
-      </div>
-    </section>
+      <article class="card" id="m2">
+        <div class="hd"><span class="num">02</span><h4>Task builder</h4></div>
+        <p class="tagline">Makes a task from a decision the World already fixes.</p>
+        <h5>Does</h5>
+        <p>Starts from the answer and works backward. It finds an outcome the rules fix, builds the solution and the checks from it, and writes the instruction last.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Decision points.</b> Candidate writes are executed to find outcomes the rules decide.</li>
+          <li><b>Reference program.</b> The sequence of tool calls that reads the evidence and makes the correct change.</li>
+          <li><b>Checks.</b> What the final state and the answer must show, including that the evidence was read before the change.</li>
+          <li><b>Instruction.</b> Written last by a builder model. It names the kind of evidence and never the answer.</li>
+          <li><b>Difficulty targeting.</b> Predicts difficulty from executed features before any student run and prefers decisions in the learning band.</li>
+          <li><b>Birth gates.</b> Refuse a task that leaks, has a dead reference or contradicts itself.</li>
+          <li><b>Round trip.</b> A solver from another family must reach the same decision from the instruction alone.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>A World and a target skill.</p></div><div><h5>Gives</h5><p>A candidate task with its instruction, reference program and checks.</p></div></div>
+      </article>
 
-    <section class="more">
-      <div class="kicker" id="defects-h">Failure taxonomy</div>
-      <h2>The eleven defects a task can carry</h2>
-      <p class="lede">Each defect is one way in which the claim that a task rewards exactly the intended skill is false. Every falsifier targets named defects, and every planted defect carries exactly one.</p>
-      <div class="defects" id="defects"></div>
-    </section>
+      <article class="card" id="m3">
+        <div class="hd"><span class="num">03</span><h4>Falsification</h4></div>
+        <p class="tagline">Tries every known way to break the task.</p>
+        <h5>Does</h5>
+        <p>Runs probes that a sound task must handle. Each probe targets one named defect. A probe that succeeds is a counterexample.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Program mutants.</b> Wrong versions of the solution must fail the checks. Small mutant spaces are run completely, and proofs cover whole classes of mutants.</li>
+          <li><b>Degenerate agents.</b> Doing nothing, or doing something redundant, must fail.</li>
+          <li><b>Guess and skip programs.</b> A program that guesses, or skips one required read, must fail.</li>
+          <li><b>Value tracing and leak checks.</b> Every value the solution uses must come from the instruction or an observation, and the instruction must not leak the answer.</li>
+          <li><b>Twins, perturbation, scope and effects.</b> The task must depend on the right entity, survive harmless changes, and check every change the decision needs.</li>
+          <li><b>Independent solvers.</b> Models from families that built nothing in the task must solve it, on a ladder of increasing effort.</li>
+          <li><b>Attackers.</b> Models try to pass without doing the work.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>A candidate task.</p></div><div><h5>Gives</h5><p>Counterexamples and open suspects, each tied to a defect.</p></div></div>
+      </article>
 
-    <section class="more">
-      <div class="kicker" id="steps-h">Text version</div>
-      <h2>Every step in order</h2>
-      <div id="steps"></div>
-    </section>
+      <article class="card" id="m4">
+        <div class="hd"><span class="num">04</span><h4>Judgement</h4></div>
+        <p class="tagline">Decides the cases a probe cannot decide alone.</p>
+        <h5>Does</h5>
+        <p>Settles whether a suspect is a real defect. Execution decides first. A model decides only when execution cannot, and only after it passes calibration.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Trusted grader.</b> One small grading module that fails closed.</li>
+          <li><b>Executed truth first.</b> The World's rules and read sets settle most suspects with no model.</li>
+          <li><b>Calibrated judges.</b> A judge is trusted for one World only when its exact bounds on true and false rates clear a fixed bar on executed examples, and when irrelevant edits do not change its verdict.</li>
+          <li><b>Outside families only.</b> No model judges a trace that its own family made or a task that its family built. With no eligible judge, the answer is unknown.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>Suspects and attempts.</p></div><div><h5>Gives</h5><p>Confirmed defects, cleared suspects, or unknown.</p></div></div>
+      </article>
 
-    <footer><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="#">Top</a></footer>
-  </div>
+      <article class="card" id="m5">
+        <div class="hd"><span class="num">05</span><h4>Certificate</h4></div>
+        <p class="tagline">Turns the evidence into a decision about the task.</p>
+        <h5>Does</h5>
+        <p>Keeps every counterexample, repairs what it can with typed fixes, and issues a certificate that bounds the defect rate. Only a certified task goes forward.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Counterexample archive.</b> Every counterexample is kept and replayed against each new version.</li>
+          <li><b>Typed repairs.</b> Each fix belongs to a known operator with a declared effect. The repair loop must converge and may not add defects.</li>
+          <li><b>Defect rate bound.</b> Exact statistical bounds give certified, provisional, on hold or rejected.</li>
+          <li><b>Hint tier.</b> A task that an independent solver passes only with a structural hint is labelled as such and never counted as certified.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>Counterexamples, verdicts and statistics.</p></div><div><h5>Gives</h5><p>A certificate and a status for each task version.</p></div></div>
+      </article>
+
+      <article class="card" id="m6">
+        <div class="hd"><span class="num">06</span><h4>Student probe</h4></div>
+        <p class="tagline">Places a proven task by difficulty and reads how the student fails.</p>
+        <h5>Does</h5>
+        <p>Runs the student on the certified task several times. It labels each success and each failure as intended or unintended and places the task.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Probe rollouts.</b> A sequential test with looks after 4, 8, 12 and 16 attempts.</li>
+          <li><b>Outcome classes.</b> A failure from a real skill gap is intended. A pass by a shortcut, or a failure from a defect, is not.</li>
+          <li><b>Learning band.</b> A task is kept when the student succeeds between 10 and 60 percent of the time.</li>
+          <li><b>Placement.</b> Keep, reserve, hold or drop. Kept tasks enter the training pool.</li>
+        </ul>
+        <div class="io"><div><h5>Takes</h5><p>A certified task.</p></div><div><h5>Gives</h5><p>A placement, and unintended outcomes for Loop 1.</p></div></div>
+      </article>
+
+      <article class="card l1" id="m7">
+        <div class="hd"><span class="num">07</span><h4>Loop 1 control</h4></div>
+        <p class="tagline">Task improvement while the task is made.</p>
+        <h5>Does</h5>
+        <p>Takes each unintended outcome or failed proof, finds the step and the cause, and chooses a typed move. It then proves the whole task again. It also lifts lessons into the builder.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Attribution.</b> The first point of failure in the trace, the record involved and a typed cause.</li>
+          <li><b>Typed moves.</b> Repair, relabel the skill, keep or reserve. A real skill gap is never repaired.</li>
+          <li><b>Lessons.</b> Recurring repairs become rules for the builder, through a gate with held-out evidence.</li>
+        </ul>
+        <h5>Its seven guards</h5>
+        <ul>
+          <li>Success needs the evidence.</li>
+          <li>A real skill gap is an intended failure.</li>
+          <li>No model judges its own work.</li>
+          <li>No repair makes the task easier, and held-out tasks never change.</li>
+          <li>Every repair proves the whole task again.</li>
+          <li>The pass rate places a task and never admits one.</li>
+          <li>Lessons pass a gate before they change the builder.</li>
+        </ul>
+      </article>
+
+      <article class="card" id="m8">
+        <div class="hd"><span class="num">08</span><h4>Loop 2</h4><span class="status">In development</span></div>
+        <p class="tagline">Data improvement after the student trains.</p>
+        <h5>Does</h5>
+        <p>Post-trains the student on the kept pool and evaluates it on sealed benchmarks. Coarse scores per skill show which skills the data teaches poorly, and the builder changes what it makes.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Sealed evaluator.</b> Runs and scores the benchmarks inside a boundary.</li>
+          <li><b>Coarse scorecard.</b> Rounded rates per skill and per failure type, with added noise and a fixed query budget.</li>
+          <li><b>Change menu.</b> Reweight a skill, move its difficulty, change its systems, or add a lesson from Crucible's own traces.</li>
+          <li><b>Gate.</b> A change counts only when it also helps on Crucible's own held-out tasks.</li>
+        </ul>
+        <h5>Its six guards</h5>
+        <ul>
+          <li>Benchmark items never leave the boundary.</li>
+          <li>Only coarse scores cross.</li>
+          <li>Signals name skills, never items.</li>
+          <li>A change must also help on held-out tasks.</li>
+          <li>A vault test runs once per release and never feeds the loop.</li>
+          <li>New tasks pass Loop 1 and an overlap screen.</li>
+        </ul>
+      </article>
+
+      <article class="card base" id="m9">
+        <div class="hd"><span class="num">09</span><h4>Measurement</h4></div>
+        <p class="tagline">Measures the pipeline itself, not only its tasks.</p>
+        <h5>Does</h5>
+        <p>Checks that every module works as claimed, with numbers that can be compared from one version to the next.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Planted defects.</b> Three sets of tasks with one known defect each give recall and false alarms per falsifier. One set stays locked.</li>
+          <li><b>Residual defect estimate.</b> A bound on how many defects remain in the kept pool.</li>
+          <li><b>Paired live rounds.</b> The full pipeline runs live on a fixed set of cells, with and without the newest mechanisms.</li>
+          <li><b>Trace error analysis.</b> Every model's traces are kept, read and sorted into failure types, each with a code check that finds the first point of failure.</li>
+        </ul>
+      </article>
+
+      <article class="card base" id="m10">
+        <div class="hd"><span class="num">10</span><h4>Rules and records</h4></div>
+        <p class="tagline">Holds the decisions every module follows.</p>
+        <h5>Does</h5>
+        <p>Turns every design decision into a versioned rule and keeps a tamper-evident record of each change, so a result always names the rules it was made under.</p>
+        <h5>Inside</h5>
+        <ul>
+          <li><b>Decisions as rules.</b> Each rule has parameters, a reason and the code that enforces it. Rules change only through recorded amendments.</li>
+          <li><b>Stale results.</b> When a rule changes, every stored certificate, judge example and kept task that the rule touches is decided again.</li>
+          <li><b>Role separation.</b> Builders, checkers and the student come from separate model families.</li>
+          <li><b>Records.</b> Every run records its spend, its model calls and the rule version it used.</li>
+        </ul>
+      </article>
+    </div>
+    <p class="why">Modules 1 to 6 make a task and prove it. Module 7 repairs a single task and module 8 improves the whole data set. Modules 9 and 10 keep the pipeline measurable and accountable. A kept task therefore carries a certificate, a placement and the rule version behind both.</p>
+  </section>
 </main>
-<script src="assets/synthesis.js"></script>
+
+<footer>
+  <div class="wrap">The <a href="synthesis-steps.html">step-by-step diagram</a> follows one task through every step.</div>
+</footer>
 </body>
 </html>
