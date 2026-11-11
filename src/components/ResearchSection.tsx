@@ -19,8 +19,7 @@ const papers: Paper[] = [
   {
     title: "General Preference Reinforcement Learning",
     authors: "M. Umer*, M. A. Mohsin*, A. Bilal*, E. Fox",
-    venue: "NeurIPS",
-    year: "2026",
+    venue: "Submitted",
     links: [
       { label: "paper", url: "https://arxiv.org/abs/2605.18721" },
       { label: "pdf", url: "https://arxiv.org/pdf/2605.18721" },
@@ -28,7 +27,7 @@ const papers: Paper[] = [
   },
   {
     title: "Continuous-Utility Direct Preference Optimization",
-    authors: "M. A. Mohsin, M. Umer, A. Bilal, E. Vitercik, J. M. Cioffi",
+    authors: "M. A. Mohsin, M. Umer, E. Fox",
     venue: "EMNLP",
     year: "2026",
     links: [
@@ -39,14 +38,12 @@ const papers: Paper[] = [
   {
     title: "Active Alignment with Bayesian General Preference Models",
     authors: "M. Umer*, M. A. Mohsin*, A. Bilal, E. Vitercik, J. M. Cioffi",
-    venue: "CoLM",
-    year: "2026",
+    venue: "Poster",
   },
   {
     title: "Sycophancy Disentanglement in LLMs via Reward Decomposition",
     authors: "M. A. Mohsin*, A. Bilal*, M. Umer, E. Fox",
-    venue: "AAAI",
-    year: "2027",
+    venue: "Preprint",
     links: [
       { label: "paper", url: "https://arxiv.org/abs/2604.05279" },
       { label: "pdf", url: "https://arxiv.org/pdf/2604.05279" },
@@ -55,8 +52,7 @@ const papers: Paper[] = [
   {
     title: "Coverage Preservation in RL as an Off-Policy Constraint",
     authors: "M. A. Mohsin, M. Umer, A. Bilal, J. M. Cioffi, E. Fox",
-    venue: "Preprint",
-    status: "in progress",
+    venue: "In progress",
   },
   // Test-Time Scaling and Coding Agents
   {
@@ -74,8 +70,7 @@ const papers: Paper[] = [
   {
     title: "Epistemic Uncertainty for Test-Time Discovery",
     authors: "M. A. Mohsin*, K. Riaz*, M. Umer, A. Bilal, J. M. Cioffi, E. Fox",
-    venue: "NeurIPS",
-    year: "2026",
+    venue: "Preprint",
     links: [
       { label: "paper", url: "https://arxiv.org/abs/2605.11328" },
       { label: "pdf", url: "https://arxiv.org/pdf/2605.11328" },
@@ -84,8 +79,7 @@ const papers: Paper[] = [
   {
     title: "S³: Stratified Scaling Search for Test-Time in Diffusion Language Models",
     authors: "A. Bilal*, M. A. Mohsin*, M. Umer, D. F. Hougen",
-    venue: "CoLM",
-    year: "2026",
+    venue: "Preprint",
     links: [
       { label: "paper", url: "https://arxiv.org/abs/2604.06260" },
       { label: "pdf", url: "https://arxiv.org/pdf/2604.06260" },
@@ -123,7 +117,7 @@ const papers: Paper[] = [
   {
     title: "When Should Semantic Priors Enter Partially-Identified Causal Discovery?",
     authors: "M. A. Mohsin, A. Bilal, S. B. Ather, Tomasso, Valentin, L. de Costa",
-    venue: "ICLR",
+    venue: "AISTATS",
     year: "2027",
   },
   {
