@@ -169,7 +169,7 @@ header nav a:hover { color: var(--cardinal); }
 
         <a class="mod" href="#builder"><rect class="body" x="230" y="40" width="190" height="210"/><rect class="head" x="230" y="40" width="190" height="34"/>
           <text class="n" x="240" y="62">02</text><text class="t" x="266" y="62">Task builder</text>
-          <text class="i" x="242" y="98">Find a decision</text><text class="i" x="242" y="122">Reference program</text><text class="i" x="242" y="146">Checks</text><text class="i" x="242" y="170">Instruction written last</text><text class="i" x="242" y="194">Difficulty targeting</text><text class="i" x="242" y="218">Birth gates</text></a>
+          <text class="i" x="242" y="98">Builder swarm</text><text class="i" x="242" y="122">Decisions or milestones</text><text class="i" x="242" y="146">Reference program, checks</text><text class="i" x="242" y="170">Instruction written last</text><text class="i" x="242" y="194">Difficulty prediction</text><text class="i" x="242" y="218">Birth gates</text></a>
 
         <a class="mod" href="#falsification"><rect class="body" x="460" y="40" width="200" height="210"/><rect class="head" x="460" y="40" width="200" height="34"/>
           <text class="n" x="470" y="62">03</text><text class="t" x="496" y="62">Falsification</text>
@@ -181,11 +181,11 @@ header nav a:hover { color: var(--cardinal); }
 
         <a class="mod" href="#certificate"><rect class="body" x="700" y="40" width="180" height="210"/><rect class="head" x="700" y="40" width="180" height="34"/>
           <text class="n" x="710" y="62">05</text><text class="t" x="736" y="62">Certificate</text>
-          <text class="i" x="712" y="98">Counterexample archive</text><text class="i" x="712" y="122">Typed repairs</text><text class="i" x="712" y="146">Defect rate bound</text><text class="i" x="712" y="170">Admission</text><text class="i" x="712" y="194">Hint tier</text></a>
+          <text class="i" x="712" y="98">Counterexample archive</text><text class="i" x="712" y="122">Typed repairs</text><text class="i" x="712" y="146">Defect rate bound</text><text class="i" x="712" y="170">Admission</text><text class="i" x="712" y="194">Tiers</text><text class="i" x="712" y="218">Written test repair</text></a>
 
         <a class="mod" href="#probe"><rect class="body" x="920" y="40" width="160" height="210"/><rect class="head" x="920" y="40" width="160" height="34"/>
           <text class="n" x="930" y="62">06</text><text class="t" x="956" y="62">Student probe</text>
-          <text class="i" x="932" y="98">Probe rollouts</text><text class="i" x="932" y="122">Intended or not</text><text class="i" x="932" y="146">Learning band</text><text class="i" x="932" y="170">Keep, reserve,</text><text class="i" x="932" y="194">hold or drop</text><text class="i" x="932" y="218">Task pool</text></a>
+          <text class="i" x="932" y="98">Sequential probe</text><text class="i" x="932" y="122">Intended or not</text><text class="i" x="932" y="146">Learning band</text><text class="i" x="932" y="170">Keep, reserve,</text><text class="i" x="932" y="194">hold or drop</text><text class="i" x="932" y="218">Task pool</text></a>
 
         <a class="mod l1" href="#loop-one"><rect class="body" x="700" y="290" width="180" height="110"/><rect class="head" x="700" y="290" width="180" height="34"/>
           <text class="n" x="710" y="312">07</text><text class="t" x="736" y="312">Loop 1 control</text>
@@ -193,7 +193,7 @@ header nav a:hover { color: var(--cardinal); }
 
         <a class="mod l2" href="#loop-two"><rect class="body" x="920" y="290" width="160" height="110"/><rect class="head" x="920" y="290" width="160" height="34"/>
           <text class="n" x="930" y="312">08</text><text class="t" x="956" y="312">Loop 2</text>
-          <text class="i" x="932" y="346">Post-train</text><text class="i" x="932" y="368">Sealed benchmarks</text><text class="i" x="932" y="390">Coarse scores</text></a>
+          <text class="i" x="932" y="346">Adaptive post-training</text><text class="i" x="932" y="368">Sealed benchmarks</text><text class="i" x="932" y="390">Coarse scores</text></a>
 
         <a class="mod base" href="#measurement"><rect class="body" x="20" y="490" width="520" height="130"/><rect class="head" x="20" y="490" width="520" height="34"/>
           <text class="n" x="30" y="512">09</text><text class="t" x="56" y="512">Measurement, which measures every module</text>
@@ -226,6 +226,7 @@ header nav a:hover { color: var(--cardinal); }
         <h5>Inside</h5>
         <ul>
           <li><b>World families.</b> Enterprise systems such as accounts payable, receivables, insurance intake, leave and purchasing. Code repositories in several languages.</li>
+          <li><b>Code sources.</b> Real releases of repositories with permissive licences. A lease keeps every repository that a sealed benchmark uses out of the sources.</li>
           <li><b>Tool interface.</b> The same calls for every World, so the rest of the pipeline never depends on the domain.</li>
           <li><b>Canonical state and diff.</b> Every run ends in a state that can be compared exactly with another.</li>
           <li><b>Executed truth.</b> The World's rules, written as data, compute the correct decision for any state. For code, the reference version and its tests play this role.</li>
@@ -239,14 +240,17 @@ header nav a:hover { color: var(--cardinal); }
         <div class="hd"><span class="num">02</span><h4>Task builder</h4></div>
         <p class="tagline">Makes a task from a decision the World already fixes.</p>
         <h5>Does</h5>
-        <p>Starts from the answer and works backward. It finds an outcome the rules fix, builds the solution and the checks from it, and writes the instruction last.</p>
+        <p>Starts from the answer and works backward. It finds an outcome the rules fix, builds the solution and the checks from it, and writes the instruction last. For a code repository, a swarm of models from outside families builds the task.</p>
         <h5>Inside</h5>
         <ul>
+          <li><b>Builder swarm.</b> A planner splits real change requests into ordered milestones. An oracle builder writes one commit per milestone, and blind writers from another family add hidden tests.</li>
+          <li><b>Staged probes.</b> Executed probes check every planned addition and removal on the start version and on the solution. A failed probe goes back to its builder.</li>
           <li><b>Decision points.</b> Candidate writes are executed to find outcomes the rules decide.</li>
           <li><b>Reference program.</b> The sequence of tool calls that reads the evidence and makes the correct change.</li>
           <li><b>Checks.</b> What the final state and the answer must show, including that the evidence was read before the change.</li>
           <li><b>Instruction.</b> Written last by a builder model. It names the kind of evidence and never the answer.</li>
           <li><b>Difficulty targeting.</b> Predicts difficulty from executed features before any student run and prefers decisions in the learning band.</li>
+          <li><b>Difficulty predictor.</b> For code tasks, a logistic model reads task features and the base student's log probability of the reference fix. Each repository is held out in turn for validation, and conformal intervals bound the error.</li>
           <li><b>Birth gates.</b> Refuse a task that leaks, has a dead reference or contradicts itself.</li>
           <li><b>Round trip.</b> A solver from another family must reach the same decision from the instruction alone.</li>
         </ul>
@@ -290,13 +294,17 @@ header nav a:hover { color: var(--cardinal); }
         <div class="hd"><span class="num">05</span><h4>Certificate</h4></div>
         <p class="tagline">Turns the evidence into a decision about the task.</p>
         <h5>Does</h5>
-        <p>Keeps every counterexample, repairs what it can with typed fixes, and issues a certificate that bounds the defect rate. Only a certified task goes forward.</p>
+        <p>Keeps every counterexample, repairs what it can with typed fixes, and issues a certificate that bounds the defect rate. Only a task that its certificate admits goes forward.</p>
         <h5>Inside</h5>
         <ul>
           <li><b>Counterexample archive.</b> Every counterexample is kept and replayed against each new version.</li>
           <li><b>Typed repairs.</b> Each fix belongs to a known operator with a declared effect. The repair loop must converge and may not add defects.</li>
+          <li><b>Written test repair.</b> When a wrong solution passes the checks, a builder family writes a new test file. The file must pass twice on the reference and fail on that solution.</li>
+          <li><b>Repair rounds.</b> Each file gets up to three writing rounds, and each round sees what the last file printed. The repaired task is certified again against the same bar.</li>
           <li><b>Defect rate bound.</b> Exact statistical bounds give certified, provisional, on hold or rejected.</li>
           <li><b>Hint tier.</b> A task that an independent solver passes only with a structural hint is labelled as such and never counted as certified.</li>
+          <li><b>Real fix tier.</b> A task built from a real upstream fix can enter at its own tier. Its only open findings must be fix variants that the repository's own tests miss. It is never counted as certified.</li>
+          <li><b>Run health.</b> A certificate with more than 20 percent invalid runs admits nothing. The task is certified again.</li>
         </ul>
         <div class="io"><div><h5>Takes</h5><p>Counterexamples, verdicts and statistics.</p></div><div><h5>Gives</h5><p>A certificate and a status for each task version.</p></div></div>
       </article>
@@ -308,10 +316,12 @@ header nav a:hover { color: var(--cardinal); }
         <p>Runs the student on the certified task several times. It labels each success and each failure as intended or unintended and places the task.</p>
         <h5>Inside</h5>
         <ul>
-          <li><b>Probe rollouts.</b> A sequential test with looks after 4, 8, 12 and 16 attempts.</li>
+          <li><b>Probe rollouts.</b> Attempts run in rounds of four. A code task stops at 32 graded attempts. Attempts lost to infrastructure faults never count.</li>
+          <li><b>Sequential decision.</b> After each round, a Beta posterior from a flat prior gives the chance that the pass rate lies in the band.</li>
           <li><b>Outcome classes.</b> A failure from a real skill gap is intended. A pass by a shortcut, or a failure from a defect, is not.</li>
-          <li><b>Learning band.</b> A task is kept when the student succeeds between 10 and 60 percent of the time.</li>
+          <li><b>Learning band.</b> The band is a pass rate between 10 and 60 percent. A code task is kept when that chance reaches 90 percent. It leaves when the chance falls to 20 percent or less. An enterprise task is placed when a 90 percent interval lies inside one class.</li>
           <li><b>Placement.</b> Keep, reserve, hold or drop. Kept tasks enter the training pool.</li>
+          <li><b>Pool reserve.</b> An admitted code task outside the band goes to a reserve, never dropped. A task below the band is probed again after each training stage, and a task above it is a candidate for hardening.</li>
         </ul>
         <div class="io"><div><h5>Takes</h5><p>A certified task.</p></div><div><h5>Gives</h5><p>A placement, and unintended outcomes for Loop 1.</p></div></div>
       </article>
@@ -347,7 +357,9 @@ header nav a:hover { color: var(--cardinal); }
         <h5>Inside</h5>
         <ul>
           <li><b>Sealed evaluator.</b> Runs and scores the benchmarks inside a boundary.</li>
-          <li><b>Coarse scorecard.</b> Rounded rates per skill and per failure type, with added noise and a fixed query budget.</li>
+          <li><b>Difficulty tracking.</b> During training, the grades update an ability estimate for the student and a difficulty estimate per task. Draws favour tasks near 50 percent predicted success.</li>
+          <li><b>Re-entry.</b> A task whose recent attempt groups all pass or all fail moves to the reserve. It re-enters when the student's ability brings its predicted pass rate back into range, or at a scheduled check.</li>
+          <li><b>Coarse scorecard.</b> Rounded rates per skill and per failure type, with added noise and a fixed query budget. Code tasks fall into cells by the number of faults to fix.</li>
           <li><b>Change menu.</b> Reweight a skill, move its difficulty, change its systems, or add a lesson from Crucible's own traces.</li>
           <li><b>Gate.</b> A change counts only when it also helps on Crucible's own held-out tasks.</li>
         </ul>
