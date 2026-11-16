@@ -9,7 +9,7 @@ const experiences = [
     advisor: "Myeongsoo Kim",
     projects: [
       {
-        name: "Teaching Agents to Code Reliably (ICLR 2027)",
+        name: "Teaching Agents to Code Reliably",
         bullets: [
           "Ran a controlled study of six test-time strategies on a fixed Qwen3-Coder-30B agent over SWE-bench Verified, isolating diversity of exploration and diversity of edits as the skills that convert compute into solved bugs, and showing that self-authored verification sits near chance.",
           "Distilled diverse, reactive search into the policy via weighted supervised fine-tuning (pass@1 31.8 → 35.1, pass@8 46.8 → 51.2), then trained a discriminative self-verifier with GRPO using a mutation-gauntlet reward with step-level, threshold-free credit.",

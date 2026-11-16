@@ -58,8 +58,7 @@ const papers: Paper[] = [
   {
     title: "Teaching Agents to Code Reliably",
     authors: "M. A. Mohsin*, M. Kim, K. Ruan, S. Garg, V. Kumar, M. K. Ramanathan",
-    venue: "ICLR",
-    year: "2027",
+    venue: "Submitted",
   },
   {
     title: "LoRe-KV: Lookahead Output-Perturbation with Response-Entropy Weighting for KV Cache Eviction",

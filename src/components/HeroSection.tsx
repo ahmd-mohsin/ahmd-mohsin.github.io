@@ -109,15 +109,6 @@ export function HeroSection() {
               <span className="w-px h-5 bg-[#d4d4d8]/30" />
 
               <a
-                href="/ahmed_mohsin_cv.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono text-[11px] font-semibold text-[#262626] hover:text-[#8C1515] transition-colors border border-[#d4d4d8]/30 hover:border-[#8C1515]/50 bg-[#f4f4f5]/60 px-3 py-1.5"
-              >
-                CV ↗
-              </a>
-
-              <a
                 href="https://alexein.ai/"
                 target="_blank"
                 rel="noopener noreferrer"
