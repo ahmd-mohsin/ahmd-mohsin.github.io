@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Crucible dashboard</title>
+<meta name="description" content="The Crucible pipeline as it runs. Tasks built and kept for training, the training set, teacher traces, the repair loop, shortcuts blocked and compute, updated every few minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap">
+<style>
+/* Layout: the site's white paper and cardinal plates, set as a read-only panel of the pipeline's numbers. The site's
+   tokens; a selected dark set for readers whose system asks for it. Chart series use a validated palette that starts
+   at cardinal; targets are labelled rules. */
+:root {
+  --paper: #ffffff; --ground: #fbfaf9; --ink: #1f1e1c; --ink-2: #3b3a37; --muted: #5d6066; --rule: #e7e2df; --hair: #efebe9;
+  --cardinal: #8c1515; --cardinal-deep: #6c1010; --blush: #f8eeee; --blush-2: #fdf7f7; --pass: #3f7d5c; --warn: #9a6a1f; --code: #faf8f7;
+  --serif: "Lora", Georgia, "Times New Roman", serif; --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  --series-1: #951e21; --series-2: #2a78d6; --series-3: #e87ba4; --series-4: #6250d6; --series-5: #d18e35; --series-6: #0091ad;
+  --other: #b9b3ae; --grid: #efebe9; --axis: #d9d2ce; --track: #f3e3e3; --mark: #8c1515;
+  --shadow: 0 1px 0 rgba(31, 30, 28, .03), 0 2px 10px rgba(31, 30, 28, .04), 0 26px 48px -26px rgba(140, 21, 21, .22);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1c1a19; --ground: #141312; --ink: #f1ece9; --ink-2: #d9d2ce; --muted: #a59e9a; --rule: #3a3533; --hair: #2c2827;
+    --cardinal: #e5776f; --cardinal-deep: #f19a93; --blush: #3a2221; --blush-2: #251c1b; --pass: #6fbf93; --warn: #d7a64f; --code: #211e1d;
+    --series-1: #c34f4a; --series-2: #3987e5; --series-3: #d55181; --series-4: #9085e9; --series-5: #be7c1c; --series-6: #0097b3;
+    --other: #5f5956; --grid: #2c2827; --axis: #423c3a; --track: #3a2221; --mark: #e5776f;
+    --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .6); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #1c1a19; --ground: #141312; --ink: #f1ece9; --ink-2: #d9d2ce; --muted: #a59e9a; --rule: #3a3533; --hair: #2c2827;
+  --cardinal: #e5776f; --cardinal-deep: #f19a93; --blush: #3a2221; --blush-2: #251c1b; --pass: #6fbf93; --warn: #d7a64f; --code: #211e1d;
+  --series-1: #c34f4a; --series-2: #3987e5; --series-3: #d55181; --series-4: #9085e9; --series-5: #be7c1c; --series-6: #0097b3;
+  --other: #5f5956; --grid: #2c2827; --axis: #423c3a; --track: #3a2221; --mark: #e5776f;
+  --shadow: 0 1px 0 rgba(0, 0, 0, .3), 0 18px 40px -24px rgba(0, 0, 0, .6); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 16px/1.55 var(--serif); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--cardinal); }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--cardinal); outline-offset: 2px; }
+.wrap { max-width: 1240px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--paper); border-bottom: 1px solid var(--hair); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 21; background: var(--paper); }
+header.top .wrap { display: flex; align-items: center; gap: 14px; padding-block: 12px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 8px; font: 600 15px var(--mono); color: var(--ink); letter-spacing: .02em; text-decoration: none; }
+.brand svg { width: 22px; height: 22px; }
+.brand svg .a { fill: none; stroke: var(--mark); stroke-width: 1.6; } .brand svg .b { fill: var(--mark); }
+header h1 { margin: 0; font: 600 12px var(--mono); color: var(--cardinal); letter-spacing: .08em; text-transform: uppercase; }
+header nav { display: flex; gap: 14px; margin-left: auto; flex-wrap: wrap; }
+header nav a { font: 500 12px var(--mono); color: var(--ink-2); text-decoration: none; }
+header nav a:hover, header nav a[aria-current] { color: var(--cardinal); }
+@media (max-width: 560px) { header nav { gap: 10px; width: 100%; margin-left: 0; } }
+.kicker { font: 600 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--cardinal); }
+.intro { padding-block: 48px 4px; }
+.intro h2 { font: 600 clamp(30px, 4.4vw, 46px)/1.08 var(--serif); letter-spacing: -.01em; margin: 10px 0 0; max-width: 22ch; text-wrap: balance; }
+.lede { font-size: clamp(17px, 1.6vw, 19px); color: var(--ink-2); max-width: 68ch; margin: 16px 0 0; }
+.live { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; font: 500 11.5px var(--mono); letter-spacing: .06em; color: var(--muted); }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); display: block; }
+.live.on i { background: var(--cardinal); animation: pulse 2s ease-in-out infinite; }
+.live.stale i { background: var(--warn); }
+@keyframes pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(140, 21, 21, .35); } 50% { box-shadow: 0 0 0 5px rgba(140, 21, 21, 0); } }
+@media (prefers-reduced-motion: reduce) { .live.on i { animation: none; } }
+.jump { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 22px; padding-top: 14px; border-top: 1px solid var(--hair); }
+.jump a { font: 500 11px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.jump a:hover { color: var(--cardinal); }
+section { padding-block: 40px 4px; }
+h3.sec { font: 600 clamp(22px, 2.6vw, 28px)/1.2 var(--serif); margin: 8px 0 0; text-wrap: balance; }
+p.sub { color: var(--ink-2); max-width: 70ch; margin: 8px 0 18px; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); align-items: start; }
+.grid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1060px) { .grid.three, .grid.four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .grid.two, .grid.three, .grid.four { grid-template-columns: 1fr; } }
+.card { background: var(--paper); box-shadow: 0 0 0 1px var(--rule); padding: 18px 20px; min-width: 0; display: grid; gap: 10px; align-content: start; }
+.card.lift { box-shadow: 0 0 0 1px var(--rule), var(--shadow); }
+.card h4 { margin: 0; font: 600 16.5px/1.25 var(--serif); color: var(--ink); text-wrap: balance; }
+.card .note { margin: -4px 0 0; font-size: 14px; color: var(--muted); }
+.tiles { display: grid; gap: 10px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); }
+.tile { background: var(--blush-2); box-shadow: 0 0 0 1px rgba(140, 21, 21, .1); padding: 12px 14px 11px; display: grid; gap: 3px; min-width: 0; }
+.tile .label { font: 500 9.5px/1.4 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.tile .value { font: 600 23px/1.15 var(--mono); color: var(--ink); letter-spacing: -.02em; }
+.tile .note { font-size: 12.5px; color: var(--muted); line-height: 1.35; }
+.meter { display: grid; gap: 5px; }
+.meter + .meter { margin-top: 8px; }
+.meter .row { display: flex; justify-content: space-between; gap: 10px; font-size: 14.5px; color: var(--ink-2); flex-wrap: wrap; }
+.meter .v { font: 500 12px var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.meter .v small { color: var(--muted); font-weight: 400; }
+.meter .track { height: 8px; background: var(--track); position: relative; }
+.meter .fill { height: 100%; background: var(--series-1); transition: width .6s ease; }
+.meter .fill.done { background: var(--pass); }
+.meter .tick { position: absolute; top: -3px; width: 2px; height: 14px; background: var(--ink-2); }
+.empty { color: var(--muted); padding: 16px; box-shadow: inset 0 0 0 1px var(--rule); background: var(--code); font-size: 14.5px; }
+.seg { display: inline-flex; box-shadow: 0 0 0 1px var(--rule); background: var(--paper); }
+.seg button { font: 500 10.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; color: var(--muted); border: 0; background: none; cursor: pointer; }
+.seg button.on { color: var(--paper); background: var(--cardinal); }
+.hh { display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap; }
+.hh .seg { margin-left: auto; margin-bottom: 18px; }
+footer { margin-top: 56px; padding-block: 36px 56px; border-top: 1px solid var(--hair); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; align-items: baseline; }
+footer .fn { font: 700 26px var(--serif); color: var(--cardinal); }
+footer p { margin: 4px 0 0; color: var(--muted); font-size: 14.5px; max-width: 60ch; }
+footer .links { display: flex; gap: 16px; flex-wrap: wrap; }
+footer .links a { font: 400 11px var(--mono); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; }
+/* charts (shared with the Crucible dashboard) */
+.chart { position: relative; min-width: 0; }
+.chart .ctl { display: flex; align-items: flex-start; gap: 10px; }
+.chart .ctl .lg { flex: 1; min-width: 0; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart svg text { fill: var(--muted); font: 400 10.5px var(--mono); }
+.chart svg text.v { fill: var(--ink); font-weight: 500; }
+.chart svg text.l { fill: var(--ink-2); }
+.chart svg text.r { fill: var(--ink-2); font-size: 10px; letter-spacing: .04em; }
+.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+.chart .baseline { stroke: var(--axis); stroke-width: 1; }
+.chart .mark:hover, .chart .mark:focus { opacity: .78; outline: none; }
+.chart .ref { stroke: var(--ink-2); stroke-width: 1; }
+.chart .cross { stroke: var(--muted); stroke-width: 1; pointer-events: none; }
+.chart .tv { font: 500 9.5px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); background: none; border: 0; box-shadow: 0 0 0 1px var(--rule); padding: 4px 7px; cursor: pointer; }
+.chart .tv:hover { color: var(--cardinal); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 14px; margin: 0 0 6px; color: var(--ink-2); font: 400 11px var(--mono); }
+.legend .sw { display: inline-block; width: 10px; height: 10px; margin-right: 6px; vertical-align: -1px; }
+.legend .ln { display: inline-block; width: 14px; height: 2px; margin-right: 6px; vertical-align: 3px; }
+.scroll { overflow: auto; max-height: 320px; min-width: 0; }
+table.t { width: 100%; border-collapse: collapse; font: 400 12px/1.45 var(--mono); }
+table.t th, table.t td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--hair); white-space: nowrap; }
+table.t th { font: 500 9.5px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); position: sticky; top: 0; background: var(--paper); }
+table.t td.n, table.t th.n { text-align: right; font-variant-numeric: tabular-nums; }
+.tip { position: fixed; z-index: 60; pointer-events: none; background: var(--paper); box-shadow: 0 0 0 1px var(--rule), 0 8px 24px rgba(31, 30, 28, .14); padding: 8px 10px;
+  font: 400 11.5px var(--mono); max-width: 340px; display: none; color: var(--ink-2); }
+.tip .tt { color: var(--muted); margin-bottom: 4px; font-size: 10.5px; }
+.tip .r { display: flex; align-items: center; gap: 7px; }
+.tip .r b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.tip .r .k { display: inline-block; width: 12px; height: 2px; flex: none; }
+.tip .r span.n { color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="Crucible home">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path class="a" d="M3 5h18l-2.4 11.2A5 5 0 0 1 13.7 20h-3.4a5 5 0 0 1-4.9-3.8z"/><path class="b" d="M6.2 11h11.6l-.9 4.3a3 3 0 0 1-2.9 2.4h-4a3 3 0 0 1-2.9-2.4z"/></svg>
+      crucible
+    </a>
+    <h1>Dashboard</h1>
+    <nav aria-label="Pages"><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="synthesis.html">Task synthesis</a><a href="dashboard.html" aria-current="page">Dashboard</a></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap intro">
+    <div class="kicker">Live pipeline</div>
+    <h2>The pipeline as it runs</h2>
+    <p class="lede">Crucible builds verified software tasks from real code and trains models on them. This page shows the counts as the pipeline runs. It reads fresh numbers every five minutes. It holds totals only, never a task or its code.</p>
+    <div class="live" id="live" role="status" aria-live="polite"><i></i><span id="live-t">Loading the latest numbers</span></div>
+    <nav class="jump" aria-label="Sections"><a href="#progress">Progress</a><a href="#time">Over time</a><a href="#tasks">Tasks</a><a href="#training-set">Training set</a><a href="#repair">Repair loop</a><a href="#safety">Shortcuts blocked</a><a href="#training">Training</a></nav>
+  </div>
+  <div id="content"><div class="wrap"><div class="empty" id="state" style="margin-top: 32px">The numbers load in a moment.</div></div></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="fn">Crucible</div>
+      <p>Crucible turns enterprise work into trainable environments. Built by <a href="https://ahmd-mohsin.github.io">Muhammad Ahmed Mohsin</a>. The numbers here are totals from the live pipeline.</p>
+    </div>
+    <div class="links"><a href="index.html">Overview</a><a href="workflow.html">Workflow</a><a href="synthesis.html">Task synthesis</a><a href="#top">Top</a></div>
+  </div>
+</footer>
+
+<script>/* Crucible dashboard charts: plain SVG, no library, no network. Shared by the local dashboard and its published copy.
+ * Rules (the dataviz method): categorical slots in fixed order, cardinal first (a series keeps its slot whatever is
+ * filtered; six validated slots, the rest fold to "other"), one axis, bars <= 24px with a 4px rounded data end and a
+ * square baseline, 2px lines, >= 8px end markers with a 2px surface ring, hairline solid grid, a legend for 2+ series,
+ * selective direct labels in text ink, reference rules for targets, a hover tooltip on every mark (a crosshair on
+ * lines), and a table view for every chart. Labels go in with textContent only. A chart's table-view choice is kept
+ * per chart key, so a live redraw keeps what the reader opened. */
+(function () {
+  "use strict";
+  const NS = "http://www.w3.org/2000/svg";
+  const SLOTS = 6;
+  const css = (name) => `var(--${name})`;
+  const slotColor = (i) => (i == null || i < 0 || i >= SLOTS ? css("other") : css(`series-${i + 1}`));
+  const TV = new Map(); // chart key -> table view open
+
+  function el(tag, attrs, parent) {
+    const e = document.createElementNS(NS, tag);
+    for (const k in attrs || {}) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function h(tag, cls, text, parent) {
+    const e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = String(text);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function compact(v) {
+    if (v == null || Number.isNaN(v)) return "–";
+    const a = Math.abs(v);
+    if (a >= 1e6) return (v / 1e6).toFixed(a >= 1e7 ? 0 : 1) + "M";
+    if (a >= 1e3) return (v / 1e3).toFixed(a >= 1e4 ? 0 : 1) + "K";
+    if (Number.isInteger(v)) return String(v);
+    if (a >= 100) return v.toFixed(0);
+    if (a >= 10) return v.toFixed(1);
+    return v.toFixed(a >= 1 ? 2 : 3).replace(/0+$/, "").replace(/\.$/, "");
+  }
+  function niceMax(m) {
+    if (!(m > 0)) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(m)));
+    for (const f of [1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10]) if (f * p >= m - 1e-9) return f * p;
+    return 10 * p;
+  }
+  function niceRange(lo, hi) {
+    if (lo === hi) { lo -= 1; hi += 1; }
+    const span = hi - lo, p = Math.pow(10, Math.floor(Math.log10(span)) - 1);
+    return [Math.floor(lo / p) * p, Math.ceil(hi / p) * p];
+  }
+  function ticks(lo, hi, n) {
+    const out = [], step = (hi - lo) / n;
+    for (let i = 0; i <= n; i++) out.push(lo + step * i);
+    return out;
+  }
+  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const pad = (n) => String(n).padStart(2, "0");
+  function timeFmt(span) { // epoch seconds -> label, by the span shown
+    return (t) => {
+      const d = new Date(t * 1000);
+      if (span <= 2 * 86400) return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
+      if (span <= 14 * 86400) return `${d.getDate()} ${MON[d.getMonth()]} ${pad(d.getHours())}h`;
+      return `${d.getDate()} ${MON[d.getMonth()]}`;
+    };
+  }
+  function timeFull(t) { const d = new Date(t * 1000); return `${d.getDate()} ${MON[d.getMonth()]} ${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`; }
+
+  // one tooltip for the page
+  let tipEl = null;
+  function tip() { if (!tipEl || !tipEl.isConnected) tipEl = h("div", "tip", null, document.body); return tipEl; }
+  function showTip(evt, title, rows) {
+    const t = tip();
+    t.replaceChildren();
+    if (title != null) h("div", "tt", title, t);
+    for (const r of rows) {
+      const row = h("div", "r", null, t);
+      const k = h("span", "k", null, row);
+      k.style.background = r.color || "transparent";
+      h("b", null, r.value, row);
+      if (r.name) h("span", "n", r.name, row);
+    }
+    t.style.display = "block";
+    const box = evt.target && evt.target.getBoundingClientRect ? evt.target.getBoundingClientRect() : { left: 0, top: 0 };
+    const x = evt.clientX != null ? evt.clientX : box.left + 10;
+    const y = evt.clientY != null ? evt.clientY : box.top;
+    const w = t.offsetWidth, hh = t.offsetHeight;
+    t.style.left = Math.max(8, Math.min(window.innerWidth - w - 8, x + 12)) + "px";
+    t.style.top = Math.max(8, y - hh - 10) + "px";
+  }
+  function hideTip() { if (tipEl) tipEl.style.display = "none"; }
+
+  function legend(parent, items) {
+    const lg = h("div", "legend", null, parent);
+    for (const it of items) {
+      const s = h("span", null, null, lg);
+      const sw = h("span", it.line ? "ln" : "sw", null, s);
+      sw.style.background = it.color;
+      s.appendChild(document.createTextNode(it.name));
+    }
+    return lg;
+  }
+  function tableView(parent, head, rows) {
+    const wrap = h("div", "scroll", null, parent);
+    wrap.style.maxHeight = "320px";
+    const t = h("table", "t", null, wrap);
+    const tr = h("tr", null, null, h("thead", null, null, t));
+    head.forEach((c, i) => h("th", i ? "n" : null, c, tr));
+    const tb = h("tbody", null, null, t);
+    for (const r of rows) {
+      const row = h("tr", null, null, tb);
+      r.forEach((c, i) => h("td", i ? "n" : null, typeof c === "number" ? compact(c) : (c == null ? "–" : c), row));
+    }
+    return wrap;
+  }
+  // the chart container: legend, plot, a table-view toggle (its state kept per chart key)
+  function frame(host, o, tableHead, tableRows) {
+    host.replaceChildren();
+    host.classList.add("chart");
+    const key = o.key || host.dataset.ckey || null;
+    const top = h("div", "ctl", null, host);
+    const lgHost = h("div", "lg", null, top);
+    const btn = h("button", "tv", "Table", top);
+    btn.type = "button";
+    const plot = h("div", null, null, host);
+    const tbl = h("div", null, null, host);
+    const set = (showing) => {
+      if (showing && !tbl.childNodes.length) tableView(tbl, tableHead, tableRows);
+      tbl.style.display = showing ? "block" : "none";
+      plot.style.display = showing ? "none" : "block";
+      btn.textContent = showing ? "Chart" : "Table";
+      btn.setAttribute("aria-pressed", showing ? "true" : "false");
+    };
+    set(key ? !!TV.get(key) : false);
+    btn.addEventListener("click", () => { const next = tbl.style.display === "none"; if (key) TV.set(key, next); set(next); });
+    return { lgHost, plot };
+  }
+  function width(host) { return Math.max(260, Math.floor(host.clientWidth || (host.parentElement && host.parentElement.clientWidth) || 600)); }
+  function barPath(x, y, w, hgt, horizontal) {
+    // a bar with a 4px rounded data end and a square baseline end
+    const r = Math.min(4, (horizontal ? hgt : w) / 2, Math.abs(horizontal ? w : hgt));
+    if (hgt <= 0 || w <= 0) return "";
+    if (horizontal) return `M${x},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + hgt - r}Q${x + w},${y + hgt} ${x + w - r},${y + hgt}H${x}Z`;
+    return `M${x},${y + hgt}V${y + r}Q${x},${y} ${x + r},${y}H${x + w - r}Q${x + w},${y} ${x + w},${y + r}V${y + hgt}Z`;
+  }
+  function hover(node, fn) {
+    node.addEventListener("pointermove", fn); node.addEventListener("focus", fn);
+    node.addEventListener("pointerleave", hideTip); node.addEventListener("blur", hideTip);
+  }
+
+  /* bars(host, {categories, series:[{name, values, slot}], stacked, horizontal, fmt, onClick(category), key})
+   * Vertical columns for few short categories; horizontal bars for many or long names. */
+  function bars(host, o) {
+    const cats = o.categories || [], series = (o.series || []).map((s, i) => ({ ...s, slot: s.slot != null ? s.slot : i }));
+    const fmt = o.fmt || compact;
+    const head = ["", ...series.map((s) => s.name)];
+    const rows = cats.map((c, i) => [c, ...series.map((s) => s.values[i])]);
+    const { lgHost, plot } = frame(host, o, head, rows);
+    if (!cats.length) { h("div", "empty", o.empty || "No data yet.", plot); return; }
+    if (series.length > 1) legend(lgHost, series.map((s) => ({ name: s.name, color: slotColor(s.slot) })));
+    const W = width(host);
+    const longest = Math.max(...cats.map((c) => String(c).length));
+    const horizontal = o.horizontal != null ? o.horizontal : (cats.length > 7 || longest * 6.6 + 8 > (W - 44) / cats.length);
+    const totals = cats.map((_, i) => o.stacked ? series.reduce((a, s) => a + (+s.values[i] || 0), 0) : Math.max(0, ...series.map((s) => +s.values[i] || 0)));
+    const vmax = niceMax(Math.max(...totals, o.min || 0));
+    const svg = el("svg", { role: "img", "aria-label": o.title || "bar chart" }, plot);
+    const groups = o.stacked ? 1 : series.length;
+    if (horizontal) {
+      const labelW = Math.min(W * 0.42, 230, Math.max(60, longest * 6.4 + 12));
+      const band = groups > 1 && !o.stacked ? Math.max(22, 10 * groups + 10) : 26;
+      const H = cats.length * band + 22, x0 = labelW, x1 = W - 46;
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      for (const t of ticks(0, vmax, x1 - x0 < 160 ? 1 : x1 - x0 < 280 ? 2 : 4)) {
+        const x = x0 + (t / vmax) * (x1 - x0);
+        el("line", { x1: x, x2: x, y1: 0, y2: H - 18, class: "gridline" }, svg);
+        el("text", { x, y: H - 4, "text-anchor": "middle" }, svg).textContent = fmt(t);
+      }
+      el("line", { x1: x0, x2: x0, y1: 0, y2: H - 18, class: "baseline" }, svg);
+      const maxChars = Math.floor((labelW - 10) / 6.4);
+      cats.forEach((c, i) => {
+        const yb = i * band;
+        const lab = el("text", { x: x0 - 8, y: yb + band / 2 + 4, "text-anchor": "end", class: "l" }, svg);
+        lab.textContent = String(c).length > maxChars ? String(c).slice(0, maxChars - 1) + "…" : String(c);
+        let acc = 0;
+        const bh = Math.min(o.stacked ? 16 : 18, (band - 8) / groups);
+        series.forEach((s, j) => {
+          const v = +s.values[i] || 0;
+          const w = (v / vmax) * (x1 - x0);
+          const y = o.stacked ? yb + (band - bh) / 2 : yb + (band - bh * groups) / 2 + j * bh;
+          const x = x0 + (o.stacked ? (acc / vmax) * (x1 - x0) : 0);
+          const last = !o.stacked || j === series.length - 1 || series.slice(j + 1).every((t) => !(+t.values[i]));
+          const gap = o.stacked && !last ? 2 : 0;
+          if (w > 0.5) {
+            const p = el("path", { d: last ? barPath(x, y + (groups > 1 ? 1 : 0), Math.max(1, w - gap), bh - (groups > 1 ? 2 : 0), true)
+              : `M${x},${y}H${x + Math.max(1, w - gap)}V${y + bh}H${x}Z`, fill: slotColor(s.slot), class: "mark", tabindex: 0 }, svg);
+            const rowsT = o.stacked ? series.map((t) => ({ name: t.name, value: fmt(+t.values[i] || 0), color: slotColor(t.slot) })) : [{ name: s.name, value: fmt(v), color: slotColor(s.slot) }];
+            hover(p, (e) => showTip(e, String(c), rowsT));
+            if (o.onClick) { p.style.cursor = "pointer"; p.addEventListener("click", () => o.onClick(c, i)); }
+          }
+          acc += v;
+          if (!o.stacked && (series.length === 1 || groups <= 3)) el("text", { x: x0 + w + 5, y: y + bh / 2 + 3.5, class: "v" }, svg).textContent = fmt(v);
+        });
+        if (o.stacked) el("text", { x: x0 + (acc / vmax) * (x1 - x0) + 5, y: yb + band / 2 + 3.5, class: "v" }, svg).textContent = fmt(acc);
+      });
+    } else {
+      const H = o.height || 220, y0 = H - 24, y1 = 14, xL = 38, xR = W - 6;
+      svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+      for (const t of ticks(0, vmax, 4)) {
+        const y = y0 - (t / vmax) * (y0 - y1);
+        el("line", { x1: xL, x2: xR, y1: y, y2: y, class: "gridline" }, svg);
+        el("text", { x: xL - 6, y: y + 3.5, "text-anchor": "end" }, svg).textContent = fmt(t);
+      }
+      const band = (xR - xL) / cats.length;
+      const bw = Math.min(24, (band * 0.7) / groups);
+      const maxChars = Math.max(3, Math.floor(band / 6.6));
+      cats.forEach((c, i) => {
+        const xc = xL + band * i + band / 2;
+        const lab = el("text", { x: xc, y: H - 6, "text-anchor": "middle", class: "l" }, svg);
+        lab.textContent = String(c).length > maxChars ? String(c).slice(0, maxChars - 1) + "…" : String(c);
+        let acc = 0;
+        series.forEach((s, j) => {
+          const v = +s.values[i] || 0;
+          const hh = (v / vmax) * (y0 - y1);
+          const x = o.stacked ? xc - bw / 2 : xc - (bw * groups) / 2 + j * bw + (groups > 1 ? 1 : 0);
+          const w = o.stacked ? bw : bw - (groups > 1 ? 2 : 0);
+          const ytop = y0 - (o.stacked ? (acc / vmax) * (y0 - y1) : 0) - hh;
+          const last = !o.stacked || j === series.length - 1 || series.slice(j + 1).every((t) => !(+t.values[i]));
+          const gap = o.stacked && acc > 0 ? 2 : 0;
+          if (hh > 0.5) {
+            const p = el("path", { d: last ? barPath(x, ytop, w, Math.max(1, hh - gap), false) : `M${x},${ytop}H${x + w}V${ytop + hh - gap}H${x}Z`,
+              fill: slotColor(s.slot), class: "mark", tabindex: 0 }, svg);
+            const rowsT = o.stacked ? series.map((t) => ({ name: t.name, value: fmt(+t.values[i] || 0), color: slotColor(t.slot) })) : [{ name: s.name, value: fmt(v), color: slotColor(s.slot) }];
+            hover(p, (e) => showTip(e, String(c), rowsT));
+            if (o.onClick) { p.style.cursor = "pointer"; p.addEventListener("click", () => o.onClick(c, i)); }
+          }
+          acc += v;
+          if (!o.stacked && series.length === 1) el("text", { x: x + w / 2, y: ytop - 5, "text-anchor": "middle", class: "v" }, svg).textContent = fmt(v);
+        });
+        if (o.stacked && cats.length <= 12) el("text", { x: xc, y: y0 - (acc / vmax) * (y0 - y1) - 5, "text-anchor": "middle", class: "v" }, svg).textContent = fmt(acc);
+      });
+      el("line", { x1: xL, x2: xR, y1: y0, y2: y0, class: "baseline" }, svg);
+    }
+  }
+
+  /* distribution(host, {labels, bars:{name, values, counts}, lines:[{name, values, slot}], marks:[{name, at, text}], fmt, key})
+   * The tasks' share per bin as columns (slot 1); reference distributions as 2px lines; reference means as labelled
+   * rules at a fractional bin position. One share axis. */
+  function distribution(host, o) {
+    const labels = o.labels || [], fmt = o.fmt || ((v) => (v * 100).toFixed(0) + "%");
+    const lines = (o.lines || []).map((l, i) => ({ ...l, slot: l.slot != null ? l.slot : i + 1 }));
+    const head = ["bin", o.bars.name, ...lines.map((l) => l.name)];
+    const rows = labels.map((b, i) => [b, fmt(o.bars.values[i] || 0), ...lines.map((l) => (l.values[i] == null ? "–" : fmt(l.values[i])))]);
+    for (const m of o.marks || []) rows.push([m.name, m.text || "", ...lines.map(() => "")]);
+    const { lgHost, plot } = frame(host, o, head, rows);
+    if (!labels.length) { h("div", "empty", o.empty || "No data yet.", plot); return; }
+    const items = [{ name: o.bars.name, color: slotColor(0) }, ...lines.map((l) => ({ name: l.name, color: slotColor(l.slot), line: true }))];
+    for (const m of o.marks || []) items.push({ name: m.name + (m.text ? ` (${m.text})` : ""), color: css("ink-2"), line: true });
+    legend(lgHost, items);
+    const W = width(host), H = o.height || 220, y0 = H - 24, y1 = 16, xL = 40, xR = W - 6;
+    const vmax = niceMax(Math.max(0.05, ...o.bars.values, ...lines.flatMap((l) => l.values.filter((v) => v != null))));
+    const svg = el("svg", { role: "img", viewBox: `0 0 ${W} ${H}` }, plot);
+    for (const t of ticks(0, vmax, 4)) {
+      const y = y0 - (t / vmax) * (y0 - y1);
+      el("line", { x1: xL, x2: xR, y1: y, y2: y, class: "gridline" }, svg);
+      el("text", { x: xL - 6, y: y + 3.5, "text-anchor": "end" }, svg).textContent = fmt(t);
+    }
+    const band = (xR - xL) / labels.length, bw = Math.min(24, band * 0.6);
+    const X = (i) => xL + band * i + band / 2, Y = (v) => y0 - (v / vmax) * (y0 - y1);
+    labels.forEach((b, i) => {
+      const v = o.bars.values[i] || 0;
+      el("text", { x: X(i), y: H - 6, "text-anchor": "middle", class: "l" }, svg).textContent = b;
+      if (v > 0) el("path", { d: barPath(X(i) - bw / 2, Y(v), bw, y0 - Y(v), false), fill: slotColor(0) }, svg);
+    });
+    el("line", { x1: xL, x2: xR, y1: y0, y2: y0, class: "baseline" }, svg);
+    for (const l of lines) {
+      const pts = l.values.map((v, i) => (v == null ? null : [X(i), Y(v)])).filter(Boolean);
+      if (pts.length > 1) el("path", { d: "M" + pts.map((p) => p.join(",")).join("L"), fill: "none", stroke: slotColor(l.slot), "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+      for (const p of pts) el("circle", { cx: p[0], cy: p[1], r: 4, fill: slotColor(l.slot), stroke: css("paper"), "stroke-width": 2 }, svg);
+    }
+    (o.marks || []).forEach((m, k) => { // staggered labels, so marks that sit close never print over each other
+      const x = xL + band * m.at;
+      el("line", { x1: x, x2: x, y1: y1 - 4, y2: y0, class: "ref" }, svg);
+      const right = x > xL + (xR - xL) * 0.6;
+      el("text", { x: right ? x - 5 : x + 5, y: y1 + 7 + k * 13, class: "r", "text-anchor": right ? "end" : "start" }, svg).textContent = m.name;
+    });
+    labels.forEach((b, i) => { // per-bin hit areas, bigger than the marks: the tooltip lists every series at that bin
+      const r = el("rect", { x: xL + band * i, y: y1, width: band, height: y0 - y1, fill: "transparent", tabindex: 0 }, svg);
+      hover(r, (e) => showTip(e, b, [{ name: o.bars.name, value: fmt(o.bars.values[i] || 0) + (o.bars.counts ? ` (${o.bars.counts[i]})` : ""), color: slotColor(0) },
+        ...lines.filter((l) => l.values[i] != null).map((l) => ({ name: l.name, value: fmt(l.values[i]), color: slotColor(l.slot) }))]));
+    });
+  }
+
+  /* lines(host, {x:[...], series:[{name, values, slot}], refs:[{value, label}], time, xname, fmt, xfmt, zero, area, key})
+   * 2px lines on one axis; an end dot and end label per series (<= 4); target rules; a crosshair that snaps to the
+   * nearest x. With time: true the x values are epoch seconds. */
+  function lines(host, o) {
+    const xs = o.x || [], series = (o.series || []).map((s, i) => ({ ...s, slot: s.slot != null ? s.slot : i }));
+    const fmt = o.fmt || compact;
+    const span = xs.length ? xs[xs.length - 1] - xs[0] : 0;
+    const xfmt = o.xfmt || (o.time ? timeFmt(span) : compact);
+    const xfull = o.time ? timeFull : xfmt;
+    const head = [o.xname || (o.time ? "time" : "x"), ...series.map((s) => s.name)];
+    const rows = xs.map((x, i) => [xfull(x), ...series.map((s) => (s.values[i] == null ? null : fmt(+s.values[i])))]).reverse();
+    const { lgHost, plot } = frame(host, o, head, rows);
+    const vals = series.flatMap((s) => s.values.filter((v) => v != null && Number.isFinite(+v)).map(Number));
+    if (xs.length < 1 || !series.length || !vals.length) { h("div", "empty", o.empty || "No data yet.", plot); return; }
+    const legendItems = series.map((s) => ({ name: s.name, color: slotColor(s.slot), line: true }));
+    for (const r of o.refs || []) legendItems.push({ name: r.label, color: css("ink-2"), line: true });
+    if (series.length > 1 || (o.refs || []).length) legend(lgHost, legendItems);
+    const refVals = (o.refs || []).map((r) => r.value);
+    const W = width(host), H = o.height || 230, y0 = H - 22, y1 = 12, xL = 46, xR = W - (series.length <= 4 ? 58 : 10);
+    const all = vals.concat(refVals);
+    let [lo, hi] = o.zero !== false && Math.min(...all) >= 0 ? [0, niceMax(Math.max(...all) * 1.04)] : niceRange(Math.min(...all), Math.max(...all));
+    const xmin = Math.min(...xs), xmax = Math.max(...xs);
+    const X = (x) => xL + (xmax === xmin ? (xR - xL) / 2 : ((x - xmin) / (xmax - xmin)) * (xR - xL));
+    const Y = (v) => y0 - ((v - lo) / (hi - lo)) * (y0 - y1);
+    const svg = el("svg", { role: "img", viewBox: `0 0 ${W} ${H}`, "aria-label": o.title || "line chart" }, plot);
+    for (const t of ticks(lo, hi, 4)) {
+      el("line", { x1: xL, x2: xR, y1: Y(t), y2: Y(t), class: "gridline" }, svg);
+      el("text", { x: xL - 6, y: Y(t) + 3.5, "text-anchor": "end" }, svg).textContent = fmt(t);
+    }
+    const nx = Math.max(2, Math.min(Math.floor((xR - xL) / 110), 6));
+    if (o.time && xmax > xmin) {
+      for (let k = 0; k <= nx; k++) {
+        const t = xmin + ((xmax - xmin) * k) / nx;
+        el("text", { x: X(t), y: H - 4, "text-anchor": k === 0 ? "start" : k === nx ? "end" : "middle" }, svg).textContent = xfmt(t);
+      }
+    } else {
+      const n = Math.min(nx, xs.length);
+      for (let k = 0; k < n; k++) {
+        const i = Math.round((k * (xs.length - 1)) / Math.max(1, n - 1));
+        el("text", { x: X(xs[i]), y: H - 4, "text-anchor": "middle" }, svg).textContent = xfmt(xs[i]);
+      }
+    }
+    el("line", { x1: xL, x2: xR, y1: y0, y2: y0, class: "baseline" }, svg);
+    for (const r of o.refs || []) {
+      el("line", { x1: xL, x2: xR, y1: Y(r.value), y2: Y(r.value), class: "ref" }, svg);
+      el("text", { x: xL + 6, y: Y(r.value) - 5, class: "r" }, svg).textContent = r.label;
+    }
+    const ends = [];
+    for (const s of series) {
+      const pts = xs.map((x, i) => (s.values[i] == null || !Number.isFinite(+s.values[i]) ? null : [X(x), Y(+s.values[i])]));
+      let d = "", pen = false;
+      for (const p of pts) { if (!p) { if (!o.bridge) pen = false; continue; } d += (pen ? "L" : "M") + p[0].toFixed(1) + "," + p[1].toFixed(1); pen = true; }
+      const f = pts.filter(Boolean);
+      if (o.area && series.length === 1 && f.length > 1) {
+        el("path", { d: `M${f[0][0].toFixed(1)},${y0}L` + f.map((p) => p[0].toFixed(1) + "," + p[1].toFixed(1)).join("L") + `L${f[f.length - 1][0].toFixed(1)},${y0}Z`, fill: slotColor(s.slot), "fill-opacity": 0.1 }, svg);
+      }
+      if (f.length === 1) el("circle", { cx: f[0][0], cy: f[0][1], r: 4, fill: slotColor(s.slot), stroke: css("paper"), "stroke-width": 2 }, svg);
+      el("path", { d, fill: "none", stroke: slotColor(s.slot), "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round" }, svg);
+      const last = [...pts].reverse().find(Boolean);
+      if (last) {
+        el("circle", { cx: last[0], cy: last[1], r: 4, fill: slotColor(s.slot), stroke: css("paper"), "stroke-width": 2 }, svg);
+        const lv = [...s.values].reverse().find((v) => v != null);
+        if (series.length <= 4) ends.push({ x: last[0], y: last[1], text: fmt(+lv) });
+      }
+    }
+    ends.sort((a, b) => a.y - b.y); // end labels: nudged apart only when they would touch
+    for (let i = 1; i < ends.length; i++) if (ends[i].y - ends[i - 1].y < 12) ends[i].y = ends[i - 1].y + 12;
+    for (const e of ends) el("text", { x: e.x + 8, y: e.y + 3.5, class: "v" }, svg).textContent = e.text;
+    const cross = el("line", { y1: y1, y2: y0, class: "cross", visibility: "hidden" }, svg);
+    const hit = el("rect", { x: xL, y: y1, width: Math.max(1, xR - xL), height: y0 - y1, fill: "transparent", tabindex: 0 }, svg);
+    const nearest = (px) => { // binary search on the sorted x positions
+      let a = 0, b = xs.length - 1;
+      while (b - a > 1) { const m = (a + b) >> 1; if (X(xs[m]) < px) a = m; else b = m; }
+      return Math.abs(X(xs[a]) - px) <= Math.abs(X(xs[b]) - px) ? a : b;
+    };
+    const at = (evt) => {
+      const r = svg.getBoundingClientRect();
+      const best = nearest(((evt.clientX - r.left) / r.width) * W);
+      cross.setAttribute("x1", X(xs[best])); cross.setAttribute("x2", X(xs[best])); cross.setAttribute("visibility", "visible");
+      showTip(evt, `${o.time ? "" : (o.xname || "x") + " "}${xfull(xs[best])}`, series.map((s) => ({ name: s.name, value: fmt(s.values[best] == null ? null : +s.values[best]), color: slotColor(s.slot) })));
+    };
+    hit.addEventListener("pointermove", at);
+    hit.addEventListener("focus", (e) => { const r = svg.getBoundingClientRect(); at({ clientX: r.right - 4, clientY: r.top + 20, target: e.target }); });
+    const off = () => { cross.setAttribute("visibility", "hidden"); hideTip(); };
+    hit.addEventListener("pointerleave", off); hit.addEventListener("blur", off);
+  }
+
+  window.Charts = { bars, distribution, lines, legend, compact, slotColor, showTip, hideTip, h, timeFull };
+})();
+</script>
+<script>
+/* @PAGE@ the page's own code: every string a reader sees follows the site's copy rules */
+(function () {
+  "use strict";
+  const C = window.Charts, h = C.h, fmt = C.compact;
+  const content = document.getElementById("content");
+  const live = document.getElementById("live"), liveT = document.getElementById("live-t");
+  const EVERY_MS = 5 * 60 * 1000;
+  let doc = null, range = "7d";
+  const pct = (v) => (v == null ? "none" : (v * 100).toFixed(0) + "%");
+  const when = (iso) => { const d = new Date(iso); return isNaN(d) ? "" : d.toLocaleString([], { month: "short", day: "numeric", hour: "2-digit", minute: "2-digit" }); };
+
+  function card(parent, title, note) {
+    const c = h("div", "card", null, parent);
+    h("h4", null, title, c);
+    if (note) h("p", "note", note, c);
+    return c;
+  }
+  function tiles(parent, items) {
+    const t = h("div", "tiles", null, parent);
+    for (const it of items) { const d = h("div", "tile", null, t); h("div", "label", it.label, d); h("div", "value", it.value == null ? "none" : typeof it.value === "number" ? it.value.toLocaleString() : it.value, d); if (it.note) h("div", "note", it.note, d); }
+  }
+  function meter(parent, label, value, target, o) {
+    o = o || {};
+    const m = h("div", "meter", null, parent), row = h("div", "row", null, m);
+    h("span", null, label, row);
+    const v = h("span", "v", o.pct ? pct(value) : fmt(value || 0), row);
+    if (target != null) h("small", null, " of " + (o.pct ? pct(target) : fmt(target)), v);
+    const tr = h("div", "track", null, m), f = h("div", "fill" + (value != null && target && value >= target ? " done" : ""), null, tr);
+    f.style.width = (target ? Math.max(0, Math.min(1, (value || 0) / target)) * 100 : 0).toFixed(1) + "%";
+    if (o.tick && target) { const tk = h("div", "tick", null, tr); tk.style.left = (o.tick / target * 100).toFixed(1) + "%"; tk.title = "milestone " + o.tick; }
+  }
+  function chart(parent, key, draw) { const host = h("div", "chart", null, parent); host.dataset.ckey = key; return () => draw(host); }
+  function bars(parent, title, counts, o) {
+    o = o || {};
+    const c = card(parent, title, o.note);
+    const e = Object.entries(counts || {}).filter(([, v]) => v != null);
+    if (o.order) e.sort((a, b) => (o.order.indexOf(a[0]) + 1 || 99) - (o.order.indexOf(b[0]) + 1 || 99));
+    else if (o.sort !== false) e.sort((a, b) => b[1] - a[1]);
+    return chart(c, title, (host) => C.bars(host, { categories: e.map((x) => x[0]), series: [{ name: o.unit || "tasks", values: e.map((x) => x[1]) }], horizontal: o.horizontal, fmt: o.fmt, empty: "Nothing counted yet." }));
+  }
+  function section(parent, id, kicker, title, sub) {
+    const s = h("section", "wrap", null, parent);
+    s.id = id;
+    h("div", "kicker", kicker, s);
+    h("h3", "sec", title, s);
+    if (sub) h("p", "sub", sub, s);
+    return s;
+  }
+
+  const RANGES = [["1d", "24 hours", 86400], ["7d", "7 days", 7 * 86400], ["30d", "30 days", 30 * 86400], ["all", "All", Infinity]];
+  function slice(hs, names) {
+    const t = hs.t || [], end = t.length ? t[t.length - 1] : 0, span = (RANGES.find((r) => r[0] === range) || RANGES[1])[2];
+    const idx = [];
+    for (let i = 0; i < t.length; i++) if (t[i] >= end - span && names.some((n) => (hs[n] || [])[i] != null)) idx.push(i);
+    return { x: idx.map((i) => t[i]), col: (n) => idx.map((i) => (hs[n] || [])[i]) };
+  }
+
+  function render() {
+    const d = doc;
+    if (!d || !d.now) return;
+    const later = [], frag = document.createElement("div");
+    const n = d.now, tg = d.targets || {};
+    // progress
+    const p = section(frag, "progress", "Progress", "Where the pipeline stands", "Each bar shows a count against the plan. A tick marks a milestone on the way.");
+    const g = h("div", "grid two", null, p);
+    const pc = card(g, "Against the plan");
+    pc.classList.add("lift");
+    meter(pc, "Tasks kept for training", n.kept, tg.kept, { tick: tg.kept_milestone });
+    meter(pc, "Training set", n.training_set, tg.training_set);
+    meter(pc, "Large multi-file share of the training set", n.large_share, tg.large_share, { pct: true });
+    meter(pc, "Teacher traces", n.teacher_traces, tg.teacher_traces);
+    meter(pc, "Large multi-file tasks", n.large_tasks, tg.large_tasks);
+    meter(pc, "Mined tasks", n.mined, tg.mined);
+    const cc = card(g, "The pipeline now");
+    tiles(cc, [{ label: "Tasks built", value: n.tasks, note: "every task the builders made" },
+      { label: "GPU hours", value: n.gpu_hours == null ? null : Math.round(n.gpu_hours), note: "used to measure tasks" },
+      { label: "Model calls", value: n.model_calls == null ? null : fmt(n.model_calls), note: "across every stage" },
+      { label: "Tasks repaired", value: n.repaired, note: `${fmt(n.repair_pending || 0)} more wait for repair` },
+      { label: "Teacher pass rate", value: n.teacher_attempts ? pct(n.teacher_passes / n.teacher_attempts) : null, note: `${fmt(n.teacher_passes || 0)} of ${fmt(n.teacher_attempts || 0)} attempts passed` },
+      { label: "Too hard for the teacher", value: n.teacher_unsolved, note: "sent to the repair loop" }]);
+    // over time
+    const hsec = section(frag, "time", "Over time", "How the counts move");
+    const hh = h("div", "hh", null, hsec);
+    h("p", "sub", "Each line is a snapshot of the pipeline. Choose a time range.", hh);
+    const seg = h("div", "seg", null, hh);
+    seg.setAttribute("role", "group"); seg.setAttribute("aria-label", "Time range");
+    for (const [k, label] of RANGES) { const b = h("button", k === range ? "on" : null, label, seg); b.type = "button"; b.setAttribute("aria-pressed", k === range ? "true" : "false"); b.addEventListener("click", () => { range = k; render(); }); }
+    const hs = d.history || {};
+    const tgrid = h("div", "grid three", null, hsec);
+    const ts = (title, note, names, o) => {
+      const c = card(tgrid, title, note);
+      later.push(chart(c, title, (host) => { const s = slice(hs, names.map((x) => x[0])); C.lines(host, { x: s.x, time: true, bridge: true, series: names.map(([k, label, slot]) => ({ name: label, values: s.col(k), slot })), empty: "No snapshots in this range.", ...o }); }));
+    };
+    ts("Tasks kept for training", `Against the milestone of ${tg.kept_milestone} and the target of ${tg.kept}.`, [["kept", "kept"]],
+      { refs: [{ value: tg.kept_milestone, label: `milestone ${tg.kept_milestone}` }, { value: tg.kept, label: `target ${tg.kept}` }], area: true });
+    ts("Teacher traces", `Worked solutions kept for training, against ${tg.teacher_traces}.`, [["teacher_traces", "traces"]], { refs: [{ value: tg.teacher_traces, label: `target ${tg.teacher_traces}` }], area: true });
+    ts("Large multi-file share", "Share of the training set, against 30%.", [["large_share", "share"]], { refs: [{ value: tg.large_share, label: "target 30%" }], fmt: (v) => (v == null ? "none" : (v * 100).toFixed(0) + "%"), area: true });
+    ts("Tasks by band", "Where measured tasks fall against the learning band.", [["in_band", "in band", 0], ["too_hard", "too hard", 1], ["too_easy", "too easy", 2]], {});
+    ts("GPU hours", "Total GPU hours used to measure tasks, from the first snapshot that holds every count.", [["gpu_hours", "GPU hours"]], { area: true });
+    ts("Repair loop", "Tasks repaired, and tasks that wait for repair.", [["repaired", "repaired", 0], ["repair_pending", "waiting", 1]], {});
+    // tasks
+    const t = d.tasks || {};
+    const tsec = section(frag, "tasks", "Tasks", "What the builders make", "Every task comes from a real fix in a real repository. Select a chart and use its table to read exact counts.");
+    const g2 = h("div", "grid two", null, tsec);
+    later.push(bars(g2, "By source", t.by_source));
+    later.push(bars(g2, "By band", t.by_label, { note: "How a student model does on the task." }));
+    later.push(bars(g2, "By language", t.by_lang));
+    later.push(bars(g2, "By stage", t.by_split, { note: "Each task counted once, at its furthest stage." }));
+    const g2b = h("div", "grid three", null, tsec);
+    g2b.style.marginTop = "16px";
+    const share = (title, counts, note) => {
+      const c = card(g2b, title, note);
+      const e = Object.entries(counts || {});
+      const total = e.reduce((a, x) => a + x[1], 0) || 1;
+      later.push(chart(c, title, (host) => C.bars(host, { categories: e.map((x) => x[0]), series: [{ name: "share of tasks", values: e.map((x) => x[1] / total) }], fmt: (v) => (v * 100).toFixed(0) + "%", horizontal: true })));
+    };
+    share("Lines changed by the fix", t.lines, "Larger fixes make harder tasks.");
+    share("Files changed by the fix", t.files);
+    share("Length of the task statement in words", t.words);
+    // training set and traces
+    const rs = section(frag, "training-set", "Training set", "The training set and the teacher traces", "The training set holds the tasks a student trains on. Teacher traces are worked solutions that pass every check.");
+    const g3 = h("div", "grid", null, rs);
+    const ts2 = d.training_set || {}, tr2 = d.traces || {};
+    later.push(bars(g3, "Training set by language", ts2.by_lang));
+    later.push(bars(g3, "Training set by kind", ts2.by_style));
+    later.push(bars(g3, "Training set by certificate", ts2.by_cert, { note: "A certificate records which shortcuts the checks reject." }));
+    later.push(bars(g3, "Teacher traces by language", tr2.by_lang, { unit: "traces" }));
+    later.push(bars(g3, "Teacher traces by fix size", tr2.by_size, { unit: "traces", sort: false }));
+    // repair
+    const rp = d.repair || {};
+    const rsec = section(frag, "repair", "Repair loop", "How tasks get better", "A task that tests the wrong thing goes back for repair. The loop rewrites the statement, strengthens the checks or resizes the task, then measures it again.");
+    const g4 = h("div", "grid two", null, rsec);
+    later.push(bars(g4, "Tasks that reached each step", rp.reached, { order: ["planned", "routed", "rejected", "repaired", "certified again", "measured again", "promoted"], sort: false }));
+    later.push(bars(g4, "Repairs chosen", rp.moves));
+    // safety
+    const s = d.safety || {};
+    const ssec = section(frag, "safety", "Shortcuts blocked", "Reward hacking the pipeline caught", "Agents look for shortcuts. Every check below blocks one, and each count is a shortcut that did not earn a reward.");
+    tiles(ssec, [{ label: "Protected files written", value: s.protected_writes, note: "caught and graded as failures" },
+      { label: "Attempts masked", value: s.masked, note: `of ${fmt(s.attempts || 0)} attempts, never trained on` },
+      { label: "Certificates rejected", value: s.cert_rejected, note: `of ${fmt(s.cert_points || 0)} tasks checked` },
+      { label: "Unclear statements", value: s.underspec_flagged, note: `of ${fmt(s.underspec_checked || 0)} checked` },
+      { label: "Leaks caught", value: s.leaks, note: "statements that gave the fix away" },
+      { label: "Too close to an evaluation task", value: s.bench_too_close, note: `of ${fmt(s.bench_screened || 0)} screened` },
+      { label: "Training data leak check", value: s.leakage_check_passed == null ? "not run" : s.leakage_check_passed ? "passed" : "failed" }]);
+    const g5 = h("div", "grid", null, ssec);
+    g5.style.marginTop = "16px";
+    later.push(bars(g5, "Why the grader failed attempts", s.grader_reasons, { unit: "attempts", horizontal: true }));
+    later.push(bars(g5, "Protected files by kind", s.protected_by_kind, { unit: "writes" }));
+    const fc = card(g5, "Checks that try to break each task", "Tasks flagged by each check, and the flags confirmed.");
+    const fe = Object.entries(s.falsifiers || {});
+    later.push(chart(fc, "falsifiers", (host) => C.bars(host, { categories: fe.map((x) => x[0]), horizontal: true, series: [{ name: "tasks flagged", values: fe.map((x) => x[1].flagged_points || 0) }, { name: "confirmed", values: fe.map((x) => x[1].confirmed || 0) }] })));
+    const ac = card(g5, "Attacks on the grader", "Each certified task faces each attack. Blocked is the safe outcome.");
+    const ae = Object.entries(s.attacks || {});
+    later.push(chart(ac, "attacks", (host) => C.bars(host, { categories: ae.map((x) => x[0]), stacked: true, horizontal: true, series: [{ name: "blocked", values: ae.map((x) => x[1].blocked || 0) }, { name: "got through", slot: 3, values: ae.map((x) => x[1].passed || 0) }] })));
+    const se = card(g5, "Held out for evaluation", "Counts only. Held out material never enters training.");
+    tiles(se, Object.entries(s.sealed || {}).map(([k, v]) => ({ label: k, value: v })));
+    // training
+    const tr = d.training || {}, lt = tr.latest || {};
+    const trsec = section(frag, "training", "Training", "Training runs", "Reward and pass rate appear here once a full training run logs its steps.");
+    tiles(trsec, [{ label: "Runs on record", value: tr.runs }, { label: "Full training runs", value: tr.production_runs }]);
+    if ((lt.steps || []).length > 1) {
+      const c = card(trsec, "The latest full run", "Reward and pass rate by step.");
+      c.style.marginTop = "16px";
+      later.push(chart(c, "latest-run", (host) => C.lines(host, { x: lt.steps, xname: "step", series: [{ name: "reward", values: lt.reward || [] }, ...((lt.pass_rate || []).length ? [{ name: "pass rate", values: lt.pass_rate }] : [])], zero: false })));
+    } else { const e = h("div", "empty", "No full training run yet. Its curves appear here as soon as one starts.", trsec); e.style.marginTop = "16px"; }
+
+    const y = window.scrollY;
+    content.replaceChildren(...frag.childNodes);
+    for (const f of later) f();
+    window.scrollTo(0, y);
+  }
+
+  function stamp() {
+    if (!doc) return;
+    const mins = (Date.now() / 1000 - (doc.t || 0)) / 60;
+    live.className = "live " + (mins > 120 ? "stale" : "on");
+    liveT.textContent = "updated " + when(doc.at);
+  }
+  async function load() {
+    try {
+      const r = await fetch("dashboard/snapshot.json", { cache: "no-store" });
+      if (!r.ok) throw new Error(String(r.status));
+      const next = await r.json();
+      const changed = !doc || next.at !== doc.at;
+      doc = next;
+      if (changed) render();
+      stamp();
+    } catch (e) {
+      if (!doc) { const st = document.getElementById("state"); if (st) st.textContent = "The numbers could not load. The page tries again in five minutes."; }
+      live.className = "live stale";
+      liveT.textContent = doc ? "updated " + when(doc.at) + ", the last refresh failed" : "The numbers could not load";
+    }
+  }
+  let rw = null, lastW = window.innerWidth;
+  window.addEventListener("resize", () => { if (window.innerWidth === lastW) return; lastW = window.innerWidth; clearTimeout(rw); rw = setTimeout(render, 200); });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden && doc && Date.now() / 1000 - (doc.t || 0) > 600) load(); });
+  load();
+  setInterval(() => { if (!document.hidden) load(); }, EVERY_MS);
+})();
+/* @END@ */
+</script>
+</body>
+</html>
