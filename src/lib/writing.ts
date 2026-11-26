@@ -28,6 +28,18 @@ export interface Post {
 
 export const posts: Post[] = [
   {
+    slug: "plvr",
+    title: "Program Learning with Verifiable Rewards",
+    kind: "paper",
+    date: "November 2026",
+    readingTime: "12 min read",
+    authors: "Muhammad Ahmed Mohsin",
+    venue: "Stanford University",
+    description:
+      "Small models fail long tool-use tasks because they lack capability or because they lack procedure. Program Learning with Verifiable Rewards (PLVR) writes the procedure from expert traces into a program. An 8B model under that program scores 91.2% on τ² Telecom, next to models up to 120B.",
+    external: "https://arxiv.org/abs/2610.19148",
+  },
+  {
     slug: "cu-dpo",
     title: "Continuous-Utility Direct Preference Optimization",
     kind: "paper",

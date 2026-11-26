@@ -3,6 +3,7 @@ import CoveragePreservation from "@/components/writing/posts/CoveragePreservatio
 import AgentsThatWhisper from "@/components/writing/posts/AgentsThatWhisper";
 import KernelAscent from "@/components/writing/posts/KernelAscent";
 import CuDpo from "@/components/papers/posts/CuDpo";
+import Plvr from "@/components/papers/posts/Plvr";
 
 /**
  * Registry of custom React article bodies, keyed by post slug. Posts listed
@@ -14,4 +15,5 @@ export const customBodies: Record<string, ComponentType> = {
   "agents-that-whisper": AgentsThatWhisper,
   "kernelascent-rsi": KernelAscent,
   "cu-dpo": CuDpo,
+  plvr: Plvr,
 };

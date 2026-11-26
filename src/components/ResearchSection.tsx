@@ -56,6 +56,15 @@ const papers: Paper[] = [
   },
   // Test-Time Scaling and Coding Agents
   {
+    title: "Program Learning with Verifiable Rewards: Distilling Expert Traces into Programs",
+    authors: "V. Bhat, M. A. Mohsin, A. Aali",
+    venue: "Preprint",
+    links: [
+      { label: "paper", url: "https://arxiv.org/abs/2610.19148" },
+      { label: "pdf", url: "https://arxiv.org/pdf/2610.19148" },
+    ],
+  },
+  {
     title: "Teaching Agents to Code Reliably",
     authors: "M. A. Mohsin*, M. Kim, K. Ruan, S. Garg, V. Kumar, M. K. Ramanathan",
     venue: "Submitted",
