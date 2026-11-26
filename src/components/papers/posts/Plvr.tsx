@@ -41,6 +41,17 @@ function Q({ children }: { children: ReactNode }) {
 export default function Plvr() {
   return (
     <div>
+      <figure className="mb-12">
+        <div className="border border-black/10 bg-white">
+          <img src="/og/plvr.png" alt="PLVR overview. Teacher traces become pieces, checked primitives and one program. Telecom accuracy of four models alone and under the program." className="w-full" />
+        </div>
+        <figcaption className="mt-3 text-xs text-neutral-500 leading-relaxed">
+          PLVR in one picture. We cut 539 teacher traces into 3,141 typed pieces. We write 37 checked primitives
+          from their clusters, and a search builds one program from them. The chart shows τ² Telecom accuracy for
+          four models alone and under that program (Table 2).
+        </figcaption>
+      </figure>
+
       <P>
         A small model fails a long tool-use task. What did it miss? Two answers give the same score. The model
         can lack the <S>capability</S> for the task. The model can also lack the <S>procedure</S>. The procedure

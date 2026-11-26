@@ -38,6 +38,7 @@ export const posts: Post[] = [
     description:
       "Small models fail long tool-use tasks because they lack capability or because they lack procedure. Program Learning with Verifiable Rewards (PLVR) writes the procedure from expert traces into a program. An 8B model under that program scores 91.2% on τ² Telecom, next to models up to 120B.",
     external: "https://arxiv.org/abs/2610.19148",
+    ogImage: "/og/plvr.png?v=1",
   },
   {
     slug: "cu-dpo",
